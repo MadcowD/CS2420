@@ -82,7 +82,7 @@ public class MatrixTester {
 					{29, 26}});
 						
 			if(M1.times(M2).equals(M1_M2))
-				System.out.println("ADDITIONS TEST: "
+				System.out.println("MULTIPLICATION TEST: "
 						+ "Two matrices successfully added:\n"
 						+ M1 + "\n"
 						+ "****\n"
@@ -90,7 +90,7 @@ public class MatrixTester {
 						+ "====\n"
 						+ M1.times(M2));
 			else
-				System.out.println("ADDITIONS TEST: "
+				System.out.println("MULTIPLICATION TEST: "
 						+ "Two matrices failed to add:\n"
 						+ M1 + "\n"
 						+ "****\n"
