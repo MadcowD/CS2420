@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sorting
+namespace PEXP
 {
     /// <summary>
     /// The base algoirhtm interface from which all sorting algorithms will be derived.
     /// Algoirthms essentially have a sort function and an initial input
     /// </summary>
-    public interface Algorithm
+    public interface IAlgorithm
     {
         /// <summary>
         /// Sort essentially employing the algorithm.

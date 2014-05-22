@@ -20,6 +20,37 @@ public class Matrix {
 				data[i][j] = d[i][j];
 	}
 	
+	/**
+	 * Generates a random matrix
+	 * @param r
+	 * @param c
+	 */
+	public Matrix(int r, int c){
+		
+		//<0 check
+		if(r < 0)
+			r = 0;
+		if(c < 0)
+			c = 0;
+		
+		
+		numRows = r; // d.length is the number of 1D arrays in the 2D array
+		if(numRows == 0)
+			numColumns = 0;
+		else
+			numColumns = c; // d[0] is the first 1D array
+		this.data = new int[numRows][numColumns]; // create a new matrix to hold the data
+		
+		
+		java.util.Random rnd = new java.util.Random();
+		
+		
+		for(int i = 0; i < r; i++)
+			for(int j= 0; j < c; j++)
+				this.data[i][j] = rnd.nextInt();
+		
+	}
+	
 	@Override // instruct the compiler that we do indeed intend for this method to override the superclass' (Object) version
 	public boolean equals(Object o)
 	{
@@ -68,6 +99,7 @@ public class Matrix {
 		//without issues regarding indices out of bounds.
 		int[][] product = new int[this.numRows][m.numColumns];
 		
+		
 		//Iterate over the product
 		for(int r = 0; r < this.numRows; r++)
 			for(int c = 0; c < m.numColumns; c++){
@@ -85,8 +117,11 @@ public class Matrix {
 				product[r][c] = weightedSum;
 			}
 		
+		
 		//Insert the product into a new matrix and return it
 		return new Matrix(product); // placeholder
+		
+		
 	}
 	
 	public Matrix plus(Matrix m)

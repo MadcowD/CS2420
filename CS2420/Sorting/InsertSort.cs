@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sorting
+namespace PEXP.Sorting
 {
     /// <summary>
     /// The insert sort algorithm
     /// </summary>
-    class InsertSort : Algorithm
+    class InsertSort : IAlgorithm
     {
         /// <summary>
         /// Sorts with the insert algorithm
@@ -35,8 +35,10 @@ namespace Sorting
                         unsorted.Insert(j+1, point);
                         break;
                     }
-
+#if DEBUG
                 Console.WriteLine(unsorted.Render());
+#endif
+
             }
 
             return unsorted;

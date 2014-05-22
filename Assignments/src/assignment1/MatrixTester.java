@@ -4,6 +4,10 @@
 */
 package assignment1;
 
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.util.Random;
+
 public class MatrixTester {
 	public static void main(String[] args)
 	{	
@@ -148,8 +152,75 @@ public class MatrixTester {
 					+ M1_M2);
 		
 		
-		
+			}
 		//end
+		
+		
+		
+		int runsB = 100000;
+		//PERFORM FINAL EXHAUSTIVE BOUNDS TEST
+		System.out.println("\n\nRunning exhaustive bounds test at: " + runsB);
+		
+		if(MatrixTester.exhaustiveBoundsChecking(runsB))
+			System.out.println("Bounds checking successful; tests succeded");
+		else
+			System.out.println("Bounds checking FAILED; one or more tests failed");
+		
+		
+		
+	}
+	
+		
+	/***
+	 * 
+	 * Checks the bounds exhaustively for the matrices.
+	 * @return
+	 */
+	public static boolean exhaustiveBoundsChecking(int trials)
+	{
+		//SUPRESS OUTPUT
+		PrintStream console = System.out;
+		
+		System.setOut(new PrintStream(new OutputStream()
+		{
+			public void write(int b){
+			//Do nothing
+			}
+			
+		}));
+		
+		Random r= new Random();
+		
+
+		for(int i = 0; i < trials; i++)
+		{
+			int c1 = r.nextInt(10), r1= r.nextInt(10);
+			int c2 = r.nextInt(10), r2 = r.nextInt(10);
+			
+			Matrix m1 = new Matrix(r1,c1);
+			Matrix m2 = new Matrix(r2,c2);
+			
+			//Test multiplication bounds
+			Object result = m1.times(m2);
+			if((result == null && m1.numColumns == m2.numRows)
+					|| (result != null && m1.numColumns != m2.numRows)){
+				System.setOut(console);
+				return false;
+			}
+			
+			//Test addition
+			
+			result = m1.plus(m2);
+			if((result == null && m1.numColumns == m2.numColumns && m1.numRows == m2.numRows) 
+					|| (result != null && (m1.numColumns != m2.numColumns || m1.numRows != m1.numRows)) )
+			{
+				System.setOut(console);
+				return false;
+			}
+			
 		}
+		System.setOut(console);
+		return true;
+		
 	}
 }

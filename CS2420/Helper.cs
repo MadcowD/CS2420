@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sorting
+namespace PEXP
 {
     public static class Helper
     {
@@ -24,8 +24,28 @@ namespace Sorting
 
             //Standard XOR swap
             T temp = array[index1];
-            array[index2] = array[index1];
-            array[index1] = temp;
+            array[index1] = array[index2];
+            array[index2] = temp;
+        }
+
+        /// <summary>
+        /// Splits a list in half
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        /// <returns></returns>
+        public static IList<T>[] Split<T>(this IList<T> array)
+        {
+            if (array.Count <= 1)
+                return new IList<T>[] {array};
+            else
+            {
+                int halfway = (int)((array.Count - 1) / 2);
+                IList<T> left = array.Take(halfway).ToList();
+                IList<T> right = array.Skip(halfway).ToList();
+
+                return new IList<T>[] { left, right };
+            }
         }
 
         public static string Render<T>(this IList<T> array)
