@@ -63,7 +63,7 @@ public class MatrixTester {
 			Matrix a = new Matrix(new int[][]{{10}});
 			Matrix b = new Matrix(new int[][]{{10,10},{10,10},{15,15}});
 			
-			if(a.plus(b) == null)
+			if(a.times(b) == null)
 				System.out.println("MULTIPLICATION TEST: "
 						+ "Bounds comparison->null-pointer succesful; error successfully triggered");
 			else
