@@ -52,5 +52,11 @@ namespace PEXP
         {
             return string.Join(",", array);
         }
+
+        public static string Render<K,V>(this IDictionary<K,V> dict)
+        {
+            return string.Join("\n", dict
+                .Select(kvp => kvp.Key + " " + kvp.Value));
+        }
     }
 }

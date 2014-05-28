@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace PEXP.Sorting
 {
-    class SelectionSort : IAlgorithm
+    class SelectionSort : Algorithm
     {
-        public IList<IComparable> Sort(IList<IComparable> unsorted)
+        public override  IList<IComparable> Sort(IList<IComparable> unsorted)
         {
             //Iterate over the collection
             for(int i = 0; i < unsorted.Count; i++)
@@ -25,13 +25,18 @@ namespace PEXP.Sorting
                 
                 //Swap unsorted[i] with lowestLessThan
                 unsorted.Swap(i, lowestLessThan.Key);
-
-#if DEBUG
-                Console.WriteLine(unsorted.Render());
-#endif
             }
             //Return the sorted array
             return unsorted;
+        }
+
+        
+        public override void Overhead(int n )
+        {
+            for (int i = 0; i < n; i++)
+                for (int j = i; j < n; j++) ;
+
+
         }
     }
 }

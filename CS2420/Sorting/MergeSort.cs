@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Sorting.Sorting
 {
-    class MergeSort : IAlgorithm
+    class MergeSort : Algorithm
     {
         /// <summary>
         /// Sorts recursively using merge sort
         /// </summary>
         /// <param name="unsorted">The unsorted array</param>
         /// <returns></returns>
-        public IList<IComparable> Sort(IList<IComparable> unsorted)
+        public override IList<IComparable> Sort(IList<IComparable> unsorted)
         {
             //Split the array and then recursivley Sort untill single elements achieved
             var split = unsorted.Split();
@@ -48,11 +48,16 @@ namespace Sorting.Sorting
                     }
                     else
                     {
-                        if(l < left.Count)
-                            
+                        if (l < left.Count)
+                            ;
                     }
                 }
             }
+        }
+
+        public override void Overhead(int n)
+        {
+            throw new NotImplementedException();
         }
     }
 }

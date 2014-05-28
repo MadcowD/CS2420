@@ -24,6 +24,9 @@ namespace PEXP
             Console.WriteLine(selAlg.Sort(list).Render());;
             Console.ReadKey();
 
+            System.IO.File.WriteAllText
+             (@"C:\temp\growth.dat", insAlg.Growth(100, 2000).Render());
+            Console.ReadKey();
 
 
         }

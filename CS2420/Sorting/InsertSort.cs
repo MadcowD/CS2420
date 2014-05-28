@@ -9,14 +9,14 @@ namespace PEXP.Sorting
     /// <summary>
     /// The insert sort algorithm
     /// </summary>
-    class InsertSort : IAlgorithm
+    class InsertSort : Algorithm
     {
         /// <summary>
         /// Sorts with the insert algorithm
         /// </summary>
         /// <param name="unsorted">The unsorted comparable list.</param>
         /// <returns>The sorted list.</returns>
-        public IList<IComparable> Sort(IList<IComparable> unsorted)
+        public override IList<IComparable> Sort(IList<IComparable> unsorted)
         {
             //Convert unsorted into a non fixed size list
 
@@ -35,13 +35,16 @@ namespace PEXP.Sorting
                         unsorted.Insert(j+1, point);
                         break;
                     }
-#if DEBUG
-                Console.WriteLine(unsorted.Render());
-#endif
-
             }
 
             return unsorted;
+        }
+
+
+        public override void Overhead(int n)
+        {
+            for (int i = 0; i < n; i++)
+                for (int j = i - 1; j >= -1; j--) ;
         }
     }
 }
