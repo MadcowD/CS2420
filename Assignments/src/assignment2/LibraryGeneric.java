@@ -133,6 +133,7 @@ public class LibraryGeneric<T> {
 	public ArrayList<LibraryBookGeneric<T>> lookup(T holder) {
 		ArrayList<LibraryBookGeneric<T>> result = new ArrayList<LibraryBookGeneric<T>>();
 
+		// Looks at library books and if b.isChekced then return the holder.
 		for(LibraryBookGeneric<T> b : library)
 			if(b.isChecked())
 				if(b.getHolder().equals(holder))
@@ -164,6 +165,7 @@ public class LibraryGeneric<T> {
 	 */
 	public boolean checkout(long isbn, T holder, int month, int day, int year) {
 		for(LibraryBookGeneric<T> b : library)
+			//If the isbn is the same and the book is checked in.
 			if(b.getIsbn() == isbn)
 				if(!b.isChecked()){
 					//In the case that the book has the same ISBN and is checked in check the book out to the holder on the given date.
@@ -230,6 +232,8 @@ public class LibraryGeneric<T> {
 	 * Returns the list of library books, sorted by ISBN (smallest ISBN first).
 	 */
 	public ArrayList<LibraryBookGeneric<T>> getInventoryList() {
+		//orders the books  by ISBN and returns them as alist
+		
 		ArrayList<LibraryBookGeneric<T>> libraryCopy = new ArrayList<LibraryBookGeneric<T>>();
 		libraryCopy.addAll(library);
 
@@ -266,6 +270,8 @@ public class LibraryGeneric<T> {
 		
 		//Get the current date and if the date is before the current date 
 		GregorianCalendar currentDate = new GregorianCalendar(year,month,day);
+		
+		//Using .before
 		for(LibraryBookGeneric<T> bnook : library){
 			if(bnook.isChecked() && bnook.getDueDate().before(currentDate))
 				libraryCopy.add(bnook);
