@@ -8,6 +8,8 @@ namespace PEXP
 {
     public static class Helper
     {
+        private static Random _Random = new Random();
+
         /// <summary>
         /// Swaps an element of the IList
         /// </summary>
@@ -58,5 +60,41 @@ namespace PEXP
             return string.Join("\n", dict
                 .Select(kvp => kvp.Key + " " + kvp.Value));
         }
+
+        public static const Func<int, IList<int>> DescendingList = (int size) =>
+            {
+                List<int> descending = new List<int>();
+                for (int i = 0; i < size; i++)
+                    descending.Add(size - i);
+                return descending;
+            };
+
+
+        public static const Func<int, IList<int>> RandomList = (int size) =>
+            {
+                List<int> random = new List<int>();
+                for (int i = 0; i < size; i++)
+                    random.Add(_Random.Next());
+
+                return random;
+            };
+
+        public static const Func<int, IList<int>> AscendingList = (int size)=>
+            {
+                List<int> ascending = new List<int>();
+                for (int i = 0; i < size; i++)
+                    ascending.Add(i);
+
+                return ascending;
+            };
+
+        public static const Func<int, IList<int>> PermutatedList = (int size) =>
+            {
+                IList<int> permutated = Helper.AscendingList(size);
+                for (int i = 0; i < size * size; i++)
+                    permutated.Swap(_Random.Next(0, size - 1), _Random.Next(0, size - 1));
+                return permutated;
+                
+            };
     }
 }

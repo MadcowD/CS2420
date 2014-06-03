@@ -31,7 +31,7 @@ namespace PEXP
         /// </summary>
         /// <param name="range">The range ( n to dispaly the growth rate)</param>
         /// <returns></returns>
-        public Dictionary<int, double> Growth(int range, int averageCount = 10)
+        public Dictionary<int, double> Growth(int range, int averageCount = 10, Func<int,IList<int>> listGenerator = Helper.PermutatedList)
         {
             Random rnd = new Random();
             Dictionary<int, double> NTable = new Dictionary<int,double>();
