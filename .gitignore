@@ -155,16 +155,8 @@ $RECYCLE.BIN/
 # Mac desktop service store files
 .DS_Store
 
-.metadata
-RemoteSystemsTempFiles
 
-.metadata/
-RemoteSystemsTempFiles/
-
-.settings
-.settings/
 
 bin
 bin/
-*.classpath
 *.zip
