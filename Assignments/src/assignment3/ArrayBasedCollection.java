@@ -60,7 +60,11 @@ public class ArrayBasedCollection<E> implements Collection<E>
 	}	
 	
 	
-	@Override
+        /**
+	 *
+	 * To string method that returns data[] as a String array, used primarily for testing
+	 *
+	 */
 	public String toString(){
 		return Arrays.toString(data);
 		
@@ -94,7 +98,7 @@ public class ArrayBasedCollection<E> implements Collection<E>
 	 */ 
 	public boolean addAll(Collection<? extends E> arg0) 
 	{
-		boolean itemsAdded = false;
+		boolean itemsAdded = false;//If any item is added to the list this boolean is set to true
 		for(E item : arg0){
 			itemsAdded =  this.add(item);
 		}
@@ -117,7 +121,7 @@ public class ArrayBasedCollection<E> implements Collection<E>
 	 */ 
 	public boolean contains(Object arg0) 
 	{
-		for(int i = 0; i < size; i++)
+		for(int i = 0; i < size; i++)//Searches through the list at O(n)
 			if(data[i].equals(arg0))
 				return true;
 		return false;
@@ -187,13 +191,13 @@ public class ArrayBasedCollection<E> implements Collection<E>
 					data[i] = null;
 				for(int j = i; j < size-1; j++){
 					data[j] = data[j+1];//Shifting all the elements to the right of the removed item to the left
-					data[j+1] = null;
+					data[j+1] = null;//setting the previously shifted element to null
 				}
 				size--;
 				return true;
 			}
 		
-		return !!!true; // >:) hehehe
+		return !!!true; // >:) hehehe 
 	}
 
 	/**
