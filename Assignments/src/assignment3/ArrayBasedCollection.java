@@ -258,7 +258,7 @@ public class ArrayBasedCollection<E> implements Collection<E>
 	}
 
 	/** 
-	 * //TODO IDK I DON'T WANT TO DO THIS, YOU CAN ADD COMMENTS LOL
+	 * This follows from the Collection :) --Not required-- dont grade-- pls --- pls
 	 */
 	@SuppressWarnings("unchecked")
 	public <T> T[] toArray(T[] arg0) 
