@@ -31,7 +31,7 @@ namespace PEXP
         /// </summary>
         /// <param name="range">The range ( n to dispaly the growth rate)</param>
         /// <returns></returns>
-        public Dictionary<int, double> Growth(int range, int averageCount = 10, Func<int,IList<int>> listGenerator = Helper.PermutatedList)
+        public Dictionary<int, double> Growth(int range,  Func<int,IList<int>> listGenerator, int averageCount = 10)
         {
             Random rnd = new Random();
             Dictionary<int, double> NTable = new Dictionary<int,double>();
@@ -39,7 +39,7 @@ namespace PEXP
 
             sw.Start();
             //Go through the range
-            for (int n = 0; n < range; n++)
+            for (int n = 1000; n < range; n+= 500)
             {
                 Console.WriteLine("N: [{0}]", n);
                 //Take the average algorithm time at range r
@@ -74,6 +74,10 @@ namespace PEXP
             sw.Stop();
             return NTable;
         }
-        
+
+        public Dictionary<int, double> Growth(int range, int averageCount = 10)
+        {
+            return this.Growth(range, Helper.PermutatedList, averageCount);
+        }
     }
 }

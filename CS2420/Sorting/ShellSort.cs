@@ -22,11 +22,9 @@ namespace Sorting.Sorting
             for (int i = 0; i < unsorted.Count; i ++)
                 //Comparing best cases
             {
-                int val = unsorted[i];
-                int j;
-                for(j = i-step; j >= 0 && unsorted[i].CompareTo(val) == 1; j-= step)
 
             }
+            return new List<IComparable>();
         }
 
         public override void Overhead(int n)

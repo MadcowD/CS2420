@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Sorting.Sorting
 {
-    class MergeSort : Algorithm
+    class OptimizedMergeSort : Algorithm
     {
+        
         /// <summary>
         /// Sorts recursively using merge sort
         /// </summary>
@@ -21,9 +23,28 @@ namespace Sorting.Sorting
             //Split the array and then recursivley Sort untill single elements achieved
             var split = unsorted.Split();
 
-
+            IList<IComparable> left = unsorted, right = unsorted;
+            Parallel.Invoke(() => Sort(split[0], 2, out right));
+            Sort(split[0], 2, out left);
             //Then return a Merge of the split elements.
-            return this.Merge(Sort(split[0]), Sort(split[1]));
+            return this.Merge(left, right);
+        }
+
+        public void Sort(IList<IComparable> unsorted, int level, out IList<IComparable> returnV)
+        {
+            if (unsorted.Count <= 1)
+            {
+                returnV = unsorted;
+                return;
+            }
+            //Split the array and then recursivley Sort untill single elements achieved
+            var split = unsorted.Split();
+            IList<IComparable> left = unsorted, right = unsorted;
+            Sort(split[0], level +1, out left);
+            Sort(split[1], level + 1, out right);
+                
+            //Then return a Merge of the split elements.
+            returnV = this.Merge(left , right);
         }
 
 
@@ -38,31 +59,32 @@ namespace Sorting.Sorting
             IList<IComparable> result = new List<IComparable>();
             //cases
 
-            while(left.Count + right.Count != 0){
-                if(left.Count ==0)
+            int r = 0;
+            int l = 0;
+            while(r + l  < left.Count + right.Count){
+                if(l == left.Count)
                 {
-                    result.Add(right[0]);
-                    right.RemoveAt(0);
+                    result.Add(right[r++]);
+                    
                     continue;
                 }
-                if(right.Count == 0)
+                if(r == right.Count)
                 {
-                    result.Add(left[0]);
-                    left.RemoveAt(0);
+                    result.Add(left[l++]);
+                    
                     continue;
                 }
                 //Normal case
 
-                if(left[0].CompareTo(right[0]) > 0)
+                if(left[l].CompareTo(right[r]) > 0)
                 {
-                    result.Add(right[0]);
-                    right.RemoveAt(0);
+                    result.Add(right[r++]);
+                    
                     continue;
                 }
                 else
                 {
-                    result.Add(left[0]);
-                    left.RemoveAt(0);
+                    result.Add(left[l++]);
                     continue;
                 }
 
@@ -75,7 +97,7 @@ namespace Sorting.Sorting
 
         public override void Overhead(int n)
         {
-            //rthrow new NotImplementedException();
+           //throw new NotImplementedException();
         }
     }
 }

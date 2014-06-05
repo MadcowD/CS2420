@@ -39,10 +39,10 @@ namespace PEXP
         public static IList<T>[] Split<T>(this IList<T> array)
         {
             if (array.Count <= 1)
-                return new IList<T>[] {array};
+                return new IList<T>[] { array };
             else
             {
-                int halfway = (int)((array.Count - 1) / 2);
+                int halfway = (int)((array.Count) / 2);
                 IList<T> left = array.Take(halfway).ToList();
                 IList<T> right = array.Skip(halfway).ToList();
 
@@ -58,10 +58,10 @@ namespace PEXP
         public static string Render<K,V>(this IDictionary<K,V> dict)
         {
             return string.Join("\n", dict
-                .Select(kvp => kvp.Key + " " + kvp.Value));
+                .Select(kvp => kvp.Key + "\t" + kvp.Value));
         }
 
-        public static const Func<int, IList<int>> DescendingList = (int size) =>
+        public static readonly Func<int, IList<int>> DescendingList = (int size) =>
             {
                 List<int> descending = new List<int>();
                 for (int i = 0; i < size; i++)
@@ -70,7 +70,7 @@ namespace PEXP
             };
 
 
-        public static const Func<int, IList<int>> RandomList = (int size) =>
+        public static readonly Func<int, IList<int>> RandomList = (int size) =>
             {
                 List<int> random = new List<int>();
                 for (int i = 0; i < size; i++)
@@ -79,7 +79,7 @@ namespace PEXP
                 return random;
             };
 
-        public static const Func<int, IList<int>> AscendingList = (int size)=>
+        public static readonly Func<int, IList<int>> AscendingList = (int size)=>
             {
                 List<int> ascending = new List<int>();
                 for (int i = 0; i < size; i++)
@@ -88,7 +88,7 @@ namespace PEXP
                 return ascending;
             };
 
-        public static const Func<int, IList<int>> PermutatedList = (int size) =>
+        public static readonly Func<int, IList<int>> PermutatedList = (int size) =>
             {
                 IList<int> permutated = Helper.AscendingList(size);
                 for (int i = 0; i < size * size; i++)

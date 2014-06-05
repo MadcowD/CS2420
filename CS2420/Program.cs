@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PEXP.Sorting;
 using Sorting;
+using Sorting.Sorting;
 
 namespace PEXP
 {
@@ -20,13 +21,14 @@ namespace PEXP
 
             list = new IComparable[] { 1, 15, 56, 0, -2, 4, 2, 7, 4, 7, 34, 1, 23, 2, 6, 4, 1, 12 }.ToList();
 
-            SelectionSort selAlg = new SelectionSort();
-            Console.WriteLine(selAlg.Sort(list).Render());;
-            Console.ReadKey();
+            MergeSort mergeAlg = new MergeSort();
 
             System.IO.File.WriteAllText
-             (@"C:\temp\growth.dat", insAlg.Growth(100, 2000).Render());
+             (@"C:\temp\growth.dat", mergeAlg.Growth(20000, 100).Render());
             Console.ReadKey();
+            Console.ReadKey();
+
+
 
 
         }
