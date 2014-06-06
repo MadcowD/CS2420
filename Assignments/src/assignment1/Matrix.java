@@ -12,7 +12,7 @@ public class Matrix {
 		if(numRows == 0)
 			numColumns = 0;
 		else
-			numColumns = d[0].length; // d[0] is the first 1D array
+			numColumns =  d[0].length; // d[0] is the first 1D array
 		data = new int[numRows][numColumns]; // create a new matrix to hold the data
 		// copy the data over
 		for(int i=0; i < numRows; i++) 

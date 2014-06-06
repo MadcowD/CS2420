@@ -4,15 +4,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Random;
 
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
-/**
- * @author Paymon Saebi
- * @author
- * @author
- * 
- * ArrayBasedCollection timing experiments.
- */
 public class ArrayBasedCollectionTimer 
 {	
 	/**
@@ -37,7 +29,7 @@ public class ArrayBasedCollectionTimer
 
 
 		//Its a hashtable if we were going to save it to a csv contac card format #table
-		Hashtable<Integer, Double> sortTimes = GrowthSort(1000,20000, 4000);
+		Hashtable<Integer, Double> sortTimes = GrowthBinary(3, 250, 1000000);
 
 		//TIME BINARY
 
@@ -53,23 +45,25 @@ public class ArrayBasedCollectionTimer
 	{
 		Random rnd = new Random();
 		Hashtable<Integer, Double> NTable = new Hashtable<Integer, Double>();
-
-
+		
+		
+		
+		
 		//Go through the range
-		for (int n = start; n < range+1; n+=500)
+		for (int n = start; n < range+1; n+=50000)
 		{
+
+			int warm = 0;
+			while (warm < 10000)
+			{ warm++; /*Let the thread warm up.*/ System.nanoTime(); }
+			
 			//Take the average algorithm time at range r
 			long algorithmTime = 0;
 			for (int a = 0; a < averageCount; a++)
 			{
 				//Timing
 				ArrayBasedCollection<Integer> arr = new ArrayBasedCollection<Integer>();
-				arr.addAll(ascendingInts(n));
-
-
-				int warm = 0;
-				while (warm < 10000)
-				{ warm++; /*Let the thread warm up.*/ System.nanoTime(); }
+				arr.addAll(permuteInts(n));
 
 				long warmUptime = System.nanoTime();
 
@@ -102,49 +96,53 @@ public class ArrayBasedCollectionTimer
 	/// </summary>
 	/// <param name="range">The range ( n to dispaly the growth rate)</param>
 	/// <returns></returns>
-	public Hashtable<Integer, Double> GrowthContains(int range, int averageCount)
+	public static Hashtable<Integer, Double> GrowthContains(int start, int range, int averageCount)
 	{
 		Random rnd = new Random();
 		Hashtable<Integer, Double> NTable = new Hashtable<Integer, Double>();
-
-
+		
+		
+		
+		
 		//Go through the range
-		for (int n = 0; n < range; n++)
+		for (int n = start; n < range+1; n+=500)
 		{
-			System.out.println("N:" + n);
+
+			int warm = 0;
+			while (warm < 10000)
+			{ warm++; /*Let the thread warm up.*/ System.nanoTime(); }
+			
 			//Take the average algorithm time at range r
 			long algorithmTime = 0;
 			for (int a = 0; a < averageCount; a++)
 			{
 				//Timing
 				ArrayBasedCollection<Integer> arr = new ArrayBasedCollection<Integer>();
-				arr.addAll(randomInts(n));
+				arr.addAll(ascendingInts(n));
 				
-				
-				Integer element = arr.get(arr.size()-1);
-
-				int start = 0;
-				while (start < 10000)
-				{ start++; /*Let the thread warm up.*/ System.nanoTime(); }
+				int elemLoc = rnd.nextInt(arr.size-1);
+				Integer element = arr.get(elemLoc);
 
 				long warmUptime = System.nanoTime();
 
 				//Run the algorithm
 				arr.contains(element);
-				long sortTime = System.nanoTime();
+				long containsTime = System.nanoTime();
 				//OVERHEAD
 
+				for(int i = 1; i<elemLoc; i++){
+				}
 
 				long overHead = System.nanoTime();
-
+				
 				//Calculate time
-				algorithmTime += (sortTime - warmUptime) - (overHead - sortTime);
+				algorithmTime += (containsTime - warmUptime) - (overHead - containsTime);
 
 			}
-
+			System.out.println(n + "\t" + (double) algorithmTime/averageCount);
 			NTable.put(n ,(double) (algorithmTime/averageCount));
 		}
-
+		
 		return NTable;
 	}
 
@@ -153,52 +151,62 @@ public class ArrayBasedCollectionTimer
 	/// </summary>
 	/// <param name="range">The range ( n to dispaly the growth rate)</param>
 	/// <returns></returns>
-	public Hashtable<Integer, Double> GrowthBinary(int range, int averageCount)
+	public static Hashtable<Integer, Double> GrowthBinary(int start, int range, int averageCount)
 	{
 		Random rnd = new Random();
 		Hashtable<Integer, Double> NTable = new Hashtable<Integer, Double>();
-
-
+		
+		
+		IntegerComparator cmp = new IntegerComparator();
+		
 		//Go through the range
-		for (int n = 0; n < range; n++)
+		for (int n = start; n < range+1; n+=1)
 		{
-			System.out.println("N:" + n);
+			int warm = 0;
+			while (warm < 10000)
+			{ warm++; /*Let the thread warm up.*/ System.nanoTime(); }
+			
+			
+	
 			//Take the average algorithm time at range r
 			long algorithmTime = 0;
 			for (int a = 0; a < averageCount; a++)
 			{
 				//Timing
 				ArrayBasedCollection<Integer> arr = new ArrayBasedCollection<Integer>();
-				arr.addAll(randomInts(n));
+				ArrayList<Integer> searchList = (ascendingInts(n));
 				
-				
-				Integer element = arr.get(arr.size()-1);
+				int elemLoc = rnd.nextInt(searchList.size()-1);
 
-				int start = 0;
-				while (start < 10000)
-				{ start++; /*Let the thread warm up.*/ System.nanoTime(); }
-
+				Integer element = searchList.get(elemLoc);
 				long warmUptime = System.nanoTime();
 
 				//Run the algorithm
-				//SearchUtil.binarySearch(arr.toSortedList(new IntegerComparator()), element, new IntegerComparator())
-				long sortTime = System.nanoTime();
+				SearchUtil.binarySearch(searchList, element, cmp);
+				long containsTime = System.nanoTime();
 				//OVERHEAD
 
+				overHead(1, (int)(Math.log(n)/Math.log(2)) -1 );
 
 				long overHead = System.nanoTime();
-
+				
 				//Calculate time
-				algorithmTime += (sortTime - warmUptime) - (overHead - sortTime);
+				algorithmTime += (containsTime - warmUptime) - (overHead - containsTime);
 
 			}
-
+			System.out.println(n + "\t" + (double) algorithmTime/averageCount);
 			NTable.put(n ,(double) (algorithmTime/averageCount));
 		}
-
+		
 		return NTable;
 	}
 
+	public static void overHead(int level, int stop){
+		if(level < stop)
+			overHead(level +1, stop);
+		else
+			return;
+	}
 
 
 	// Generate an array of random integers [0..size - 1]
