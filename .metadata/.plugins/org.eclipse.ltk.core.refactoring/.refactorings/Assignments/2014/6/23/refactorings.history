@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename local variable &apos;sortTime&apos; in &apos;assignment3.ArrayBasedCollectionTimer.GrowthContains(...)&apos; to &apos;containsTime&apos;&#x0D;&#x0A;- Original project: &apos;Assignments&apos;&#x0D;&#x0A;- Original element: &apos;assignment3.ArrayBasedCollectionTimer.GrowthContains(int, int, int).sortTime&apos;&#x0D;&#x0A;- Renamed element: &apos;sortTime&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;sortTime&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;assignment3{ArrayBasedCollectionTimer.java[ArrayBasedCollectionTimer~GrowthContains~I~I~I@sortTime!3065!3098!3070!3077!J!0!false" name="containsTime" references="true" stamp="1402018032193" version="1.0"/>
-</session>
