@@ -79,7 +79,7 @@ public final class AlgorithmTimer {
 		long net = 0;
 		for(int n = start; n <= end; n+= step){
 			long cur = time(n);
-			cur += net;
+			net+= cur;
 			
 			
 			System.out.println(n + "\t" + cur);

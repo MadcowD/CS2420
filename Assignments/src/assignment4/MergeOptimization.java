@@ -17,14 +17,14 @@ import assignment4.AlgorithmTimer.TimeComplexity;
  */
 public class MergeOptimization implements AlgorithmTimer.Process {
 	public static void main(String[] args){
-		TimeComplexity complexity = TimeComplexity.BEST;
+		TimeComplexity complexity = TimeComplexity.AVERAGE;
 		
 		AlgorithmTimer timer = 
-				new AlgorithmTimer(new MergeOptimization(), 100, complexity);
+				new AlgorithmTimer(new MergeOptimization(), 1000, complexity);
 		
-		int end = 1000;
+		int end = 2000;
 		int start = 1;
-		int step = 5;
+		int step = 50;
 		
 		
 		//run optimization
@@ -64,6 +64,9 @@ public class MergeOptimization implements AlgorithmTimer.Process {
 				
 				RecursiveSortingUtility.setMergeSortThreshold(threshold);
 				long timeNet = timer.time(start,end,step);
+				
+				System.out.println("\nCurrent lowest: " + lowest.getKey());
+				System.out.println("\nCurrent threshold to explored: " + threshold);
 			
 			}
 		}
