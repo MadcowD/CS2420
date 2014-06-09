@@ -72,19 +72,25 @@ public final class AlgorithmTimer {
 	 * @param end The inclusive ending point of growth timing.
 	 * @param step The amount by which the algorithm should step in collecting data.
 	 */
-	public void time(int start, int end, int step){
-		//Stabalize thread.
-		long t = System.nanoTime();
-		while(System.nanoTime() - t < 2E9);
+	public long time(int start, int end, int step){
+		stabilize();
 		
 		
+		long net = 0;
 		for(int n = start; n <= end; n+= step){
-			System.out.println(n + "\t" + time(n));
+			long cur = time(n);
+			cur += net;
+			
+			
+			System.out.println(n + "\t" + cur);
 		}
+		
+		
+		return net;
 	}
 	
 	/**
-	 * Stabilizes the thread for timing.
+	 * Moves algorithm byte-code/assemblies into the cache so that timing is uniform.
 	 */
 	private void warmup(){
 		for(int i = 0; i < sampleSize; i++){
@@ -93,6 +99,15 @@ public final class AlgorithmTimer {
 			algorithm.run(1000);
 			algorithm.overhead(1000);
 		}
+	}
+	
+	/**
+	 * Stabilizes the thread for timing.
+	 */
+	private void stabilize(){
+		//Stabalize thread.
+		long t = System.nanoTime();
+		while(System.nanoTime() - t < 2E9);
 	}
 	
 	//---------------------------------------------------------------------
