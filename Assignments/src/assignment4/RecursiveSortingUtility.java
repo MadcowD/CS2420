@@ -3,6 +3,8 @@ package assignment4;
 import java.util.ArrayList;
 import java.util.Random;
 
+import assignment4.AlgorithmTimer.TimeComplexity;
+
 /**
  * @author Paymon Saebi
  * @author 
@@ -265,5 +267,23 @@ public class RecursiveSortingUtility
 		T temp = list.get(left);
 		list.set(left, list.get(right));
 		list.set(right, temp);
+	}
+	
+	/**
+	 * Generates a list based on a given complexity case.
+	 * @param n The number of elements to generate.
+	 * @param complexity The time complexity desired.
+	 */
+	public static ArrayList<Integer> generateCase(int n, TimeComplexity complexity){
+		switch(complexity){
+		case WORST:
+			return generateWorstCase(n);
+		case AVERAGE:
+			return generateAverageCase(n);
+		case BEST:
+			return generateBestCase(n);
+		default:
+			return generateAverageCase(n);
+		}
 	}
 }
