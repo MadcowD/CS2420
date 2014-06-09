@@ -73,6 +73,11 @@ public final class AlgorithmTimer {
 	 * @param step The amount by which the algorithm should step in collecting data.
 	 */
 	public void time(int start, int end, int step){
+		//Stabalize thread.
+		long t = System.nanoTime();
+		while(System.nanoTime() - t < 2E9);
+		
+		
 		for(int n = start; n <= end; n+= step){
 			System.out.println(n + "\t" + time(n));
 		}
@@ -82,8 +87,6 @@ public final class AlgorithmTimer {
 	 * Stabilizes the thread for timing.
 	 */
 	private void warmup(){
-		long t = System.nanoTime();
-		while(System.nanoTime() - t < 2E9);
 		for(int i = 0; i < sampleSize; i++){
 			//run the algorithm once to enter the data into the cache
 			algorithm.generateData(1000, complexity);

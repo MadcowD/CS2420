@@ -1,6 +1,7 @@
 package assignment4;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import assignment4.AlgorithmTimer.TimeComplexity;
 
@@ -23,7 +24,18 @@ public class MergeOptimization implements AlgorithmTimer.Process {
 		timer.time(1000, 10000, 500);
 		
 		//run optimization
-
+		int lowest =0;
+		int second=0;
+		
+		HashSet<Integer, Long> times = new HashSet<Integer,Long>();
+		//Add initial data.
+		
+		
+		//Binary search optimziation for even functions 
+		do{
+			
+		}
+		while(second != lowest);
 		
 		
 		
