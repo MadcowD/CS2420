@@ -17,14 +17,14 @@ import assignment4.AlgorithmTimer.TimeComplexity;
  */
 public class MergeOptimization implements AlgorithmTimer.Process {
 	public static void main(String[] args){
-		TimeComplexity complexity = TimeComplexity.AVERAGE;
+		TimeComplexity complexity = TimeComplexity.BEST;
 		
 		AlgorithmTimer timer = 
 				new AlgorithmTimer(new MergeOptimization(), 1000, complexity);
 		
-		int end = 2000;
-		int start = 1;
-		int step = 50;
+		int end = 10000;
+		int start = 1000;
+		int step = 1000;
 		
 		
 		//run optimization
@@ -34,13 +34,13 @@ public class MergeOptimization implements AlgorithmTimer.Process {
 		RecursiveSortingUtility.setMergeSortThreshold(0);
 		times.put(0, timer.time(start, end, step));
 		
-		RecursiveSortingUtility.setMergeSortThreshold(33);
+		RecursiveSortingUtility.setMergeSortThreshold(161);
 		times.put(33, timer.time(start, end, step));
 		
-		RecursiveSortingUtility.setMergeSortThreshold(66);
+		RecursiveSortingUtility.setMergeSortThreshold(323);
 		times.put(66, timer.time(start, end, step));
 		
-		RecursiveSortingUtility.setMergeSortThreshold(100);
+		RecursiveSortingUtility.setMergeSortThreshold(500);
 		times.put(100, timer.time(start, end, step));
 		
 		//Binary search optimization for even functions 
@@ -48,11 +48,16 @@ public class MergeOptimization implements AlgorithmTimer.Process {
 		SimpleEntry<Integer, Long> second = new SimpleEntry<Integer, Long>(-1,(long) 1E20);
 		
 		do{
-			for(Integer key : times.keySet()){
+			for(Integer key : times.keySet())
 				if(times.get(key).compareTo(lowest.getValue()) < 0)
 					lowest = new SimpleEntry<Integer, Long>(key, times.get(key));
-				else if(times.get(key).compareTo(second.getValue()) < 0)
+			
+			
+			for(Integer key : times.keySet())
+				if(!key.equals(lowest.getKey()) && times.get(key).compareTo(second.getValue()) < 0)
 					second = new SimpleEntry<Integer, Long>(key, times.get(key));
+				
+			
 			
 				
 				//Now calculate the median
@@ -68,10 +73,10 @@ public class MergeOptimization implements AlgorithmTimer.Process {
 				System.out.println("\nCurrent lowest: " + lowest.getKey());
 				System.out.println("\nCurrent threshold to explored: " + threshold);
 			
-			}
+			
 		}
 		//Do while the absolute value (distance) of the difference between lowest and second is more that 5
-		while(Math.abs(second.getKey() - lowest.getKey()) > 5);
+		while(Math.abs(second.getKey()  - lowest.getKey()) > 5);
 		
 		System.out.println("Calculated lowest threshold:\n" + lowest.getKey());
 	}
