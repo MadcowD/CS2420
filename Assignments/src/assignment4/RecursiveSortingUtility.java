@@ -7,8 +7,8 @@ import assignment4.AlgorithmTimer.TimeComplexity;
 
 /**
  * @author Paymon Saebi
- * @author 
- * @author 
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
  * 
  * This sorting utility class provides static methods for recursive sorting 
  * 
@@ -18,16 +18,9 @@ import assignment4.AlgorithmTimer.TimeComplexity;
  */
 public class RecursiveSortingUtility 
 {	
-
-	public static void main(String[] args){
-		setMergeSortThreshold(25);
-		ArrayList<Integer> tst = generateAverageCase(100);
-		System.out.println(tst);
-		mergeSortDriver(tst);
-		System.out.println(tst);
-	}
-
+	
 	private static int mergesortThreshold = 0;
+	private static int quicksortThreshold = 0;
 
 	/**
 	 * Helper method for setting the switching threshold for merge sort
@@ -37,6 +30,15 @@ public class RecursiveSortingUtility
 	public static void setMergeSortThreshold(int desiredThreshold)
 	{
 		mergesortThreshold = desiredThreshold;
+	}
+	
+	/**
+	 * Helper method for setting the switching threshold for quicksort
+	 *  
+	 * @param desiredThreshold - quicksort switching threshold
+	 */
+	public static void setQuickSortThreshold(int desiredThreshold){
+		quicksortThreshold = desiredThreshold;
 	}
 
 	/**
@@ -49,7 +51,7 @@ public class RecursiveSortingUtility
 	private static <T extends Comparable<? super T>> void insertionSortIterative(ArrayList<T> list, int start, int end)
 	{
 		int j;
-		for(int i = 1; i < list.size(); i++){
+		for(int i = start; i <= end; i++){
 			T val = list.get(i);
 			for(j = i; j>0 && val.compareTo(list.get(j-1)) < 0; j--){
 				list.set(j, list.get(j-1));
@@ -85,7 +87,7 @@ public class RecursiveSortingUtility
 	private static <T extends Comparable<? super T>> void mergeSortRecursive(ArrayList<T> list, ArrayList<T> temp, int start, int end)
 	{
 		if(start < end){
-			if(start-end < mergesortThreshold)
+			if(end - start < mergesortThreshold)
 				insertionSortIterative(list, start, end);
 			else{
 				int center = (start + end)/2;
@@ -111,8 +113,7 @@ public class RecursiveSortingUtility
 		int right = middle-1;
 		int numberElements = end - start + 1;
 		int tempPos = start;
-		//temp.add(list.get(start++));
-		//temp.set(tempPos++, list.get(start++));
+
 
 		while(start <= right && middle<=end)
 			if(list.get(start).compareTo(list.get(middle)) <= 0)
@@ -137,6 +138,9 @@ public class RecursiveSortingUtility
 	 */
 	public static <T extends Comparable<? super T>> void quickSortDriver(ArrayList<T> list)
 	{
+		if(list.size() <= 1)
+			return;
+
 		quickSortRecursive(list, 0, list.size()-1);	
 	}
 
@@ -149,8 +153,50 @@ public class RecursiveSortingUtility
 	 */
 	private static <T extends Comparable<? super T>> void quickSortRecursive(ArrayList<T> list, int start, int end)
 	{
+		if(end-start <= 0)
+			return;
+		if(end - start < quicksortThreshold)
+			insertionSortIterative(list, start, end);
+		else{
+
+			int middle = partition(list, start, end);
+			quickSortRecursive(list, start, middle-1);
+			quickSortRecursive(list, middle+1, end);
+		}
+
+	}
 
 
+	private static <T extends Comparable<? super T>> int partition(ArrayList<T> list, int start, int end){
+		int pivPos = bestPivotStrategy(list, start, end);
+		T pivot = list.get(pivPos);
+		swapElements(list, start, pivPos);
+
+		int left = start+1;
+		int right = end;
+		while(true){
+			while(left <= right)
+				if(list.get(left).compareTo(pivot) < 0){
+					left++;
+				}
+				else{
+					break;
+				}
+			while(right > left){
+				if(list.get(right).compareTo(pivot) > 0)
+					right--;
+				else
+					break;
+			}
+			if(left >= right)
+				break;
+			swapElements(list, left, right);
+
+
+		}
+		list.set(start, list.get(left-1));
+		list.set(left-1, pivot);
+		return left-1;
 
 	}
 
@@ -167,6 +213,7 @@ public class RecursiveSortingUtility
 	{
 		int middle = (start + end)/2;
 
+
 		return middle;
 	}
 
@@ -181,9 +228,10 @@ public class RecursiveSortingUtility
 	 */
 	public static <T extends Comparable<? super T>> int betterPivotStrategy(ArrayList<T> list, int start, int end)
 	{
-		// TODO:
+		Random rng = new Random();
 
-		return 0;
+		return start + rng.nextInt(end-start);
+
 	}
 
 	/**
@@ -191,15 +239,31 @@ public class RecursiveSortingUtility
 	 * 
 	 * @param list  - input ArrayList of T objects that must have a Comparable implementation
 	 * @param start - start index of the subarray  of objects
-	 * @param end   - end index of the subarray  of objects
+	 * @param limit   - end index of the subarray  of objects
 	 * 
 	 * @return index of chosen pivot
 	 */
 	public static <T extends Comparable<? super T>> int bestPivotStrategy(ArrayList<T> list, int start, int end)
 	{
-		// TODO:
+		Random rng = new Random();
+		int limit = end - start;
+		int first = start + rng.nextInt(limit);
 
-		return 0;
+		int second = start + rng.nextInt(limit);
+		int third = start + rng.nextInt(limit);
+
+		if(list.get(second).compareTo(list.get(first)) < 0){
+			swapElements(list, first, second);
+		}
+		if(list.get(third).compareTo(list.get(first)) < 0){
+			swapElements(list, first, third);
+		}
+		if(list.get(third).compareTo(list.get(second)) < 0){
+			swapElements(list, second, third);
+		}
+
+		return second;
+
 	}
 
 
