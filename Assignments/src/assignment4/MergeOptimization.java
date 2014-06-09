@@ -17,13 +17,13 @@ public class MergeOptimization implements AlgorithmTimer.Process {
 		TimeComplexity complexity = TimeComplexity.BEST;
 		
 		AlgorithmTimer timer = 
-				new AlgorithmTimer(new MergeOptimization(), 100, complexity);
+				new AlgorithmTimer(new MergeOptimization(), 500, complexity);
 		
 		//Sample timing test.
-		timer.time(1000, 2000, 500);
+		timer.time(1000, 10000, 500);
 		
 		//run optimization
-		
+
 		
 		
 		
@@ -53,7 +53,7 @@ public class MergeOptimization implements AlgorithmTimer.Process {
 	 */
 	@Override
 	public void run(int n) {
-		RecursiveSortingUtility.insertionSortIterative(data, 0, data.size());
+		RecursiveSortingUtility.mergeSortDriver(data);
 	}
 
 	@Override

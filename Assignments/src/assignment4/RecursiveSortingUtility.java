@@ -19,8 +19,8 @@ import assignment4.AlgorithmTimer.TimeComplexity;
 public class RecursiveSortingUtility 
 {	
 	
-	private static int mergesortThreshold = 0;
-	private static int quicksortThreshold = 0;
+	private static int mergesortThreshold = 100;
+	private static int quicksortThreshold = 100;
 
 	/**
 	 * Helper method for setting the switching threshold for merge sort
