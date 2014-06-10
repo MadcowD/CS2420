@@ -87,7 +87,7 @@ public class RecursiveSortingUtility
 	private static <T extends Comparable<? super T>> void mergeSortRecursive(ArrayList<T> list, ArrayList<T> temp, int start, int end)
 	{
 		if(start < end){
-			if(end - start < mergesortThreshold)
+			if(list.size() < mergesortThreshold)
 				insertionSortIterative(list, start, end);
 			else{
 				int center = (start + end)/2;

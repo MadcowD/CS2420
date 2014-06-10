@@ -6,6 +6,7 @@ package assignment4;
 import java.util.ArrayList;
 
 import junit.framework.TestCase;
+import assignment4.AlgorithmTimer.TimeComplexity;
 
 /**
  * @author Maks Cegielski-Johnson
@@ -187,6 +188,26 @@ public class RecursiveSortingUtilityTester extends TestCase {
 		for(int i = 9; i>= 0; i--)
 			nowSorted.add(tst.get(i));
 		assertTrue(isSorted(nowSorted));
+	}
+	/**
+	 * Test method for checking our Enumerated Time Complexity type method setter.
+	 */
+	public void testGenerateCase(){
+		tst = rec.generateCase(10, TimeComplexity.BEST);
+		assertTrue(isSorted(tst));
+		
+		tst = rec.generateCase(10, TimeComplexity.WORST);
+		ArrayList<Integer> back = new ArrayList<Integer>();
+		assertTrue(!isSorted(tst));
+		for(int i = 9; i>= 0; i--)
+			back.add(tst.get(i));
+		assertTrue(isSorted(back));
+		
+		tst = rec.generateCase(10, TimeComplexity.AVERAGE);
+		assertTrue(!isSorted(tst));
+		
+		
+		
 	}
 
 }

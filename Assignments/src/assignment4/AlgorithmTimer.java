@@ -82,7 +82,7 @@ public final class AlgorithmTimer {
 			net+= cur;
 			
 			
-			System.out.println(n + "\t" + cur);
+//			System.out.println(n + "\t" + cur);
 		}
 		
 		
