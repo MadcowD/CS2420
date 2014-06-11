@@ -19,6 +19,14 @@ import assignment4.AlgorithmTimer.TimeComplexity;
 public class RecursiveSortingUtility 
 {	
 	
+	public static void main(String[] args){
+		ArrayList<Integer> tst = RecursiveSortingUtility.generateAverageCase(10);
+		System.out.println(tst);
+		RecursiveSortingUtility.mergeSortDriver(tst);
+		System.out.println(tst);
+	}
+	
+	
 	private static int mergesortThreshold = 100;
 	private static int quicksortThreshold = 100;
 
@@ -67,69 +75,60 @@ public class RecursiveSortingUtility
 	 */
 	public static <T extends Comparable<? super T>> void mergeSortDriver(ArrayList<T> list)
 	{
-
-		ArrayList<T> temp = new ArrayList<T>(list.size());
-		for(int i = 0; i<list.size(); i++){
-			temp.add(null);
-		}
-
-		mergeSortRecursive(list, temp, 0, list.size()-1);
+		mergeSort(list, 0, list.size());
 	}
+	
+	private static <T extends Comparable<? super T>> void mergeSort(ArrayList<T> list, int start, int end){
+	
 
-	/**
-	 * Recursive merge sort algorithm method 
-	 * 
-	 * @param list   - input ArrayList of T objects that must have a Comparable implementation
-	 * @param temp   - temporary ArrayList of T objects to help with merging
-	 * @param start  - start index of the subarray of objects
-	 * @param end    - end index of the subarray of objects
-	 */
-	private static <T extends Comparable<? super T>> void mergeSortRecursive(ArrayList<T> list, ArrayList<T> temp, int start, int end)
-	{
-		if(start < end){
-			if(end - start < mergesortThreshold)
-				insertionSortIterative(list, start, end);
-			else{
-				int center = (start + end)/2;
-				mergeSortRecursive(list, temp, start, center);
-				mergeSortRecursive(list, temp, center+1, end);
-
-				mergeSortedPortions(list, temp, start, center+1, end);
+		if(end - start >1){
+			mergeSort(list, start, (end+start)/2);
+			mergeSort(list,  (end+start)/2, end);
+		}
+		else return;
+		
+		T left;
+		T right;
+		T index;
+		for(int i = start, l = start, r = (start+end)/2;i < end;i++)
+		{
+			left = list.get(l);
+			index = list.get(i);
+			if(r == end){
+				fastSwap(list, left, index, l, i);
+				continue;
 			}
+			right = list.get(r);
+			
+			if(index.compareTo(right) >= 0
+					&& right.compareTo(left) <= 0)
+			{
+				if(l == i)
+					l = r;
+				fastSwap(list, right, index, r, i);
+				r++;
+			}
+			else if(index.compareTo(left) >= 0)
+			{
+				if(l == i)
+					l++;
+				else
+				{
+					fastSwap(list, left, index, l, i);
+					if(l != r -1)
+						l++;
+				}
+			}
+			
+			if(r == l)
+				r++;
+				
 		}
+		
 	}
-
-	/**
-	 * Recursive merge sort helper method 
-	 * 
-	 * @param list   - input ArrayList of T objects that must have a Comparable implementation
-	 * @param temp   - temporary ArrayList in  which the result with be placed
-	 * @param start  - start index of the subarray of objects
-	 * @param middle - middle index of the subarray of objects
-	 * @param end    - end index of the subarray of objects
-	 */
-	private static <T extends Comparable<? super T>> void mergeSortedPortions(ArrayList<T> list, ArrayList<T> temp, int start, int middle, int end)
-	{
-		int right = middle-1;
-		int numberElements = end - start + 1;
-		int tempPos = start;
-
-
-		while(start <= right && middle<=end)
-			if(list.get(start).compareTo(list.get(middle)) <= 0)
-				temp.set(tempPos++, list.get(start++));
-			else
-				temp.set(tempPos++, list.get(middle++));
-
-		while(start <= right)
-			temp.set(tempPos++, list.get(start++));
-		while(middle <= end)
-			temp.set(tempPos++, list.get(middle++));
-
-		for(int i = 0; i<numberElements; i++,end--){
-			list.set(end, temp.get(end));
-		}
-	}
+	
+	
+	
 
 	/**
 	 * Recursive quicksort driver method
@@ -170,7 +169,7 @@ public class RecursiveSortingUtility
 	private static <T extends Comparable<? super T>> int partition(ArrayList<T> list, int start, int end){
 		int pivPos = bestPivotStrategy(list, start, end);
 		T pivot = list.get(pivPos);
-		swapElements(list, start, pivPos);
+		normalSwap(list, start, pivPos);
 
 		int left = start+1;
 		int right = end;
@@ -190,7 +189,7 @@ public class RecursiveSortingUtility
 			}
 			if(left >= right)
 				break;
-			swapElements(list, left, right);
+			normalSwap(list, left, right);
 
 
 		}
@@ -243,46 +242,23 @@ public class RecursiveSortingUtility
 	 * 
 	 * @return index of chosen pivot
 	 */
-	public static <T extends Comparable<? super T>> int newbestPivotStrategy(ArrayList<T> list, int start, int end)
-	{
-		Random rng = new Random();
-		int limit = end - start;
-		int first = start + rng.nextInt(limit);
-
-		int second = start + rng.nextInt(limit);
-		int third = start + rng.nextInt(limit);
-
-		if(list.get(second).compareTo(list.get(first)) < 0){
-			swapElements(list, first, second);
-		}
-		if(list.get(third).compareTo(list.get(first)) < 0){
-			swapElements(list, first, third);
-		}
-		if(list.get(third).compareTo(list.get(second)) < 0){
-			swapElements(list, second, third);
-		}
-
-		return second;
-
-	}
-	
-	
 	public static <T extends Comparable<? super T>> int bestPivotStrategy(ArrayList<T> list, int start, int end){
 		int middle = (end + start)/2;
 		
 		if(list.get(middle).compareTo(list.get(start)) < 0){
-			swapElements(list, start, middle);
+			normalSwap(list, start, middle);
 		}
 		if(list.get(end).compareTo(list.get(start)) < 0){
-			swapElements(list, start, end);
+			normalSwap(list, start, end);
 		}
 		if(list.get(end).compareTo(list.get(middle)) < 0){
-			swapElements(list, middle, end);
+			normalSwap(list, middle, end);
 		}
 
 		return middle;
 		
 	}
+
 
 	/**
 	 * Best case input generation helper method
@@ -314,7 +290,7 @@ public class RecursiveSortingUtility
 		ArrayList<Integer> temp = generateBestCase(size);
 
 		for(int i = 0; i< size; i++)
-			swapElements(temp, i, rng.nextInt(size));
+			normalSwap(temp, i, rng.nextInt(size));
 
 		return temp;	
 	}
@@ -337,20 +313,6 @@ public class RecursiveSortingUtility
 	}	
 
 	/**
-	 * ArrayList elements swapping Helper method
-	 * 
-	 * @param list  - input ArrayList of objects, must have a Comparable implementation
-	 * @param left  - index of the left element
-	 * @param right - index of the right element
-	 */
-	private static <T extends Comparable<? super T>> void swapElements (ArrayList<T> list, int left, int right)
-	{
-		T temp = list.get(left);
-		list.set(left, list.get(right));
-		list.set(right, temp);
-	}
-	
-	/**
 	 * Generates a list based on a given complexity case.
 	 * @param n The number of elements to generate.
 	 * @param complexity The time complexity desired.
@@ -366,5 +328,31 @@ public class RecursiveSortingUtility
 		default:
 			return generateAverageCase(n);
 		}
+	}
+	
+	/**
+	 * We don't do checking of indices as to avoid jvm timing issues.private static
+	 * @param list
+	 * @param index1
+	 * @param index2
+	 */
+	private final static <T> void normalSwap(ArrayList<T> list, int index1, int index2){
+		T temp = list.get(index1);
+		list.set(index1, list.get(index2));
+		list.set(index2, temp);
+	}
+	
+	/**
+	 * Swaps two elements given that they have already been accessed by the array
+	 * This avoids a second access call.
+	 * @param list
+	 * @param e1
+	 * @param e2
+	 * @param index1
+	 * @param index2
+	 */
+	private final static <T> void fastSwap(ArrayList<T> list, T e1, T e2, int index1, int index2){
+		list.set(index1, e2);
+		list.set(index2, e1);
 	}
 }

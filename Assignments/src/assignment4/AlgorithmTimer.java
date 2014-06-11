@@ -29,9 +29,13 @@ public final class AlgorithmTimer {
 		this.algorithm = algorithm;
 		this.sampleSize = sampleSize;
 		this.complexity = complexity;
-		
 	}
 	
+	/**
+	 * Times the process at a given n
+	 * @param n
+	 * @return
+	 */
 	public long time(int n)
 	{
 		//Initializing timing variables before timing as to stablize cache.
