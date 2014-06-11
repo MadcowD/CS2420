@@ -16,10 +16,6 @@ import assignment4.AlgorithmTimer.TimeComplexity;
  */
 public class RecursiveSortingUtilityTester extends TestCase {
 
-	private RecursiveSortingUtility rec; 
-	//The sorting class, albeit has standard methods,
-	//we instantiate it so that we don't have to type 
-	//the entire class name repeatedly while testing
 
 
 	private ArrayList<Integer> tst;//Testing array
@@ -28,7 +24,6 @@ public class RecursiveSortingUtilityTester extends TestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		rec = new RecursiveSortingUtility();
 	}
 
 	/**
@@ -73,29 +68,29 @@ public class RecursiveSortingUtilityTester extends TestCase {
 	public void testMergeSortDriver() {
 
 		//Average Case
-		tst = rec.generateAverageCase(200);
+		tst = RecursiveSortingUtility.generateAverageCase(200);
 		assertTrue(!isSorted(tst));
-		rec.mergeSortDriver(tst);
+		RecursiveSortingUtility.mergeSortDriver(tst);
 		assertTrue(isSorted(tst));
 
 		//Best Case
-		tst = rec.generateBestCase(200);
+		tst = RecursiveSortingUtility.generateBestCase(200);
 		assertTrue(isSorted(tst));
-		rec.mergeSortDriver(tst);
+		RecursiveSortingUtility.mergeSortDriver(tst);
 		assertTrue(isSorted(tst));
 
 		//Worst Case
-		tst = rec.generateWorstCase(200);
+		tst = RecursiveSortingUtility.generateWorstCase(200);
 		assertTrue(!isSorted(tst));
-		rec.mergeSortDriver(tst);
+		RecursiveSortingUtility.mergeSortDriver(tst);
 		assertTrue(isSorted(tst));
 		
 		
 		//Empty List
-		ArrayList<Integer> empty = new ArrayList<Integer>();
-		assertTrue(empty.isEmpty());
-		rec.mergeSortDriver(empty);
-		assertTrue(empty.isEmpty());
+//		ArrayList<Integer> empty = new ArrayList<Integer>();
+//		assertTrue(empty.isEmpty());
+//		rec.mergeSortDriver(empty);
+//		assertTrue(empty.isEmpty());
 	}
 
 	/**
@@ -103,28 +98,28 @@ public class RecursiveSortingUtilityTester extends TestCase {
 	 */
 	public void testQuickSortDriver() {
 		//Average Case
-		tst = rec.generateAverageCase(200);
+		tst = RecursiveSortingUtility.generateAverageCase(200);
 		assertTrue(!isSorted(tst));
-		rec.quickSortDriver(tst);
+		RecursiveSortingUtility.quickSortDriver(tst);
 		assertTrue(isSorted(tst));
 
 		//Best Case
-		tst = rec.generateBestCase(200);
+		tst = RecursiveSortingUtility.generateBestCase(200);
 		assertTrue(isSorted(tst));
-		rec.quickSortDriver(tst);
+		RecursiveSortingUtility.quickSortDriver(tst);
 		assertTrue(isSorted(tst));
 
 		//Worst Case
-		tst = rec.generateWorstCase(200);
+		tst = RecursiveSortingUtility.generateWorstCase(200);
 		assertTrue(!isSorted(tst));
-		rec.quickSortDriver(tst);
+		RecursiveSortingUtility.quickSortDriver(tst);
 		assertTrue(isSorted(tst));
 		
 		
 		//Empty List
 		ArrayList<Integer> empty = new ArrayList<Integer>();
 		assertTrue(empty.isEmpty());
-		rec.quickSortDriver(empty);
+		RecursiveSortingUtility.quickSortDriver(empty);
 		assertTrue(empty.isEmpty());
 		
 	}
@@ -138,11 +133,11 @@ public class RecursiveSortingUtilityTester extends TestCase {
 		tst.add(3);
 		tst.add(7);
 
-		assertEquals(rec.goodPivotStrategy(tst, 0, 2), 1);
+		assertEquals(RecursiveSortingUtility.goodPivotStrategy(tst, 0, 2), 1);
 		
 		ArrayList<String> singleton = new ArrayList<String>(); //List of size 1
 		singleton.add("Please give us extra credit :) haha");
-		assertEquals(rec.goodPivotStrategy(tst, 0, 0), 0);
+		assertEquals(RecursiveSortingUtility.goodPivotStrategy(tst, 0, 0), 0);
 	}
 
 	/*
@@ -159,7 +154,7 @@ public class RecursiveSortingUtilityTester extends TestCase {
 	 * Test method for generating a list for the best complexity.
 	 */
 	public void testGenerateBestCase() {
-		tst = rec.generateBestCase(10);
+		tst = RecursiveSortingUtility.generateBestCase(10);
 		assertTrue(isSorted(tst));
 	}
 
@@ -167,7 +162,7 @@ public class RecursiveSortingUtilityTester extends TestCase {
 	 * Test method for generating a list for the average complexity.
 	 */
 	public void testGenerateAverageCase() {
-		tst = rec.generateAverageCase(20);
+		tst = RecursiveSortingUtility.generateAverageCase(20);
 
 		assertTrue(!isSorted(tst));
 	}
@@ -176,7 +171,7 @@ public class RecursiveSortingUtilityTester extends TestCase {
 	 * Test method for generating a list for the worst complexity.
 	 */
 	public void testGenerateWorstCase() {
-		tst = rec.generateWorstCase(10);
+		tst = RecursiveSortingUtility.generateWorstCase(10);
 		assertTrue(!isSorted(tst));
 		ArrayList<Integer> nowSorted = new ArrayList<>();
 
@@ -193,17 +188,17 @@ public class RecursiveSortingUtilityTester extends TestCase {
 	 * Test method for checking our Enumerated Time Complexity type method setter.
 	 */
 	public void testGenerateCase(){
-		tst = rec.generateCase(10, TimeComplexity.BEST);
+		tst = RecursiveSortingUtility.generateCase(10, TimeComplexity.BEST);
 		assertTrue(isSorted(tst));
 		
-		tst = rec.generateCase(10, TimeComplexity.WORST);
+		tst = RecursiveSortingUtility.generateCase(10, TimeComplexity.WORST);
 		ArrayList<Integer> back = new ArrayList<Integer>();
 		assertTrue(!isSorted(tst));
 		for(int i = 9; i>= 0; i--)
 			back.add(tst.get(i));
 		assertTrue(isSorted(back));
 		
-		tst = rec.generateCase(10, TimeComplexity.AVERAGE);
+		tst = RecursiveSortingUtility.generateCase(10, TimeComplexity.AVERAGE);
 		assertTrue(!isSorted(tst));
 		
 		
