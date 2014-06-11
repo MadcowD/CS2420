@@ -32,7 +32,7 @@ public final class AlgorithmTimer {
 	}
 	
 	/**
-	 * Times the process at a given n.
+	 * Times the process at a given n
 	 * @param n
 	 * @return
 	 */

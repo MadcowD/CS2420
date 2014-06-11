@@ -67,115 +67,55 @@ public class RecursiveSortingUtility
 	 */
 	public static <T extends Comparable<? super T>> void mergeSortDriver(ArrayList<T> list)
 	{
-		ArrayList<T> temp = new ArrayList<T>(list.size());
-		mergeSort(list, temp, 0, list.size());
+		mergeSort(list, 0, list.size());
 	}
 	
-	private static <T extends Comparable<? super T>> void merge(ArrayList<T> list, ArrayList<T> temp, int start, int end){
-		T left = list.get(start);
-		T right = list.get((start+end)/2);
-		
-		for(int l = start, r = (end+start)/2 , i = start;
-				i < end;
-				i++ ){
-
-			if(l == (start+end)/2){
-				if(temp.size()<i)
-					temp.add(right);
-				else
-					temp.set(i, right);
-				r++;
-				right = list.get(r == end ? 0 : r);
-				continue;
-			}
-			else if(r == end)
-			{
-				if(temp.size()<i)
-					temp.add(left);
-				else
-					temp.set(i, left);
-				l++;
-				left = list.get(l == (start+end)/2 ? 0 : l);
-				continue;
-			}
-			
-			if(left.compareTo(right) < 0){
-				if(temp.size()<i)
-					temp.add(left);
-				else
-					temp.set(i, left);
-				l++;
-				left = list.get(l == (start+end)/2 ? 0 : l);
-			}
-			else{
-				if(temp.size()<i)
-					temp.add(right);
-				else
-					temp.set(i, right);
-				r++;
-				right = list.get(r == end ? 0 : r);
-				
-			}
-		}
-		
-		for(int i = start; i< end; i++)
-			list.set(i, temp.get(i));
-	}
-	
-	private static <T extends Comparable<? super T>> void mergeSort(ArrayList<T> list, ArrayList<T> temp, int start, int end){
+	private static <T extends Comparable<? super T>> void mergeSort(ArrayList<T> list, int start, int end){
 	
 
 		if(end - start >1){
-		mergeSort(list, temp, start, (end+start)/2);
-		mergeSort(list, temp, (end+start)/2, end);
+			mergeSort(list, start, (end+start)/2);
+			mergeSort(list,  (end+start)/2, end);
 		}
-		if( end -start == 1)
+		else return;
+		
+		T left;
+		T right;
+		T index;
+		for(int i = start, l = start, r = (start+end)/2;i < end;i++)
 		{
-			temp.add(list.get(start));
-			return;
+			left = list.get(l);
+			index = list.get(i);
+			if(r == end){
+				fastSwap(list, left, index, l, i);
+				continue;
+			}
+			right = list.get(r);
+			
+			if(index.compareTo(right) >= 0
+					&& right.compareTo(left) <= 0)
+			{
+				if(l == i)
+					l = r;
+				fastSwap(list, right, index, r, i);
+				r++;
+			}
+			else if(index.compareTo(left) >= 0)
+			{
+				if(l == i)
+					l++;
+				else
+				{
+					fastSwap(list, left, index, l, i);
+					if(l != r -1)
+						l++;
+				}
+			}
+			
+			if(r == l)
+				r++;
+				
 		}
-		
-		merge(list,temp, start,end);
-
-		
-//		if(end - start == 12)
-//			System.out.print("HMU");
-//		
-//		T left;
-//		T right;
-//		T index;
-//		int comp;
-//		
-//		//merge using custom in place algorithm --AUTHORS: WILLIAM GUSS AND MAKS CEGIELSKI NO STEALY
-//		for(int l = start, r = (end+start)/2 , i = start;
-//				r < end;
-//				i++, r = (r == l) ? r+1 : r )
-//		{
-//			left = list.get(l);
-//			right = list.get(r);
-//			index = list.get(i);
-//			if(left.compareTo(index) > 0 && right.compareTo(index) > 0)
-//				continue;
-//			comp = left.compareTo(right);
-//			if(comp < 0)
-//			{
-//				if(l == i)
-//					l++;
-//				else
-//				{
-//					fastSwap(list, left, index, l, i);
-//					if(l != r-1)
-//						l++;
-//				}
-//			}
-//			else{
-//				if( l == i)
-//					l = r;
-//				fastSwap(list, right, index, r, i);
-//				
-//				r++;
-//			}
-//		}
 		
 	}
 	

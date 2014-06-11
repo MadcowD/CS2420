@@ -17,17 +17,20 @@ import assignment4.AlgorithmTimer.TimeComplexity;
  */
 public class MergeTimer implements AlgorithmTimer.Process {
 	public static void main(String[] args){
-		TimeComplexity complexity = TimeComplexity.BEST;
+		TimeComplexity complexity = TimeComplexity.AVERAGE;
 		
 		AlgorithmTimer timer = 
 				new AlgorithmTimer(new MergeTimer(), 2000, complexity);
 		
+
 		int end = 10000;
 		int start = 1000;
 		int step = 1000;
 		
-		System.out.println(timer.time(1000));
-		System.out.println(timer.time(10000));
+		timer.time(12);
+		
+		System.out.println(timer.time(1024));
+		System.out.println(timer.time(16384));
 		
 		RecursiveSortingUtility.generateAverageCase(8);
 
