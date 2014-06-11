@@ -87,7 +87,7 @@ public class RecursiveSortingUtility
 	private static <T extends Comparable<? super T>> void mergeSortRecursive(ArrayList<T> list, ArrayList<T> temp, int start, int end)
 	{
 		if(start < end){
-			if(list.size() < mergesortThreshold)
+			if(end - start < mergesortThreshold)
 				insertionSortIterative(list, start, end);
 			else{
 				int center = (start + end)/2;
@@ -243,7 +243,7 @@ public class RecursiveSortingUtility
 	 * 
 	 * @return index of chosen pivot
 	 */
-	public static <T extends Comparable<? super T>> int bestPivotStrategy(ArrayList<T> list, int start, int end)
+	public static <T extends Comparable<? super T>> int newbestPivotStrategy(ArrayList<T> list, int start, int end)
 	{
 		Random rng = new Random();
 		int limit = end - start;
@@ -265,7 +265,24 @@ public class RecursiveSortingUtility
 		return second;
 
 	}
+	
+	
+	public static <T extends Comparable<? super T>> int bestPivotStrategy(ArrayList<T> list, int start, int end){
+		int middle = (end + start)/2;
+		
+		if(list.get(middle).compareTo(list.get(start)) < 0){
+			swapElements(list, start, middle);
+		}
+		if(list.get(end).compareTo(list.get(start)) < 0){
+			swapElements(list, start, end);
+		}
+		if(list.get(end).compareTo(list.get(middle)) < 0){
+			swapElements(list, middle, end);
+		}
 
+		return middle;
+		
+	}
 
 	/**
 	 * Best case input generation helper method
@@ -278,7 +295,7 @@ public class RecursiveSortingUtility
 	{
 		ArrayList<Integer> temp = new ArrayList<Integer>();
 
-		for(int i = 0; i<size; i++)
+		for(int i = 1; i<=size; i++)
 			temp.add(i);
 
 		return temp;
@@ -313,7 +330,7 @@ public class RecursiveSortingUtility
 	{
 		ArrayList<Integer> temp = new ArrayList<Integer>();
 
-		for(int i = size - 1; i>=0; i--)
+		for(int i = size; i>0; i--)
 			temp.add(i);
 
 		return temp;

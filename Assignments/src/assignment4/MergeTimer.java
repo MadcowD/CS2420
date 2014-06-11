@@ -9,17 +9,19 @@ public class MergeTimer implements AlgorithmTimer.Process{
 	
 	public static void main(String[] args){
 		
-		TimeComplexity complexity = TimeComplexity.AVERAGE;
+		TimeComplexity complexity = TimeComplexity.BEST;
 		
 		AlgorithmTimer timer = new AlgorithmTimer(new MergeTimer(), 700, complexity);
 		
 		
-		for(int i = 20; i <= 80; i+= 1){
-			RecursiveSortingUtility.setQuickSortThreshold(i);
-//			System.out.println(i);
-			System.out.println(timer.time(1000,10000,1000));
+		for(int j = 0; j<4; j++){
+			for(int i = 46; i <= 56; i+= 1){
+				RecursiveSortingUtility.setQuickSortThreshold(i);
+				//			System.out.println(i);
+				System.out.println(timer.time(1000,10000,1000));
+			}
+			System.out.println("\n");
 		}
-		
 		
 		
 		
