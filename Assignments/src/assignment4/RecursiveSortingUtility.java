@@ -27,8 +27,8 @@ public class RecursiveSortingUtility
 	}
 	
 	
-	private static int mergesortThreshold = 100;
-	private static int quicksortThreshold = 100;
+	private static int mergesortThreshold = 0;
+	private static int quicksortThreshold = 0;
 
 	/**
 	 * Helper method for setting the switching threshold for merge sort
@@ -75,56 +75,75 @@ public class RecursiveSortingUtility
 	 */
 	public static <T extends Comparable<? super T>> void mergeSortDriver(ArrayList<T> list)
 	{
-		mergeSort(list, 0, list.size());
-	}
-	
-	private static <T extends Comparable<? super T>> void mergeSort(ArrayList<T> list, int start, int end){
-	
-
-		if(end - start >1){
-			mergeSort(list, start, (end+start)/2);
-			mergeSort(list,  (end+start)/2, end);
-		}
-		else return;
+		ArrayList<T> temp = new ArrayList<T>(list.size());
+		mergeSort(list, temp, 0, list.size());
 		
-		T left;
-		T right;
-		T index;
-		for(int i = start, l = start, r = (start+end)/2;i < end;i++)
-		{
-			left = list.get(l);
-			index = list.get(i);
-			if(r == end){
-				fastSwap(list, left, index, l, i);
+		for(int i = 0; i < temp.size(); i++)
+			list.set(i, temp.get(i));
+	}
+
+	private static <T extends Comparable<? super T>> void merge(ArrayList<T> list, ArrayList<T> temp, int start, int end){
+		T left = list.get(start);
+		T right = list.get((start+end)/2);
+
+		for(int l = start, r = (end+start)/2 , i = start;
+				i < end;
+				i++ ){
+
+			if(l == (start+end)/2){
+				if(temp.size()<i)
+					temp.add(right);
+				else
+					temp.set(i, right);
+				r++;
+				right = list.get(r == end ? 0 : r);
 				continue;
 			}
-			right = list.get(r);
-			
-			if(index.compareTo(right) >= 0
-					&& right.compareTo(left) <= 0)
+			else if(r == end)
 			{
-				if(l == i)
-					l = r;
-				fastSwap(list, right, index, r, i);
-				r++;
-			}
-			else if(index.compareTo(left) >= 0)
-			{
-				if(l == i)
-					l++;
+				if(temp.size()<i)
+					temp.add(left);
 				else
-				{
-					fastSwap(list, left, index, l, i);
-					if(l != r -1)
-						l++;
-				}
+					temp.set(i, left);
+				l++;
+				left = list.get(l == (start+end)/2 ? 0 : l);
+				continue;
 			}
-			
-			if(r == l)
+
+			if(left.compareTo(right) < 0){
+				if(temp.size()<i)
+					temp.add(left);
+				else
+					temp.set(i, left);
+				l++;
+				left = list.get(l == (start+end)/2 ? 0 : l);
+			}
+			else{
+				if(temp.size()<i)
+					temp.add(right);
+				else
+					temp.set(i, right);
 				r++;
-				
+				right = list.get(r == end ? 0 : r);
+
+			}
 		}
-		
+	}
+
+	private static <T extends Comparable<? super T>> void mergeSort(ArrayList<T> list, ArrayList<T> temp, int start, int end){
+
+
+		if(end - start >1){
+		mergeSort(list, temp, start, (end+start)/2);
+		mergeSort(list, temp, (end+start)/2, end);
+		}
+		if( end -start == 1)
+		{
+			temp.add(list.get(start));
+			return;
+		}
+
+		merge(list,temp, start,end);
 	}
 	
 	
