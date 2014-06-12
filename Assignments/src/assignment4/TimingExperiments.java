@@ -43,19 +43,16 @@ public class TimingExperiments{
 					public void run(int n) { RecursiveSortingUtility.quickSortDriver(data); }
 					
 					public void overhead(int n) {}
-				}, 4000); //higher averaging given faster base times
+				}, 1000); //higher averaging given faster base times
 		
+				//PERFORM EXPERIMENTS
 		
+	
+		RecursiveSortingUtility.setQuickSortThreshold(30);
 		
-		//PERFORM EXPERIMENTS
+		System.out.println("BEST PIVOT");
+		quickTimer.test(1,20001);
 		
-
-		System.out.println("THRESHOLD: 7");
-		RecursiveSortingUtility.setQuickSortThreshold(7);
-		quickTimer.test(1, 21000);
-		System.out.println("THRESHOLD: 100");
-		RecursiveSortingUtility.setQuickSortThreshold(100);
-		quickTimer.test(1, 21000);
 	}
 }
 

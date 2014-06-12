@@ -40,6 +40,7 @@ public final class AlgorithmTimer {
 		this.name = name;
 	}
 	
+	
 	/**
 	 * Runs a full test and generates timing data based on the given process.
 	 * @param start The beginning N to time

@@ -186,7 +186,7 @@ public class RecursiveSortingUtility
 
 
 	private static <T extends Comparable<? super T>> int partition(ArrayList<T> list, int start, int end){
-		int pivPos = bestPivotStrategy(list, start, end);
+		int pivPos = betterPivotStrategy(list, start, end);
 		T pivot = list.get(pivPos);
 		normalSwap(list, start, pivPos);
 
@@ -254,7 +254,7 @@ public class RecursiveSortingUtility
 
 	/**
 	 * Recursive quicksort helper method
-	 * 
+	 * EMPLOYING ADAPTIVE METHOD AS SEEN IN: J. L. BENTLEY ADN M.D. McIlroy
 	 * @param list  - input ArrayList of T objects that must have a Comparable implementation
 	 * @param start - start index of the subarray  of objects
 	 * @param limit   - end index of the subarray  of objects
