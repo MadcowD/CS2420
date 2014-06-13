@@ -19,6 +19,9 @@ public class RecursiveSortingUtilityTester extends TestCase {
 
 
 
+	/**
+	 *  Sets up the testing suite.
+	 */
 	protected void setUp() throws Exception {
 		super.setUp();
 	}
