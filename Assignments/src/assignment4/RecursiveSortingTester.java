@@ -13,11 +13,7 @@ import assignment4.AlgorithmTimer.TimeComplexity;
  */
 public class RecursiveSortingUtilityTester extends TestCase {
 
-
-
 	private ArrayList<Integer> tst;//Testing array
-
-
 
 	/**
 	 *  Sets up the testing suite.
@@ -56,7 +52,6 @@ public class RecursiveSortingUtilityTester extends TestCase {
 		unsort.add(2);
 
 		assertTrue(!isSorted(unsort));
-
 		assertTrue(isSorted(sorted));
 
 
@@ -95,6 +90,15 @@ public class RecursiveSortingUtilityTester extends TestCase {
 		assertTrue(empty.isEmpty());
 		RecursiveSortingUtility.mergeSortDriver(empty);
 		assertTrue(empty.isEmpty());
+		
+		
+		//Testing Large Lists Multiple Times
+		for(int i = 0; i<5; i++){
+			tst = RecursiveSortingUtility.generateAverageCase(10000);
+			assertTrue(!isSorted(tst));
+			RecursiveSortingUtility.mergeSortDriver(tst);
+			assertTrue(isSorted(tst));
+		}
 	}
 
 	/**
@@ -126,6 +130,15 @@ public class RecursiveSortingUtilityTester extends TestCase {
 		RecursiveSortingUtility.quickSortDriver(empty);
 		assertTrue(empty.isEmpty());
 		
+		
+		//Testing Large Lists Multiple Times
+		for(int i = 0; i<5; i++){
+			tst = RecursiveSortingUtility.generateAverageCase(10000);
+			assertTrue(!isSorted(tst));
+			RecursiveSortingUtility.quickSortDriver(tst);
+			assertTrue(isSorted(tst));
+		}
+		
 	}
 
 	/**
@@ -140,12 +153,11 @@ public class RecursiveSortingUtilityTester extends TestCase {
 		assertEquals(RecursiveSortingUtility.goodPivotStrategy(tst, 0, 2), 1);
 		
 		ArrayList<String> singleton = new ArrayList<String>(); //List of size 1
-		singleton.add("Please give us extra credit :) haha");
+		singleton.add("Woo");
 		assertEquals(RecursiveSortingUtility.goodPivotStrategy(tst, 0, 0), 0);
 	}
 
 	/*
-	 * 
 	 * 
 	 * We didn't test the other two pivot strategies
 	 * because they are random and they obviously work
