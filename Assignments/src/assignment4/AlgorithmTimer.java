@@ -7,7 +7,7 @@ import assignment4.AlgorithmTimer.TimeComplexity;
  * Essentially takesa functor (AlgorithmTimer.Process) and tests it using different
  * methods and complexities. Streamlines data export.
  * @author William Guss
- * @author Maks
+ * @author Maks Cegielski-Johnson
  */
 public final class AlgorithmTimer {
 	public final static double PORTION_LOW	= 0.01;

@@ -11,7 +11,8 @@ import assignment4.AlgorithmTimer.TimeComplexity;
  * Optimizes the insertion threshold of merge sort.
  * The class employs the AlgorithmTimer.Process (in its not static form).
  * Collects all of the data needed for analysis
- * @author wguss & cegielski
+ * @author William Guss
+ * @author Maks Cegielski-Johnson
  *
  */
 public class RecursiveSortingTimer{
