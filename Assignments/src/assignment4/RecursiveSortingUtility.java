@@ -77,24 +77,18 @@ public class RecursiveSortingUtility
 	public static <T extends Comparable<? super T>> void mergeSortDriver(ArrayList<T> list)
 	{
 		ArrayList<T> temp = new ArrayList<T>(list.size());
-
+		for(int i = 0; i < list.size(); i++)
+			temp.add(null);
+		
 		mergeSort(list, temp, 0, list.size()-1);
-
-		//insertionSortIterative(list, 0, list.size()-1);
-	}
-
-	
-	private static <T extends Comparable<? super T>> void tempSet(ArrayList<T>  temp, int pos, T add){
-		if(temp.size()>pos)
-		{
-			temp.set(pos,add);
-		}
-		else{
-			for(int i = temp.size(); i < pos; i++)
-				temp.add(null);
-			temp.add(add);
+		
+		
+		for(int i = 0; i<list.size(); i++){
+			list.set(i, temp.get(i));
 		}
 	}
+
+
 	
 	private static <T extends Comparable<? super T>> void merge(ArrayList<T> list, ArrayList<T> temp, int start, int end){
 		int middle = (start +end)/2 +1;
@@ -105,32 +99,28 @@ public class RecursiveSortingUtility
 
 		while(start <= right && middle<=end)
 			if(list.get(start).compareTo(list.get(middle)) <= 0)
-				tempSet(temp, tempPos++, list.get(start++));
+				temp.set(tempPos++, list.get(start++));
 			else
-				tempSet(temp, tempPos++, list.get(middle++));
+				temp.set(tempPos++, list.get(middle++));
 
 		while(start <= right)
-			tempSet(temp, tempPos++, list.get(start++));
+			temp.set(tempPos++, list.get(start++));
 		while(middle <= end)
-			tempSet(temp, tempPos++, list.get(middle++));
-
-		for(int i = 0; i<numberElements; i++,end--){
-			list.set(end, temp.get(end));
-		}
+			temp.set(tempPos++, list.get(middle++));
 
 	}
 
 	private static <T extends Comparable<? super T>> void mergeSort(ArrayList<T> list, ArrayList<T> temp, int start, int end){
 		if(start < end){
-			if(end - start < mergesortThreshold)
-				insertionSortIterative(list, start, end);
-			else{
+			//if(end - start < mergesortThreshold)
+			//	insertionSortIterative(list, start, end);
+			//else{
 				int center = (start + end)/2;
 				mergeSort(list, temp, start, center);
 				mergeSort(list, temp, center+1, end);
 
 				merge(list, temp, start, end);
-			}
+			//}
 		}
 
 	}
