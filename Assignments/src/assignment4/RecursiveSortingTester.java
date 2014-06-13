@@ -11,7 +11,7 @@ import assignment4.AlgorithmTimer.TimeComplexity;
  *
  * JUnit testing for methods contained in the RecursiveSortingUtility class.
  */
-public class RecursiveSortingUtilityTester extends TestCase {
+public class RecursiveSortingTester extends TestCase {
 
 	private ArrayList<Integer> tst;//Testing array
 

@@ -27,8 +27,8 @@ public class RecursiveSortingUtility
 	}
 
 
-	private static int mergesortThreshold = 0;
-	private static int quicksortThreshold = 44;
+	private static int mergesortThreshold = 25;
+	private static int quicksortThreshold = 14;
 	public static int choose = 3;
 
 	/**
@@ -62,7 +62,7 @@ public class RecursiveSortingUtility
 		int j;
 		for(int i = start; i <= end; i++){
 			T val = list.get(i);
-			for(j = i; j>0 && val.compareTo(list.get(j-1)) < 0; j--){
+			for(j = i; j>start && val.compareTo(list.get(j-1)) < 0; j--){
 				list.set(j, list.get(j-1));
 			}
 			list.set(j, val);
@@ -166,8 +166,7 @@ public class RecursiveSortingUtility
 	private static <T extends Comparable<? super T>> int partition(ArrayList<T> list, int start, int end){
 		
 		
-		int pivPos = choose == 0 ? goodPivotStrategy(list,start,end) : choose == 1 ?betterPivotStrategy(list, start, end) : 
-			bestPivotStrategy(list, start, end);
+		int pivPos = bestPivotStrategy(list,start,end);
 		T pivot = list.get(pivPos);
 		normalSwap(list, start, pivPos);
 
@@ -216,6 +215,7 @@ public class RecursiveSortingUtility
 		return middle;
 	}
 
+	public static Random rng = new Random();
 	/**
 	 * Recursive quicksort helper method
 	 * 
@@ -227,7 +227,7 @@ public class RecursiveSortingUtility
 	 */
 	public static <T extends Comparable<? super T>> int betterPivotStrategy(ArrayList<T> list, int start, int end)
 	{
-		Random rng = new Random();
+		
 
 		return start + rng.nextInt(end-start);
 

@@ -48,30 +48,32 @@ public class RecursiveSortingTimer{
 				//PERFORM EXPERIMENTS
 		
 		//Quick sort threshold
-//		
+		
+		
+		
+		
+//		System.out.println("MERGE BEST THRESHOLD\n");
+//		for(int i = 20; i <= 40; i+=1 ){
+//			System.out.println("THRESHOLD " + i);
+//			RecursiveSortingUtility.setMergeSortThreshold(i);
+//			mergeTimer.test(1, 20001);
+//		}
+		
 //		System.out.println("QUICK BEST THRESHOLD\n");
-//		for(int i = 0; i <= 100; i+=20 ){
+//		for(int i = 10; i <= 30; i+=1 ){
 //			System.out.println("THRESHOLD " + i);
 //			RecursiveSortingUtility.setQuickSortThreshold(i);
 //			quickTimer.test(1, 20001);
 //		}
-//		
-//		
 		
-		//Pivots
+		
+		
+//		//Pivots
 //		
-//		System.out.println("GOOD PIVOT");
+//		System.out.println("best PIVOT");
 //		RecursiveSortingUtility.choose = 0;
 //		quickTimer.test(1,20001);
 //		
-//		System.out.println("BETTER PIVOT");
-//		RecursiveSortingUtility.choose = 1;
-//		quickTimer.test(1,20001);
-//		
-//		System.out.println("BEST PIVOT");
-//		RecursiveSortingUtility.choose = 2;
-//		quickTimer.test(1,20001);
-		
 		//Comparison
 		quickTimer.test(1, 20001);
 		mergeTimer.test(1, 20001);
