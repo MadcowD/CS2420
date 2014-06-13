@@ -28,8 +28,8 @@ public class RecursiveSortingUtility
 
 
 	private static int mergesortThreshold = 0;
-	private static int quicksortThreshold = 0;
-	public static int choose = 0;
+	private static int quicksortThreshold = 44;
+	public static int choose = 3;
 
 	/**
 	 * Helper method for setting the switching threshold for merge sort
@@ -81,11 +81,6 @@ public class RecursiveSortingUtility
 			temp.add(null);
 		
 		mergeSort(list, temp, 0, list.size()-1);
-		
-		
-		for(int i = 0; i<list.size(); i++){
-			list.set(i, temp.get(i));
-		}
 	}
 
 
@@ -108,19 +103,23 @@ public class RecursiveSortingUtility
 		while(middle <= end)
 			temp.set(tempPos++, list.get(middle++));
 
+		for(int i = 0; i<numberElements; i++,end--){
+			list.set(end, temp.get(end));
+		}
+
 	}
 
 	private static <T extends Comparable<? super T>> void mergeSort(ArrayList<T> list, ArrayList<T> temp, int start, int end){
 		if(start < end){
-			//if(end - start < mergesortThreshold)
-			//	insertionSortIterative(list, start, end);
-			//else{
+			if(end - start < mergesortThreshold)
+				insertionSortIterative(list, start, end);
+			else{
 				int center = (start + end)/2;
 				mergeSort(list, temp, start, center);
 				mergeSort(list, temp, center+1, end);
 
 				merge(list, temp, start, end);
-			//}
+			}
 		}
 
 	}

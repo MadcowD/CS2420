@@ -28,7 +28,7 @@ public class RecursiveSortingTimer{
 					public void run(int n) { RecursiveSortingUtility.mergeSortDriver(data); }
 
 					public void overhead(int n) {}
-				}, 800);
+				}, 100);
 		
 		//quick
 		AlgorithmTimer quickTimer =
@@ -42,37 +42,38 @@ public class RecursiveSortingTimer{
 					public void run(int n) { RecursiveSortingUtility.quickSortDriver(data); }
 					
 					public void overhead(int n) {}
-				}, 8000); //higher averaging given faster base times
+				}, 100); //higher averaging given faster base times
 		
 				//PERFORM EXPERIMENTS
 		
-		System.out.println("MERGE BEST THRESHOLD\n");
-		for(int i = 0; i <= 100; i+=20 ){
-			System.out.println("THRESHOLD " + i);
-			RecursiveSortingUtility.setMergeSortThreshold(i);
-			mergeTimer.test(1, 20001);
-		}
+		//Quick sort threshold
+//		
+//		System.out.println("QUICK BEST THRESHOLD\n");
+//		for(int i = 0; i <= 100; i+=20 ){
+//			System.out.println("THRESHOLD " + i);
+//			RecursiveSortingUtility.setQuickSortThreshold(i);
+//			quickTimer.test(1, 20001);
+//		}
+//		
+//		
 		
-		System.out.println("QUICK BEST THRESHOLD\n");
-		for(int i = 0; i <= 100; i+=20 ){
-			System.out.println("THRESHOLD " + i);
-			RecursiveSortingUtility.setQuickSortThreshold(i);
-			quickTimer.test(1, 20001);
-		}
+		//Pivots
+//		
+//		System.out.println("GOOD PIVOT");
+//		RecursiveSortingUtility.choose = 0;
+//		quickTimer.test(1,20001);
+//		
+//		System.out.println("BETTER PIVOT");
+//		RecursiveSortingUtility.choose = 1;
+//		quickTimer.test(1,20001);
+//		
+//		System.out.println("BEST PIVOT");
+//		RecursiveSortingUtility.choose = 2;
+//		quickTimer.test(1,20001);
 		
-		
-		
-		System.out.println("GOOD PIVOT");
-		RecursiveSortingUtility.choose = 0;
-		quickTimer.test(1,20001);
-		
-		System.out.println("BETTER PIVOT");
-		RecursiveSortingUtility.choose = 1;
-		quickTimer.test(1,20001);
-		
-		System.out.println("BEST PIVOT");
-		RecursiveSortingUtility.choose = 2;
-		quickTimer.test(1,20001);
+		//Comparison
+		quickTimer.test(1, 20001);
+		mergeTimer.test(1, 20001);
 		
 	}
 }
