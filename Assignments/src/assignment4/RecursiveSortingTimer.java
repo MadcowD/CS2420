@@ -14,7 +14,7 @@ import assignment4.AlgorithmTimer.TimeComplexity;
  * @author wguss & cegielski
  *
  */
-public class RecursiveSortingTimer
+public class RecursiveSortingTimer{
 	public static void main(String[] args){
 		// merge
 		AlgorithmTimer mergeTimer = 
