@@ -68,17 +68,17 @@ public final class AlgorithmTimer {
 			System.out.println("\n\n----------------" + complexity.name() + " COMPLEXITY----------------");
 			
 			
-			System.out.println("--[LOW RANGE] @ " + lowEnd);
-			
-			long lowVal = time(start, lowEnd, lowStep, complexity);
-			System.out.println("TOTAL: " + lowVal + "\n");
-			
-			
-			
-			System.out.println("--[MID RANGE] @ " +  midEnd);
-			
-			long midVal = time(start, midEnd, midStep, complexity);
-			System.out.println("TOTAL: " + midVal + "\n");
+//			System.out.println("--[LOW RANGE] @ " + lowEnd);
+//			
+//			long lowVal = time(start, lowEnd, lowStep, complexity);
+//			System.out.println("TOTAL: " + lowVal + "\n");
+//			
+//			
+//			
+//			System.out.println("--[MID RANGE] @ " +  midEnd);
+//			
+//			long midVal = time(start, midEnd, midStep, complexity);
+//			System.out.println("TOTAL: " + midVal + "\n");
 			
 			
 			

@@ -88,10 +88,10 @@ public class RecursiveSortingUtilityTester extends TestCase {
 		System.out.println(tst);
 		
 		//Empty List
-//		ArrayList<Integer> empty = new ArrayList<Integer>();
-//		assertTrue(empty.isEmpty());
-//		rec.mergeSortDriver(empty);
-//		assertTrue(empty.isEmpty());
+		ArrayList<Integer> empty = new ArrayList<Integer>();
+		assertTrue(empty.isEmpty());
+		RecursiveSortingUtility.mergeSortDriver(empty);
+		assertTrue(empty.isEmpty());
 	}
 
 	/**

@@ -18,17 +18,18 @@ import assignment4.AlgorithmTimer.TimeComplexity;
  */
 public class RecursiveSortingUtility 
 {	
-	
+
 	public static void main(String[] args){
 		ArrayList<Integer> tst = RecursiveSortingUtility.generateAverageCase(10);
 		System.out.println(tst);
 		RecursiveSortingUtility.mergeSortDriver(tst);
 		System.out.println(tst);
 	}
-	
-	
+
+
 	private static int mergesortThreshold = 0;
 	private static int quicksortThreshold = 0;
+	public static int choose = 0;
 
 	/**
 	 * Helper method for setting the switching threshold for merge sort
@@ -39,7 +40,7 @@ public class RecursiveSortingUtility
 	{
 		mergesortThreshold = desiredThreshold;
 	}
-	
+
 	/**
 	 * Helper method for setting the switching threshold for quicksort
 	 *  
@@ -76,78 +77,66 @@ public class RecursiveSortingUtility
 	public static <T extends Comparable<? super T>> void mergeSortDriver(ArrayList<T> list)
 	{
 		ArrayList<T> temp = new ArrayList<T>(list.size());
-		mergeSort(list, temp, 0, list.size());
-		
-		for(int i = 0; i < temp.size(); i++)
-			list.set(i, temp.get(i));
+
+		mergeSort(list, temp, 0, list.size()-1);
+
+		//insertionSortIterative(list, 0, list.size()-1);
 	}
 
-	private static <T extends Comparable<? super T>> void merge(ArrayList<T> list, ArrayList<T> temp, int start, int end){
-		T left = list.get(start);
-		T right = list.get((start+end)/2);
-
-		for(int l = start, r = (end+start)/2 , i = start;
-				i < end;
-				i++ ){
-
-			if(l == (start+end)/2){
-				if(temp.size()<i)
-					temp.add(right);
-				else
-					temp.set(i, right);
-				r++;
-				right = list.get(r == end ? 0 : r);
-				continue;
-			}
-			else if(r == end)
-			{
-				if(temp.size()<i)
-					temp.add(left);
-				else
-					temp.set(i, left);
-				l++;
-				left = list.get(l == (start+end)/2 ? 0 : l);
-				continue;
-			}
-
-			if(left.compareTo(right) < 0){
-				if(temp.size()<i)
-					temp.add(left);
-				else
-					temp.set(i, left);
-				l++;
-				left = list.get(l == (start+end)/2 ? 0 : l);
-			}
-			else{
-				if(temp.size()<i)
-					temp.add(right);
-				else
-					temp.set(i, right);
-				r++;
-				right = list.get(r == end ? 0 : r);
-
-			}
+	
+	private static <T extends Comparable<? super T>> void tempSet(ArrayList<T>  temp, int pos, T add){
+		if(temp.size()>pos)
+		{
+			temp.set(pos,add);
 		}
+		else{
+			for(int i = temp.size(); i < pos; i++)
+				temp.add(null);
+			temp.add(add);
+		}
+	}
+	
+	private static <T extends Comparable<? super T>> void merge(ArrayList<T> list, ArrayList<T> temp, int start, int end){
+		int middle = (start +end)/2 +1;
+		int right = middle-1;
+		int numberElements = end - start + 1;
+		int tempPos = start;
+
+
+		while(start <= right && middle<=end)
+			if(list.get(start).compareTo(list.get(middle)) <= 0)
+				tempSet(temp, tempPos++, list.get(start++));
+			else
+				tempSet(temp, tempPos++, list.get(middle++));
+
+		while(start <= right)
+			tempSet(temp, tempPos++, list.get(start++));
+		while(middle <= end)
+			tempSet(temp, tempPos++, list.get(middle++));
+
+		for(int i = 0; i<numberElements; i++,end--){
+			list.set(end, temp.get(end));
+		}
+
 	}
 
 	private static <T extends Comparable<? super T>> void mergeSort(ArrayList<T> list, ArrayList<T> temp, int start, int end){
+		if(start < end){
+			if(end - start < mergesortThreshold)
+				insertionSortIterative(list, start, end);
+			else{
+				int center = (start + end)/2;
+				mergeSort(list, temp, start, center);
+				mergeSort(list, temp, center+1, end);
 
-
-		if(end - start >1){
-		mergeSort(list, temp, start, (end+start)/2);
-		mergeSort(list, temp, (end+start)/2, end);
+				merge(list, temp, start, end);
+			}
 		}
-		if( end -start == 1)
-		{
-			temp.add(list.get(start));
-			return;
-		}
 
-		merge(list,temp, start,end);
 	}
-	
-	
-	
+
+
+
 
 	/**
 	 * Recursive quicksort driver method
@@ -186,7 +175,10 @@ public class RecursiveSortingUtility
 
 
 	private static <T extends Comparable<? super T>> int partition(ArrayList<T> list, int start, int end){
-		int pivPos = betterPivotStrategy(list, start, end);
+		
+		
+		int pivPos = choose == 0 ? goodPivotStrategy(list,start,end) : choose == 1 ?betterPivotStrategy(list, start, end) : 
+			bestPivotStrategy(list, start, end);
 		T pivot = list.get(pivPos);
 		normalSwap(list, start, pivPos);
 
@@ -263,7 +255,7 @@ public class RecursiveSortingUtility
 	 */
 	public static <T extends Comparable<? super T>> int bestPivotStrategy(ArrayList<T> list, int start, int end){
 		int middle = (end + start)/2;
-		
+
 		if(list.get(middle).compareTo(list.get(start)) < 0){
 			normalSwap(list, start, middle);
 		}
@@ -275,7 +267,7 @@ public class RecursiveSortingUtility
 		}
 
 		return middle;
-		
+
 	}
 
 
@@ -348,7 +340,7 @@ public class RecursiveSortingUtility
 			return generateAverageCase(n);
 		}
 	}
-	
+
 	/**
 	 * We don't do checking of indices as to avoid jvm timing issues.private static
 	 * @param list
@@ -360,7 +352,7 @@ public class RecursiveSortingUtility
 		list.set(index1, list.get(index2));
 		list.set(index2, temp);
 	}
-	
+
 	/**
 	 * Swaps two elements given that they have already been accessed by the array
 	 * This avoids a second access call.
