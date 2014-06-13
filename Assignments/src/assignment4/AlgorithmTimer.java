@@ -2,6 +2,13 @@ package assignment4;
 
 import assignment4.AlgorithmTimer.TimeComplexity;
 
+/**
+ * A timing framework built for CS2420, because we are lazy. 
+ * Essentially takesa functor (AlgorithmTimer.Process) and tests it using different
+ * methods and complexities. Streamlines data export.
+ * @author William Guss
+ * @author Maks
+ */
 public final class AlgorithmTimer {
 	public final static double PORTION_LOW	= 0.01;
 	public final static double STEP_LOW		= PORTION_LOW/80.0;
@@ -68,17 +75,17 @@ public final class AlgorithmTimer {
 			System.out.println("\n\n----------------" + complexity.name() + " COMPLEXITY----------------");
 			
 			
-//			System.out.println("--[LOW RANGE] @ " + lowEnd);
-//			
-//			long lowVal = time(start, lowEnd, lowStep, complexity);
-//			System.out.println("TOTAL: " + lowVal + "\n");
-//			
-//			
-//			
-//			System.out.println("--[MID RANGE] @ " +  midEnd);
-//			
-//			long midVal = time(start, midEnd, midStep, complexity);
-//			System.out.println("TOTAL: " + midVal + "\n");
+			System.out.println("--[LOW RANGE] @ " + lowEnd);
+			
+			long lowVal = time(start, lowEnd, lowStep, complexity);
+			System.out.println("TOTAL: " + lowVal + "\n");
+			
+			
+			
+			System.out.println("--[MID RANGE] @ " +  midEnd);
+			
+			long midVal = time(start, midEnd, midStep, complexity);
+			System.out.println("TOTAL: " + midVal + "\n");
 			
 			
 			

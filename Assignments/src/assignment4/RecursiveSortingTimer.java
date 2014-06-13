@@ -10,12 +10,11 @@ import assignment4.AlgorithmTimer.TimeComplexity;
 /**
  * Optimizes the insertion threshold of merge sort.
  * The class employs the AlgorithmTimer.Process (in its not static form).
- * Essentially optimization occurs by changing the thresholding point according to a binary search method
- * minimizing time. TODO: Employ eulers first derivative method. 
+ * Collects all of the data needed for analysis
  * @author wguss & cegielski
  *
  */
-public class TimingExperiments{
+public class RecursiveSortingTimer{
 	public static void main(String[] args){
 		// merge
 		AlgorithmTimer mergeTimer = 
