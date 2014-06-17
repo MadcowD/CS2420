@@ -15,8 +15,8 @@ package assignment5;
  * Stacks are used to represent the towers and recursion is used to solve and the problem. 
  * 
  * @author Paymon Saebi 
- * @author 
- * @author 
+ * @author Maks Cegielski-Johnson
+ * @author William Guss	
  */
 public class TowersOfHanoi
 {
@@ -172,7 +172,54 @@ public class TowersOfHanoi
     public void moveDiscSingle (char from, char to) throws Exception
     {
     	// Throw an exception for every illegal case.
+    	if(from == to)
+    		throw new Exception("Abort! Illegal tower request!");
+    	// if from tower has no discs throw Illegal tower request exception
     	//TODO
+    	
+    	MyStack start = null;
+    	MyStack finish = null;
+    	
+    	switch(from){
+    	case 'A':
+    		start = towerA;
+    		break;
+    	case 'B':
+    		start = towerB;
+    		break;
+    	case 'C':
+    		start = towerC;
+    		break;
+    	default:
+    		throw new Exception("Abort! Illegal tower ID!");
+    	}
+    	
+    	switch(to){
+    	case 'A':
+    		finish = towerA;
+    		break;
+    	case 'B':
+    		finish = towerB;
+    		break;
+    	case 'C':
+    		finish = towerC;
+    		break;
+    	default:
+    		throw new Exception("Abort! Illegal tower ID!");
+    	}
+    	
+    	if(start.size() == 0)
+    		throw new Exception("Abort! Illegal tower request!");
+    	
+    	int s = (int)start.peek();
+    	int f = (int)finish.peek();
+    	if(s > f && finish.size() != 0)
+    		throw new Exception("Abort! Illegal disc movement!");
+    	
+    	
+    	int temp = (int) start.pop();
+    	finish.push(temp);
+    	numOfMoves++;
     	
     	// Move one disc from the "from" tower to the "to" tower    	
     	// If you made a move, increment this towers object's numOfMoves field.

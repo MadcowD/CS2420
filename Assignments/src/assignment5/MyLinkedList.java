@@ -11,7 +11,7 @@ import java.util.NoSuchElementException;
  * @author William Guss 
  * 
  * Description:
- * 
+ * TODO
  * @param <E> - the type of elements contained in the linked list
  */
 public class MyLinkedList<E> implements List<E> 
