@@ -20,7 +20,7 @@ public class MyLinkedList<E> implements List<E>
 	int size;
 	Node head = new Node(null);
 	Node tail = new Node(null);
-	
+
 	/**
 	 * Constructor.  Creates a blank linked list.
 	 */
@@ -29,11 +29,11 @@ public class MyLinkedList<E> implements List<E>
 		size = 0;
 		head.next = tail;
 		tail.prev = head;
-		
-		head.prev = null;
-		tail.next = null;
+
+		head.prev = null; //asserts that nothing is before head
+		tail.next = null; //asserts that nothing is after tail
 	}
-	
+
 	/**
 	 * @param element - The element to add at the beginning of the list.
 	 *  
@@ -42,16 +42,17 @@ public class MyLinkedList<E> implements List<E>
 	 */
 	public void addFirst(E element) 
 	{
-			Node n = new Node(element);
-			n.next = head.next;
-			head.next.prev = n;
-			n.prev = head;
-			head.next = n;
-			size++;
-			
-			
+		Node n = new Node(element);
+		n.next = head.next;
+		head.next.prev = n;
+		n.prev = head;
+		head.next = n;
+		size++;
+
+
+
 	}
-	
+
 	/**
 	 * @param element - The element to add at the end of the list.
 	 * 
@@ -61,13 +62,12 @@ public class MyLinkedList<E> implements List<E>
 	public void addLast(E o) 
 	{
 		Node n = new Node(o);
-		n.next = tail;//n points to tail
-		n.prev = tail.prev;//n points back to the item tail pointed to
-		tail.prev.next = n;//the item that pointed to tail now points at n
-		tail.prev = n;//the tail points back at n
+		n.prev = tail.prev;
+		n.next = tail;
+		tail.prev.next = n;
+		tail.prev = n;
 		size++;
-		if(size == 1)
-			head.next = n;
+
 	}
 
 	/**
@@ -77,14 +77,14 @@ public class MyLinkedList<E> implements List<E>
 	 */
 	public void add(int index, E element)
 	{
-		if(index >= size)
+		if(index > size)
 			throw new IndexOutOfBoundsException();
 		int count = -1;
 		Node temp = head;
 		while(++count <= index){
 			temp = temp.next;
 		}
-		
+
 		Node n = new Node(element);
 		n.next = temp;
 		temp.prev.next = n;
@@ -186,7 +186,7 @@ public class MyLinkedList<E> implements List<E>
 		size--;
 		return t;
 	}
-	
+
 	/**
 	 * Removes the first occurrence of the specified element from this list, if it is present
 	 * Returns true if the element was found and removed, false otherwise
@@ -202,7 +202,6 @@ public class MyLinkedList<E> implements List<E>
 				temp.prev.next = temp.next;
 				size--;
 				return true;
-				
 			}
 		}
 		return false;
@@ -215,7 +214,7 @@ public class MyLinkedList<E> implements List<E>
 	 */
 	public boolean contains(E element) 
 	{
-		Node temp = head;
+		Node temp = head.next;
 		while(temp.next != null){
 			if(temp.data.equals(element))
 				return true;
@@ -231,15 +230,15 @@ public class MyLinkedList<E> implements List<E>
 	 */
 	public int indexOf(E element) 
 	{		
-		Node temp = head;
-		int index = -1;
+		Node temp = head.next;
+		int index = 0;
 		while(temp.next != null){
 			if(temp.data.equals(element))
 				return index;
 			index++;
 			temp = temp.next;
 		}
-		return index;
+		return -1;
 	}
 
 	/**
@@ -249,15 +248,15 @@ public class MyLinkedList<E> implements List<E>
 	 */
 	public int lastIndexOf(E element) 
 	{		
-		Node temp = tail;
-		int index = size;
-		while(temp.prev != null){
+		Node temp = tail.prev;
+		int index = size-1; // Since we're looking for the last item, start from the back
+		while(index >= 0){
 			if(temp.data.equals(element))
 				return index;
 			temp = temp.prev;
 			index--;
 		}
-		return index;
+		return -1;
 	}
 
 	/**
@@ -277,18 +276,18 @@ public class MyLinkedList<E> implements List<E>
 	{
 		return size == 0;
 	}
-	
+
 	/**
 	 * Removes all of the elements from this list.
 	 * O(1) for a doubly-linked list.
 	 */
 	public void clear() 
 	{
-		head.next = null;
-		tail.prev = null;
+		head.next = tail;
+		tail.prev = head;
 		size = 0;
 	}
-	
+
 	/**
 	 * Returns an array containing all of the elements in this list in proper sequence 
 	 * (from first to last element).
@@ -299,12 +298,11 @@ public class MyLinkedList<E> implements List<E>
 		Object[] result = new Object[size];
 		Node temp = head;
 		int i = 0;
-		while(temp.next != null){
+		while(i<size){
 			temp = temp.next;
 			result[i] = temp.data;
 			i++;
 		}
-		
 		return result;
 	}
 
@@ -313,11 +311,11 @@ public class MyLinkedList<E> implements List<E>
 		E data;
 		Node next;
 		Node prev;
-		
+
 		public Node(E element)
 		{
 			data = element;
-			
+
 		}		
 	}		
 }
