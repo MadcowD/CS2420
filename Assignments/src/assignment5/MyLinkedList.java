@@ -75,7 +75,7 @@ public class MyLinkedList<E> implements List<E>
 	 * Throws IndexOutOfBoundsException if index is out of range.
 	 * O(N) for a doubly-linked list.
 	 */
-	public void add(int index, E element)
+	public void add(int index, E element) throws IndexOutOfBoundsException
 	{
 		if(index > size)
 			throw new IndexOutOfBoundsException();
@@ -98,7 +98,7 @@ public class MyLinkedList<E> implements List<E>
 	 * Throws NoSuchElementException if the list is empty.
 	 * O(1) for a doubly-linked list.
 	 */
-	public E getFirst() 
+	public E getFirst() throws NoSuchElementException 
 	{
 		if(size == 0)
 			throw new NoSuchElementException("This list is empty");
@@ -110,7 +110,7 @@ public class MyLinkedList<E> implements List<E>
 	 * Throws NoSuchElementException if the list is empty.
 	 * O(1) for a doubly-linked list.
 	 */
-	public E getLast() 
+	public E getLast() throws NoSuchElementException 
 	{
 		if(size == 0)
 			throw new NoSuchElementException("This list is empty");
@@ -122,7 +122,7 @@ public class MyLinkedList<E> implements List<E>
 	 * Throws IndexOutOfBoundsException if index is out of range.
 	 * O(N) for a doubly-linked list.
 	 */
-	public E get(int index)
+	public E get(int index) throws IndexOutOfBoundsException
 	{
 		if(index >= size)
 			throw new IndexOutOfBoundsException();
@@ -139,7 +139,7 @@ public class MyLinkedList<E> implements List<E>
 	 * Throws NoSuchElementException if the list is empty.
 	 * O(1) for a doubly-linked list.
 	 */
-	public E removeFirst()
+	public E removeFirst() throws NoSuchElementException
 	{		
 		if(size == 0)
 			throw new NoSuchElementException();
@@ -155,7 +155,7 @@ public class MyLinkedList<E> implements List<E>
 	 * Throws NoSuchElementException if the list is empty.
 	 * O(1) for a doubly-linked list.
 	 */
-	public E removeLast()
+	public E removeLast() throws NoSuchElementException
 	{		
 		if(size == 0)
 			throw new NoSuchElementException();
@@ -171,7 +171,7 @@ public class MyLinkedList<E> implements List<E>
 	 * Throws IndexOutOfBoundsException if index is out of range.
 	 * O(N) for a doubly-linked list.
 	 */
-	public E remove(int index)
+	public E remove(int index) throws IndexOutOfBoundsException
 	{		
 		if(index >= size)
 			throw new IndexOutOfBoundsException();
