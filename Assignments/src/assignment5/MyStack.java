@@ -6,8 +6,8 @@ import java.util.NoSuchElementException;
  * Represents a generic stack (Last in, first out).
  * 
  * @author Paymon Saebi 
- * @author 
- * @author 
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
  * 
  * Description:
  * 
@@ -27,7 +27,7 @@ public class MyStack<E>
 	 */
 	public void clear() 
 	{
-		//TODO
+		linkedListStack.clear();
 	}
 
 	/**
@@ -35,8 +35,7 @@ public class MyStack<E>
 	 */
 	public boolean isEmpty() 
 	{
-		//TODO
-		return false;
+		return linkedListStack.isEmpty();
 	}
 
 	/**
@@ -45,8 +44,7 @@ public class MyStack<E>
 	 */
 	public E peek() throws NoSuchElementException 
 	{
-		//TODO		
-		return null;
+		return linkedListStack.getLast();
 	}
 
 	/**
@@ -54,9 +52,8 @@ public class MyStack<E>
 	 * NoSuchElementException if the stack is empty.
 	 */
 	public E pop() throws NoSuchElementException 
-	{
-		//TODO		
-		return null;
+	{	
+		return linkedListStack.removeLast();
 	}
 
 	/**
@@ -64,7 +61,7 @@ public class MyStack<E>
 	 */
 	public void push(E item) 
 	{
-		//TODO
+		linkedListStack.addLast(item);
 	}
 
 	/**
@@ -72,8 +69,7 @@ public class MyStack<E>
 	 */
 	public int size() 
 	{
-		//TODO
-		return 0;
+		return linkedListStack.size();
 	}
 	
 	/**
@@ -82,8 +78,7 @@ public class MyStack<E>
 	 * O(N) for a doubly-linked list.
 	 */
 	public Object[] toArray() 
-	{
-		//TODO		
-		return null;
+	{	
+		return linkedListStack.toArray();
 	}
 }
