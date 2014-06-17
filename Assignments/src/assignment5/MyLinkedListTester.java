@@ -35,7 +35,7 @@ public class MyLinkedListTester extends TestCase {
 		assertTrue(l.size == 1);
 		l.addFirst(3);
 		assertTrue(l.size == 2);
-		assertTrue(l.get(0)==new Integer(3));
+		assertTrue(l.get(0).equals(new Integer(3)));
 	}
 
 	/**
