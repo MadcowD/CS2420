@@ -18,8 +18,8 @@ public class MyLinkedList<E> implements List<E>
 {
 	//Instance variables
 	int size;
-	Node head;
-	Node tail;
+	Node head = new Node(null);
+	Node tail = new Node(null);
 	
 	/**
 	 * Constructor.  Creates a blank linked list.
@@ -27,8 +27,8 @@ public class MyLinkedList<E> implements List<E>
 	public MyLinkedList() 
 	{
 		size = 0;
-		head.next = null;
-		tail.prev = null;
+		head.next = tail;
+		tail.prev = head;
 		
 		head.prev = null;
 		tail.next = null;
@@ -43,13 +43,12 @@ public class MyLinkedList<E> implements List<E>
 	public void addFirst(E element) 
 	{
 			Node n = new Node(element);
-			n.next = head.next; //n points to the next item
-			head.next.prev = n.next; //the next item points back at n
-			n.prev = head; //n points back at head
-			head.next = n;//finally, head points to n
+			n.next = head.next;
+			head.next.prev = n;
+			n.prev = head;
+			head.next = n;
 			size++;
-			if(size == 1)
-				tail.prev = n;
+			
 			
 	}
 	

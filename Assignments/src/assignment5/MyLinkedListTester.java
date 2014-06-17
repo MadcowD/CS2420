@@ -11,7 +11,7 @@ import junit.framework.TestCase;
  */
 public class MyLinkedListTester extends TestCase {
 	
-	private MyLinkedList<Integer> l;
+	private MyLinkedList<Integer> l = new MyLinkedList<Integer>();
 
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
@@ -35,7 +35,7 @@ public class MyLinkedListTester extends TestCase {
 		assertTrue(l.size == 1);
 		l.addFirst(3);
 		assertTrue(l.size == 2);
-		assertTrue(l.get(0)==3);
+		assertTrue(l.get(0)==new Integer(3));
 	}
 
 	/**
