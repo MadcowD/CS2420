@@ -126,8 +126,19 @@ public class MyLinkedList<E> implements List<E>
 	{
 		if(index >= size && index < 0)
 			throw new IndexOutOfBoundsException();
-		int count = -1;
-		Node temp = head;
+		int count;
+		Node temp;
+		if(index > size/2){
+			count = size;
+			temp = tail;
+			while(--count >= index)
+				temp = temp.prev
+			return temp.data
+		}
+		
+		//This occurs if index <= size/2
+		count = -1;
+		temp = head;
 		while(++count <= index){
 			temp = temp.next;
 		}
