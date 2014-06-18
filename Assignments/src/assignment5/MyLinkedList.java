@@ -77,7 +77,7 @@ public class MyLinkedList<E> implements List<E>
 	 */
 	public void add(int index, E element) throws IndexOutOfBoundsException
 	{
-		if(index > size)
+		if(index > size && index < 0)
 			throw new IndexOutOfBoundsException();
 		int count = -1;
 		Node temp = head;
@@ -124,7 +124,7 @@ public class MyLinkedList<E> implements List<E>
 	 */
 	public E get(int index) throws IndexOutOfBoundsException
 	{
-		if(index >= size)
+		if(index >= size && index < 0)
 			throw new IndexOutOfBoundsException();
 		int count = -1;
 		Node temp = head;
@@ -173,7 +173,7 @@ public class MyLinkedList<E> implements List<E>
 	 */
 	public E remove(int index) throws IndexOutOfBoundsException
 	{		
-		if(index >= size)
+		if(index >= size && index < 0)
 			throw new IndexOutOfBoundsException();
 		Node temp = head;
 		int count = -1;
