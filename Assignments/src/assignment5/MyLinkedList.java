@@ -1,6 +1,5 @@
 package assignment5;
 
-import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 /**
@@ -10,8 +9,8 @@ import java.util.NoSuchElementException;
  * @author Maks Cegielski-Johnson
  * @author William Guss 
  * 
- * Description:
- * TODO
+ * Description: A collection structure based of a doubly linked list, similar to the LinkedList method by Java 
+ * 
  * @param <E> - the type of elements contained in the linked list
  */
 public class MyLinkedList<E> implements List<E> 
@@ -48,9 +47,6 @@ public class MyLinkedList<E> implements List<E>
 		n.prev = head;
 		head.next = n;
 		size++;
-
-
-
 	}
 
 	/**
@@ -67,7 +63,6 @@ public class MyLinkedList<E> implements List<E>
 		tail.prev.next = n;
 		tail.prev = n;
 		size++;
-
 	}
 
 	/**
@@ -77,14 +72,23 @@ public class MyLinkedList<E> implements List<E>
 	 */
 	public void add(int index, E element) throws IndexOutOfBoundsException
 	{
-		if(index > size && index < 0)
+		if(index > size || index < 0)
 			throw new IndexOutOfBoundsException();
-		int count = -1;
-		Node temp = head;
-		while(++count <= index){
-			temp = temp.next;
+		int count;
+		Node temp;
+		if(index > size/2){
+			count = size;
+			temp = tail;
+			while(--count >= index)
+				temp = temp.prev;
 		}
-
+		else{
+			count = -1;
+			temp = head;
+			while(++count <= index){
+				temp = temp.next;
+			}
+		}
 		Node n = new Node(element);
 		n.next = temp;
 		temp.prev.next = n;
@@ -128,6 +132,7 @@ public class MyLinkedList<E> implements List<E>
 			throw new IndexOutOfBoundsException();
 		int count;
 		Node temp;
+		//Occurs if index is towards the end of the list
 		if(index > size/2){
 			count = size;
 			temp = tail;

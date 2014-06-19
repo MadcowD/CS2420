@@ -35,7 +35,7 @@ public class MyStackTester extends TestCase {
 	/**
 	 * Test method for {@link assignment5.MyStack#clear()}.
 	 */
-	public void testClear() {
+	public void testStackClear() {
 		assertEquals(s.size(), 0);
 		s.push(3);
 		s.push(2);
@@ -48,7 +48,7 @@ public class MyStackTester extends TestCase {
 	/**
 	 * Test method for {@link assignment5.MyStack#isEmpty()}.
 	 */
-	public void testIsEmpty() {
+	public void testStackIsEmpty() {
 		assertTrue(s.isEmpty());
 		s.push(3);
 		assertTrue(!s.isEmpty());
@@ -114,7 +114,7 @@ public class MyStackTester extends TestCase {
 	/**
 	 * Test method for {@link assignment5.MyStack#size()}.
 	 */
-	public void testSize() {
+	public void testStackSize() {
 		assertEquals(s.size(), 0);
 		s.push(3);
 		assertEquals(s.size(), 1);
@@ -125,7 +125,7 @@ public class MyStackTester extends TestCase {
 	/**
 	 * Test method for {@link assignment5.MyStack#toArray()}.
 	 */
-	public void testToArray() {
+	public void testStackToArray() {
 		for(int i = 0; i<5; i++)
 			s.push(i);
 		Object[] o = {0, 1, 2, 3, 4};

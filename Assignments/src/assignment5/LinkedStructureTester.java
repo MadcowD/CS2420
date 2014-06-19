@@ -11,20 +11,19 @@ import junit.framework.TestCase;
  * @author Maks Cegielski-Johnson
  * @author William Guss
  *
+ *	Testing class for the two Linked Structures, MyLinkedList and MyStack, testing various situations, including throwing exceptions.
  */
-public class MyLinkedListTester extends TestCase {
+public class LinkedStructureTester extends TestCase {
 
 	private MyLinkedList<Integer> l = new MyLinkedList<Integer>();
+	MyStack<Integer> s = new MyStack<Integer>();
 
-	/* (non-Javadoc)
-	 * @see junit.framework.TestCase#setUp()
-	 */
 	protected void setUp() throws Exception {
 		super.setUp();
 	}
 
 	/**
-	 * Test method for {@link assignment5.MyLinkedList#MyLinkedList()}.
+	 * Tests whether a new MyLinkedList is empty when created
 	 */
 	public void testMyLinkedList() {
 		MyLinkedList<String> s = new MyLinkedList<String>();
@@ -32,7 +31,7 @@ public class MyLinkedListTester extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link assignment5.MyLinkedList#addFirst(java.lang.Object)}.
+	 * Tests the addFirst method
 	 */
 	public void testAddFirst() {
 		l.addFirst(5);
@@ -43,7 +42,7 @@ public class MyLinkedListTester extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link assignment5.MyLinkedList#addLast(java.lang.Object)}.
+	 * Tests the addLast method
 	 */
 	public void testAddLast() {
 		l.addLast(5);
@@ -55,7 +54,7 @@ public class MyLinkedListTester extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link assignment5.MyLinkedList#add(int, java.lang.Object)}.
+	 * Tests the index based add method
 	 */
 	public void testAdd() {
 		l.add(0,3);
@@ -67,7 +66,7 @@ public class MyLinkedListTester extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link assignment5.MyLinkedList#getFirst()}.
+	 * Tests the getFirst method
 	 */
 	public void testGetFirst() {
 		l.addFirst(5);
@@ -77,7 +76,7 @@ public class MyLinkedListTester extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link assignment5.MyLinkedList#getLast()}.
+	 * Tests the getLast method
 	 */
 	public void testGetLast() {
 		l.addFirst(5);
@@ -87,7 +86,7 @@ public class MyLinkedListTester extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link assignment5.MyLinkedList#get(int)}.
+	 * Tests the index based get method
 	 */
 	public void testGet() {
 		for(int i = 0; i<10; i+=2)
@@ -97,7 +96,7 @@ public class MyLinkedListTester extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link assignment5.MyLinkedList#removeFirst()}.
+	 * Tests the removeFirst method
 	 */
 	public void testRemoveFirst() {
 		for(int i = 0; i<=12; i+=3){
@@ -111,7 +110,7 @@ public class MyLinkedListTester extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link assignment5.MyLinkedList#removeLast()}.
+	 * Tests the removeLast method
 	 */
 	public void testRemoveLast() {
 		for(int i = 0; i<=12; i+=3){
@@ -125,7 +124,7 @@ public class MyLinkedListTester extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link assignment5.MyLinkedList#remove(int)}.
+	 * Tests the remove method for a passed in index
 	 */
 	public void testRemoveInt() {
 		l.addLast(4);
@@ -137,7 +136,7 @@ public class MyLinkedListTester extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link assignment5.MyLinkedList#remove(java.lang.Object)}.
+	 * Tests the remove method for a passed in object <E>
 	 */
 	public void testRemoveE() {
 		l.addLast(5);
@@ -149,7 +148,7 @@ public class MyLinkedListTester extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link assignment5.MyLinkedList#contains(java.lang.Object)}.
+	 * Tests the contains method
 	 */
 	public void testContains() {
 		for(int i = 0; i<= 30; i+=5)
@@ -163,7 +162,7 @@ public class MyLinkedListTester extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link assignment5.MyLinkedList#indexOf(java.lang.Object)}.
+	 * Tests the indexOf method
 	 */
 	public void testIndexOf() {
 		assertEquals(l.indexOf(32), -1);
@@ -176,7 +175,7 @@ public class MyLinkedListTester extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link assignment5.MyLinkedList#lastIndexOf(java.lang.Object)}.
+	 * Tests the lastIndexOf method
 	 */
 	public void testLastIndexOf() {
 		int var = 10;
@@ -192,7 +191,7 @@ public class MyLinkedListTester extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link assignment5.MyLinkedList#size()}.
+	 * Tests the size method for MyLinkedList
 	 */
 	public void testSize() {
 		assertEquals(l.size(), 0);
@@ -203,7 +202,7 @@ public class MyLinkedListTester extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link assignment5.MyLinkedList#isEmpty()}.
+	 * Tests the isEmpty method for MyLinkedList
 	 */
 	public void testIsEmpty() {
 		assertTrue(l.isEmpty());
@@ -212,7 +211,7 @@ public class MyLinkedListTester extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link assignment5.MyLinkedList#clear()}.
+	 * Tests the clear method for MyLinkedList
 	 */
 	public void testClear() {
 		assertTrue(l.isEmpty());
@@ -225,7 +224,7 @@ public class MyLinkedListTester extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link assignment5.MyLinkedList#toArray()}.
+	 * Tests the toArray method for MyLinkedList
 	 */
 	public void testToArray() {
 		for(int i = 1; i<=10; i++)
@@ -239,6 +238,9 @@ public class MyLinkedListTester extends TestCase {
 
 	/////////////////////////////////TESTING EXCEPTIONS/////////////////////////////////////////////////
 
+	/**
+	 * Testing the IndexOutOfBoundsException for the index based add method
+	 */
 	public void testAddException(){
 		try{
 			l.add(1, 4);
@@ -249,6 +251,9 @@ public class MyLinkedListTester extends TestCase {
 		fail("Error was not caught");
 	}
 
+	/**
+	 * Testing the NoSuchElementException for the getFirst method on an empty list
+	 */
 	public void testGetFirstException(){
 		try{
 			l.getFirst();
@@ -259,6 +264,9 @@ public class MyLinkedListTester extends TestCase {
 		fail("Error was not caught");
 	}
 
+	/**
+	 * Testing the NoSuchElementException for the getLast method on an empty list
+	 */
 	public void testGetLastException(){
 		try{
 			l.getLast();
@@ -269,6 +277,9 @@ public class MyLinkedListTester extends TestCase {
 		fail("Error was not caught");
 	}
 
+	/**
+	 * Testing the IndexOutOfBoundsException for the index based get method
+	 */
 	public void testGetException(){
 		try{
 			l.get(13);
@@ -279,6 +290,9 @@ public class MyLinkedListTester extends TestCase {
 		fail("Error was not caught");
 	}
 
+	/**
+	 * Testing the NoSuchElementException for removeFirst on an empty list
+	 */
 	public void testRemoveFirstException(){
 		try{
 			l.removeFirst();
@@ -289,6 +303,9 @@ public class MyLinkedListTester extends TestCase {
 		fail("Error was not caught");
 	}
 
+	/**
+	 * Testing the NoSuchElementException for removeLast on an empty list
+	 */
 	public void testRemoveLastException(){
 		try{
 			l.removeLast();
@@ -299,6 +316,9 @@ public class MyLinkedListTester extends TestCase {
 		fail("Error was not caught");
 	}
 
+	/**
+	 * Testing IndexOutOfBoundsException for the index based remove
+	 */
 	public void testRemoveException(){
 		try{
 			l.remove(13);
@@ -308,6 +328,126 @@ public class MyLinkedListTester extends TestCase {
 		}
 		fail("Error was not caught");
 	}
+	
+	/////////////////////////////////////STACK TESTING////////////////////////////////////////////////////////////////
+	///////////////////////////////////////        /////////////////////////////////////////////////////////////////////
+	
+	/**
+	 * Tests the MyStack constructor
+	 */
+	public void testMyStack() {
+		MyStack<String> stack = new MyStack<String>();
+		assertEquals(stack.size(), 0);
+		assertTrue(stack.isEmpty());
+	}
 
+	/**
+	 * Tests the clear method for MyStack
+	 */
+	public void testStackClear() {
+		assertEquals(s.size(), 0);
+		s.push(3);
+		s.push(2);
+		s.push(9);
+		assertEquals(s.size(), 3);
+		s.clear();
+		assertEquals(s.size(), 0);
+	}
 
+	/**
+	 * Tests the isEmpty method for MyStack
+	 */
+	public void testStackIsEmpty() {
+		assertTrue(s.isEmpty());
+		s.push(3);
+		assertTrue(!s.isEmpty());
+		s.clear();
+		assertTrue(s.isEmpty());
+		
+	}
+
+	/**
+	 * Tests the peek method
+	 */
+	public void testPeek() {
+		s.push(13);
+		assertEquals(s.peek(), new Integer(13));
+		s.push(23);
+		s.push(33);
+		assertEquals(s.peek(), new Integer(33));
+		s.pop();
+		assertEquals(s.peek(), new Integer(23));
+	}
+	
+	/**
+	 * Tests the NoSuchElementException for the peek method on an empty stack
+	 */
+	public void testPeekException(){
+		try{
+			s.peek();
+		}catch(NoSuchElementException e){
+			assertTrue(true);
+			return;
+		}
+		fail("Exception was not caught");
+	}
+
+	/**
+	 * Tests the pop method
+	 */
+	public void testPop() {
+		s.push(11);
+		s.push(111);
+		s.push(1111);
+		assertEquals(s.pop(), new Integer(1111));
+	}
+	
+	/**
+	 * Tests the NoSuchElementException for the pop method on an empty stack
+	 */
+	public void testPopException(){
+		try{
+			s.pop();
+		}catch(NoSuchElementException e){
+			assertTrue(true);
+			return;
+		}
+		fail("Exception was not caught");
+	}
+
+	/**
+	 * Tests the push method
+	 */
+	public void testPush() {
+		s.push(3);
+		assertEquals(s.peek(), new Integer(3));
+		s.push(5);
+		assertEquals(s.peek(), new Integer(5));
+		
+	}
+
+	/**
+	 * Tests the size method for MyStack
+	 */
+	public void testStackSize() {
+		assertEquals(s.size(), 0);
+		s.push(3);
+		assertEquals(s.size(), 1);
+		s.clear();
+		assertEquals(s.size(), 0);
+	}
+
+	/**
+	 * Tests the toArray method for MyStack
+	 */
+	public void testStackToArray() {
+		for(int i = 0; i<5; i++)
+			s.push(i);
+		Object[] o = {0, 1, 2, 3, 4};
+		Object[] o2 = s.toArray();
+		int i = 0;
+		for(Object n : o){	
+			assertEquals(o2[i++], n);
+		}
+	}
 }
