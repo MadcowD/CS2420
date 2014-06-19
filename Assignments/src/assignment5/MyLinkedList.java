@@ -124,7 +124,7 @@ public class MyLinkedList<E> implements List<E>
 	 */
 	public E get(int index) throws IndexOutOfBoundsException
 	{
-		if(index >= size && index < 0)
+		if(index >= size || index < 0)
 			throw new IndexOutOfBoundsException();
 		int count;
 		Node temp;
@@ -132,8 +132,8 @@ public class MyLinkedList<E> implements List<E>
 			count = size;
 			temp = tail;
 			while(--count >= index)
-				temp = temp.prev
-			return temp.data
+				temp = temp.prev;
+			return temp.data;
 		}
 		
 		//This occurs if index <= size/2
@@ -184,12 +184,22 @@ public class MyLinkedList<E> implements List<E>
 	 */
 	public E remove(int index) throws IndexOutOfBoundsException
 	{		
-		if(index >= size && index < 0)
+		if(index >= size || index < 0)
 			throw new IndexOutOfBoundsException();
-		Node temp = head;
-		int count = -1;
-		while(++count <= index){
-			temp = temp.next;
+		Node temp;
+		int count;
+		if(index <= size/2){
+			count = size;
+			temp = tail;
+			while(--count >= index)
+				temp = temp.prev;
+		}
+		else{
+			count = -1;
+			temp = head;
+			while(++count <= index){
+				temp = temp.next;
+			}
 		}
 		E t = temp.data;
 		temp.next.prev = temp.prev;

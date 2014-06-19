@@ -299,7 +299,7 @@ public class MyLinkedListTester extends TestCase {
 		fail("Error was not caught");
 	}
 
-	public void testRemove(){
+	public void testRemoveException(){
 		try{
 			l.remove(13);
 		}catch(IndexOutOfBoundsException e){
