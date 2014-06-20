@@ -1,116 +1,224 @@
 package assignment5;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
+
+import assignment5.AlgorithmTimer.TimeComplexity;
 
 public class LinkedStructureTimer {
 
 	public static void main(String[] args){
-		MyLinkedList<Integer> link = new MyLinkedList<Integer>(); //MyLinkedList
-		ArrayList<Integer> arr = new ArrayList<Integer>(); //Java's ArrayList
-		LinkedList<Integer> list = new LinkedList<Integer>(); //Java's LinkedList
-		
-		for(int i = 0; i<1000; i++)
-			continue;
-		
-		long end;
-		long start = System.nanoTime();
-		
-		//Time add first:
-		
-		for(int i = 0; i<20000; i++)
-			link.addFirst(i);
-		end = System.nanoTime();
-		
-		System.out.println("My Linked List " + (end - start));
-		
-		start = System.nanoTime();
-		
-		for(int i = 0; i<20000; i++)
-			arr.add(0,i);
-		end = System.nanoTime();
-		System.out.println("ArrayList " + (end - start));
-		
-		start = System.nanoTime();
-		for(int i = 0; i<20000; i++)
-			list.addFirst(i);
-		end = System.nanoTime();
-		System.out.println("Java Linked List " + (end - start));
-		
-		System.out.println("\nGET METHOD: \n");
-		
-		//Time get:
-		
-		
-		start = System.nanoTime();
-		link.get(0);
-		link.get(10000);
-		link.get(19999);
-		
-		
-		end = System.nanoTime();
-		System.out.println("My Linked List " + (end - start));
-		
-		start = System.nanoTime();
-		
-		
-		arr.get(10000);
-		arr.get(0);
-		arr.get(19999);
-		
-		end = System.nanoTime();
-		System.out.println("ArrayList " + (end - start));
-		
-		start = System.nanoTime();
-		
-		
-		list.get(0);
-		list.get(10000);
-		list.get(19999);
-		end = System.nanoTime();
-		System.out.println("Java Linked List " + (end - start));
-		
-		System.out.println("\n REMOVE METHOD:  \n");
-		int k;
-//		Time remove:
-		for(int i = 0; i<1000; i++)
-			k = i;
-		
-		start = System.nanoTime();
-		link.remove(0);
-		link.remove(9998);
-		link.remove(19997);
-		end = System.nanoTime();
-		System.out.println("My Linked List " + (end - start));
-		
-		start = System.nanoTime();
-		
-		arr.remove(0);
-		arr.remove(9998);
-		arr.remove(19997);
-		end = System.nanoTime();
-		System.out.println("ArrayList " + (end - start));
-		
-		start = System.nanoTime();
-		
-		
-		list.remove(0);
-		list.remove(9998);
-		list.remove(19997);
-		end = System.nanoTime();
-		System.out.println("Java Linked List " + (end - start));
 		
 		
 		
-		//Time stack:
-		MyStack<Integer> stack = new MyStack<Integer>();
+		final MyLinkedList<Integer> link = new MyLinkedList<Integer>(); //MyLinkedList
+		final ArrayList<Integer> arr = new ArrayList<Integer>(); //Java's ArrayList
+		final LinkedList<Integer> list = new LinkedList<Integer>(); //Java's LinkedList
 		
-		for(int i = 0; i<20000; i++)
-			stack.push(i);
+		AlgorithmTimer myAddTimer = new AlgorithmTimer("custLinkedAdd",
+				new Process(){
+					public void generateData(int n, TimeComplexity complexity){
+						link.clear();
+						for(int i = 0; i<n; i++)
+							link.addFirst(i);
+					}
+					
+					@Override
+					public void run(int n) {
+						link.addFirst(0);
+					}
+				},1000L);
 		
-		stack.peek();
+		AlgorithmTimer javaAddTimer = new AlgorithmTimer("javaLinkedAdd",
+				new Process(){
+			
+					@Override
+					public void generateData(int n, TimeComplexity complexity)
+					{
+						list.clear();
+						for(int i = 0; i<n; i++)
+							list.addFirst(i);
+					};
+					
+					@Override
+					public void run(int n) {
+						list.addFirst(0);
+					}
+				},1000L);
 		
-		for(int i = 0; i <20000; i++)
-			stack.pop();
+		
+		AlgorithmTimer arrAddTimer = new AlgorithmTimer("javaArrAdd",
+				new Process(){
+					@Override
+					public void generateData(int n, TimeComplexity complexity)
+					{
+						arr.clear();
+						for(int i = 0; i<n; i++)
+							arr.add(i);
+					};
+					@Override
+					public void run(int n) {
+							arr.add(0,0);
+					}
+				},1000L);
+		
+		
+		
+		//_--------------------------------------------------------------------------------------------------
+		//--------------------------  GET
+		//---------------------------------------------------------------------------------------------------
+		
+		AlgorithmTimer myGetTimer= new AlgorithmTimer("custLinkedGet",
+				new Process(){
+					public void generateData(int n, TimeComplexity complexity){
+						link.clear();
+						for(int i = 0; i<n; i++)
+							link.addFirst(i);
+
+					}
+					
+					@Override
+					public void run(int n) {
+							link.get(n);
+						
+					}
+				},1000L);
+		
+		AlgorithmTimer javaGetTimer = new AlgorithmTimer("javaLinkedGet",
+				new Process(){
+					public void generateData(int n, TimeComplexity complexity){
+						list.clear();
+							for(int i = 0; i<n; i++)
+								list.addFirst(i);
+					}
+					
+					@Override
+					public void run(int n) {
+						list.get(n);
+						
+					}
+				},1000L);
+		
+		
+		AlgorithmTimer arrGetTimer = new AlgorithmTimer("javaArrGet",
+				new Process(){
+					@Override
+					public void generateData(int n, TimeComplexity complexity)
+					{
+						arr.clear();
+						for(int i = 0; i<n; i++)
+							arr.add(i);
+					};
+					@Override
+					public void run(int n) {
+						arr.get(n);
+					}
+				},1000L);
+		
+		
+		//_--------------------------------------------------------------------------------------------------
+		//--------------------------  REMOVE
+		//---------------------------------------------------------------------------------------------------
+		
+		AlgorithmTimer myRemoveTimer= new AlgorithmTimer("custLinkedRemove",
+				new Process(){
+					public void generateData(int n, TimeComplexity complexity){
+						link.clear();
+						for(int i = 0; i<n; i++)
+							link.addFirst(i);
+
+					}
+					
+					@Override
+					public void run(int n) {
+							link.remove(n/2);
+						
+					}
+				},1000L);
+		
+		AlgorithmTimer javaRemoveTimer = new AlgorithmTimer("javaLinkedRemove",
+				new Process(){
+					public void generateData(int n, TimeComplexity complexity){
+						list.clear();
+							for(int i = 0; i<n; i++)
+								list.addFirst(i);
+					}
+					
+					@Override
+					public void run(int n) {
+						list.remove(n/2);
+						
+					}
+				},1000L);
+		
+		
+		AlgorithmTimer arrRemoveTimer = new AlgorithmTimer("javaArrRemove",
+				new Process(){
+					@Override
+					public void generateData(int n, TimeComplexity complexity)
+					{
+						arr.clear();
+						for(int i = 0; i<n; i++)
+							arr.add(i);
+					};
+					@Override
+					public void run(int n) {
+						arr.remove(0);
+					}
+				},1000L);
+
+		
+//		arrRemoveTimer.generateAnalysis(1, 100000);
+//		myRemoveTimer.generateAnalysis(1, 100000);
+//		javaRemoveTimer.generateAnalysis(1, 100000);
+		
+		final MyStack<Integer> stack = new MyStack<Integer>();
+		
+		AlgorithmTimer pushTimer = new AlgorithmTimer("stackPush",
+				new Process(){
+					@Override
+					public void generateData(int n, TimeComplexity complexity)
+					{stack.clear(); for(int i = 0; i < n; i++) stack.push(n);};
+
+					@Override
+					public void run(int n) {
+						// TODO Auto-generated method stub
+						stack.push(n);
+					}
+		
+		},4000L);
+		
+		AlgorithmTimer popTimer = new AlgorithmTimer("stackPop",
+				new Process(){
+					@Override
+					public void generateData(int n, TimeComplexity complexity)
+					{stack.clear(); for(int i = 0; i < n; i++) stack.push(n);};
+
+					@Override
+					public void run(int n) {
+						// TODO Auto-generated method stub
+						stack.pop();
+						
+					}
+		
+		},4000L);
+		
+		AlgorithmTimer peekTimer = new AlgorithmTimer("stackPeek",
+				new Process(){
+					@Override
+					public void generateData(int n, TimeComplexity complexity)
+					{stack.clear(); for(int i = 0; i < n; i++) stack.push(n);};
+
+					@Override
+					public void run(int n) {
+						stack.peek();
+					}
+		
+		},4000L);
+
+		pushTimer.generateAnalysis(100000, 1000000);
+		peekTimer.generateAnalysis(100000, 1000000);
+		popTimer.generateAnalysis(100000, 1000000);
 	}
 }

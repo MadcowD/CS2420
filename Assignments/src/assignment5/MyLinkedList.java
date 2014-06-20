@@ -193,7 +193,7 @@ public class MyLinkedList<E> implements List<E>
 			throw new IndexOutOfBoundsException();
 		Node temp;
 		int count;
-		if(index <= size/2){
+		if(index > size/2){
 			count = size;
 			temp = tail;
 			while(--count >= index)
