@@ -19,6 +19,7 @@ public class MyLinkedList<E> implements List<E>
 	int size;
 	Node head = new Node(null);
 	Node tail = new Node(null);
+	
 
 	/**
 	 * Constructor.  Creates a blank linked list.
