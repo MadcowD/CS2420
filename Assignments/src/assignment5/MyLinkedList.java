@@ -19,6 +19,7 @@ public class MyLinkedList<E> implements List<E>
 	int size;
 	Node head = new Node(null);
 	Node tail = new Node(null);
+	
 
 	/**
 	 * Constructor.  Creates a blank linked list.
@@ -193,7 +194,7 @@ public class MyLinkedList<E> implements List<E>
 			throw new IndexOutOfBoundsException();
 		Node temp;
 		int count;
-		if(index <= size/2){
+		if(index > size/2){
 			count = size;
 			temp = tail;
 			while(--count >= index)
