@@ -4,7 +4,8 @@ import assignment5.AlgorithmTimer.TimeComplexity;
 
 /**
  * The process interface in which the algorithm will be run.
- * @author wguss & cegielski
+ * @author William Guss
+ * @author Maks Cegielski-Johnson
  *
  */
 public abstract class Process{

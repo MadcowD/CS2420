@@ -6,12 +6,20 @@ import java.util.LinkedList;
 
 import assignment5.AlgorithmTimer.TimeComplexity;
 
+
+/**
+ * 
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
+ * 
+ * Timing class for the two Linked Structures, MyLinkedList and MyStack, timing in particular 
+ * addFirst(), remove(i), get(i), and the 3 main MyStack methods, push(), pop(), peek().
+ *
+ */
 public class LinkedStructureTimer {
 
 	public static void main(String[] args){
-		
-		
-		
+
 		final MyLinkedList<Integer> link = new MyLinkedList<Integer>(); //MyLinkedList
 		final ArrayList<Integer> arr = new ArrayList<Integer>(); //Java's ArrayList
 		final LinkedList<Integer> list = new LinkedList<Integer>(); //Java's LinkedList
