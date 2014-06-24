@@ -7,8 +7,25 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Random;
+
 
 public class BinarySearchTree<Type extends Comparable<? super Type>> implements SortedSet<Type>, TreeTraversal<Type>{
+	public static void main(String[] args){
+		//TODO DELETE THIS WHEN WE'RE DONE.
+		
+		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
+
+		ArrayList<Integer> list = randomList(20);
+		
+		bst.addAll(list);
+		
+		bst.writeDot("BST");
+		
+		System.out.println("Done");
+	}
+	
+	
 	private BinaryNode root = null;
 
 	public BinarySearchTree(){
@@ -203,32 +220,100 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		return result;
 	}
 
-
-	@Override
-	public void writeDot(String filename) {
-		if(isEmpty())
-			return;
-		try{
-			FileWriter fw = new FileWriter(filename);
-
-			root.writeDot(fw);
-
-
-			fw.close();
-		}
-		catch(Exception e)
+	
+	
+	// Driver for writing this tree to a dot file
+		public void writeDot(String filename)
 		{
-			e.printStackTrace();
+			try 
+			{
+				// PrintWriter(FileWriter) will write output to a file
+				PrintWriter output = new PrintWriter(new FileWriter(filename));
+				
+				// Set up the dot graph and properties
+				output.println("digraph BST {");
+				output.println("node [shape=record]");
+				
+				if(root != null)
+					writeDotRecursive(root, output);
+				// Close the graph
+				output.println("}");
+				output.close();
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
 		}
 
-	}
+		
+		// Recursive method for writing the tree to  a dot file
+		private void writeDotRecursive(BinaryNode n, PrintWriter output) throws Exception
+		{
+			output.println(n.data + "[label=\"<L> |<D> " + n.data + "|<R> \"]");
+			
+			if(n.left != null)
+			{
+				// write the left subtree
+				writeDotRecursive(n.left, output);
+				
+				// then make a link between n and the left subtree
+				output.println(n.data + ":L -> " + n.left.data + ":D" );
+			}
+			if(n.right != null)
+			{
+				// write the left subtree
+				writeDotRecursive(n.right, output);
+				
+				// then make a link between n and the right subtree
+				output.println(n.data + ":R -> " + n.right.data + ":D" );
+			}		
+		}
+		
+		
+		public static ArrayList<Integer> randomList(int size){
+			Random rng = new Random();
+			ArrayList<Integer> temp = new ArrayList<Integer>();
+			for(int i = 0; i<size; i++)
+				temp.add(i);
+
+			for(int i = 0; i< size; i++)
+				normalSwap(temp, i, rng.nextInt(size));
+
+			return temp;	
+		}
+		
+		private final static <T> void normalSwap(ArrayList<T> list, int index1, int index2){
+			T temp = list.get(index1);
+			list.set(index1, list.get(index2));
+			list.set(index2, temp);
+		}
+
+//	@Override
+//	public void writeDot(String filename) {
+//		if(isEmpty())
+//			return;
+//		try{
+//			FileWriter fw = new FileWriter(filename);
+//
+//			root.writeDot(fw);
+//
+//
+//			fw.close();
+//		}
+//		catch(Exception e)
+//		{
+//			e.printStackTrace();
+//		}
+//
+//	}
 
 
 
 	// YOU CAN USE THE PRIVATE CLASS BELOW AS YOUR NODE FOR ASSIGNMENT 6
 	/**
 	 * Represents a general binary tree node. Each binary node contains
-	 * data, a left child, and a right child, and a parent.
+	 * data, a left child, and a right child.
 	 * 
 	 * This would make a good node class for a BinarySearchTree implementation
 	 * 
@@ -332,23 +417,23 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		}
 
 		public boolean add(Type item) {
-			int compare = item.compareTo(data);
+			int compare = item.compareTo(this.data);
 			if(compare == 0)
 				return false;
 			else if(compare > 0)
 			{
-				if(getRight() != null)
-					return getRight().add(item);
+				if(this.right != null)
+					return this.right.add(item);
 				else{
-					this.setRight(new BinaryNode(data));
+					this.right = (new BinaryNode(item));
 					return true;
 				}
 			}
 			else if(compare < 0){
-				if(getLeft() != null)
-					return getLeft().add(item);
+				if(left != null)
+					return left.add(item);
 				else{
-					this.setLeft(new BinaryNode(data));
+					this.left = (new BinaryNode(item));
 					return true;
 				}
 			}
@@ -554,27 +639,27 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 
 		// Recursive method for writing the tree to  a dot file
-		public void writeDot(FileWriter output) throws Exception
-		{
-			output.write(this.data + "[label=\"<L> |<D> " + this.data + "|<R> \"]\n");
-
-			if(this.left != null)
-			{
-				// write the left subtree
-				this.left.writeDot(output);
-
-				// then make a link between n and the left subtree
-				output.write(this.data + ":L -> " + this.left.data + ":D\n" );
-			}
-			if(this.right != null)
-			{
-				// write the left subtree
-				this.right.writeDot(output);
-
-				// then make a link between n and the right subtree
-				output.write(this.data + ":R -> " + this.right.data + ":D\n" );
-			}		
-		}
+//		public void writeDot(FileWriter output) throws Exception
+//		{
+//			output.write(this.data + "[label=\"<L> |<D> " + this.data + "|<R> \"]\n");
+//
+//			if(this.left != null)
+//			{
+//				// write the left subtree
+//				this.left.writeDot(output);
+//
+//				// then make a link between n and the left subtree
+//				output.write(this.data + ":L -> " + this.left.data + ":D\n" );
+//			}
+//			if(this.right != null)
+//			{
+//				// write the left subtree
+//				this.right.writeDot(output);
+//
+//				// then make a link between n and the right subtree
+//				output.write(this.data + ":R -> " + this.right.data + ":D\n" );
+//			}		
+//		}
 
 	}
 
