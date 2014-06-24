@@ -2,7 +2,7 @@ package assignment6;
 
 import junit.framework.TestCase;
 
-public class BinarySearchTreeTester extends TestCase {
+public class BSTTester extends TestCase {
 
 	public void testBinarySearchTree() {
 		fail("Not yet implemented");
