@@ -20,13 +20,21 @@ import java.util.NoSuchElementException;
  * @param <Type>
  */
 public class BinarySearchTree<Type extends Comparable<? super Type>> implements SortedSet<Type>, TreeTraversal<Type>{
-	
+	public static void main(String[] args){
+		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+		bst.add(5);
+		bst.add(6);
+		bst.add(1);
+		bst.add(13);
+		bst.add(-6);
+	}
+
+
 	private BinaryNode root;
-	
+
 	public BinarySearchTree(){
-		root.left = null;
-		root.right = null;
-		root.data = null;
+		root = null;
+
 	}
 
 	@Override
@@ -55,57 +63,34 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	}
 
 	@Override
-	public void writeDot(String filename)
-	{
-		try 
-		{
-			// PrintWriter(FileWriter) will write output to a file
-			PrintWriter output = new PrintWriter(new FileWriter(filename));
-			
-			// Set up the dot graph and properties
-			output.println("digraph BST {");
-			output.println("node [shape=record]");
-			
-			if(root != null)
-				writeDotRecursive(root, output);
-			// Close the graph
-			output.println("}");
-			output.close();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	
-	// Recursive method for writing the tree to  a dot file
-	private void writeDotRecursive(BinaryNode n, PrintWriter output) throws Exception
-	{
-		output.println(n.data + "[label=\"<L> |<D> " + n.data + "|<R> \"]");
-		
-		if(n.left != null)
-		{
-			// write the left subtree
-			writeDotRecursive(n.left, output);
-			
-			// then make a link between n and the left subtree
-			output.println(n.data + ":L -> " + n.left.data + ":D" );
-		}
-		if(n.right != null)
-		{
-			// write the left subtree
-			writeDotRecursive(n.right, output);
-			
-			// then make a link between n and the right subtree
-			output.println(n.data + ":R -> " + n.right.data + ":D" );
-		}		
-	}
-
-	@Override
 	public boolean add(Type item) {
-		// TODO Auto-generated method stub
-		return false;
+		if(root == null){
+			root = new BinaryNode(item);
+			return true;
+		}
+		return add(item, root);
+
+	}
+
+	private boolean add(Type item, BinaryNode stand){
+		if(item.compareTo(stand.data) == 0)
+			return false;
+		else if(item.compareTo(stand.data) < 0){
+			if(stand.left == null){
+				stand.left = new BinaryNode(item);
+				return true;
+			}
+			else
+				return add(item, stand.left);
+		}
+		else{
+			if(stand.right == null){
+				stand.right = new BinaryNode(item);
+				return true;
+			}
+			else
+				return add(item, stand.right);
+		}
 	}
 
 	@Override
@@ -122,15 +107,20 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 	@Override
 	public boolean contains(Type item) {
-		// TODO Auto-generated method stub
-		
+
 		return contains(item, root);
 	}
-	
+
 	private boolean contains(Type item, BinaryNode t){
-		//TODO
-		
-		return false;
+		if(t == null)
+			return false;
+		if(item.equals(t.data))
+			return true;
+		if(item.compareTo(t.data) < 0)
+			return contains(item, t.left);
+		else
+			return contains(item, t.right);
+
 	}
 
 	@Override
@@ -141,13 +131,12 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
 		return (root.right == null) && (root.left == null);
 	}
 
 	@Override
 	public boolean remove(Type item) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
@@ -159,8 +148,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return root.numChildren();
 	}
 
 	@Override
@@ -172,17 +160,63 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	@Override
 	public Type first() throws NoSuchElementException {
 		// TODO Auto-generated method stub
-		return null;
+		return root.getLeftmostNode().data;
 	}
 
 	@Override
 	public Type last() throws NoSuchElementException {
 		// TODO Auto-generated method stub
-		return null;
+		return root.getRightmostNode().data;
 	}
 
-	
-	
+	@Override
+	public void writeDot(String filename)
+	{
+		try 
+		{
+			// PrintWriter(FileWriter) will write output to a file
+			PrintWriter output = new PrintWriter(new FileWriter(filename));
+
+			// Set up the dot graph and properties
+			output.println("digraph BST {");
+			output.println("node [shape=record]");
+
+			if(root != null)
+				writeDotRecursive(root, output);
+			// Close the graph
+			output.println("}");
+			output.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+
+	// Recursive method for writing the tree to  a dot file
+	private void writeDotRecursive(BinaryNode n, PrintWriter output) throws Exception
+	{
+		output.println(n.data + "[label=\"<L> |<D> " + n.data + "|<R> \"]");
+
+		if(n.left != null)
+		{
+			// write the left subtree
+			writeDotRecursive(n.left, output);
+
+			// then make a link between n and the left subtree
+			output.println(n.data + ":L -> " + n.left.data + ":D" );
+		}
+		if(n.right != null)
+		{
+			// write the left subtree
+			writeDotRecursive(n.right, output);
+
+			// then make a link between n and the right subtree
+			output.println(n.data + ":R -> " + n.right.data + ":D" );
+		}		
+	}
+
 	/**
 	 * Represents a general binary tree node. Each binary node contains
 	 * data, a left child, and a right child, and a parent.
@@ -294,12 +328,12 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		public int numChildren()
 		{
 			int numChildren = 0;
-			
+
 			if(getLeft() != null)
 				numChildren++;
 			if(getRight() != null)
 				numChildren++;
-			
+
 			return numChildren;
 		}
 
@@ -311,7 +345,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 			// Base case, done for you
 			if(getLeft() == null)
 				return this; // returns "this" node
-			
+
 
 			// FILL IN - do not return null
 			return this.left.getLeftmostNode();
@@ -345,7 +379,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 				return this.left.getRightmostNode();
 			return this.right.getLeftmostNode();
 		}
-		
+
 		/**
 		 * @return The height of the binary tree rooted at this node. The height of a
 		 * tree is the length of the longest path to a leaf node. Consider a tree with
@@ -360,7 +394,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 				return -1;
 			int lefth = this.left.height();
 			int righth = this.right.height();
-			
+
 			if(lefth > righth)
 				return lefth + 1;
 			else
