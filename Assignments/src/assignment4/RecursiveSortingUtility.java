@@ -341,18 +341,4 @@ public class RecursiveSortingUtility
 		list.set(index1, list.get(index2));
 		list.set(index2, temp);
 	}
-
-	/**
-	 * Swaps two elements given that they have already been accessed by the array
-	 * This avoids a second access call.
-	 * @param list
-	 * @param e1
-	 * @param e2
-	 * @param index1
-	 * @param index2
-	 */
-	private final static <T> void fastSwap(ArrayList<T> list, T e1, T e2, int index1, int index2){
-		list.set(index1, e2);
-		list.set(index2, e1);
-	}
 }
