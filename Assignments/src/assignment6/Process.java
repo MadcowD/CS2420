@@ -46,6 +46,14 @@ public abstract class Process{
 	public static class Helper{
 		private static Random rng = new Random();
 		
+		
+		/**
+		 * Sets the random so that if needed, use a constant seed if permitted.
+		 * @param r The random
+		 */
+		public static void setRandom(Random r){
+			rng = r;
+		}
 		/**
 		 * Swaps elements by position within a generic list.
 		 * @param list The list in which the transformation will occurr.
