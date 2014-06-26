@@ -16,7 +16,7 @@ import junit.framework.TestCase;
  * TODO Most of these need to be also asserted by actually looking at the graph, since we test add with contains and contains with add. >.>
  *
  */
-public class BSTTester extends TestCase {
+public class BSTtester extends TestCase {
 	
 
 	
