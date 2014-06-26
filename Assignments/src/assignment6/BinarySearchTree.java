@@ -16,11 +16,19 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
 
-		ArrayList<Integer> list = randomList(20);
-
-		bst.addAll(list);
-
-		bst.writeDot("BST");
+		
+		LinkedList<Integer> even = new LinkedList<Integer>();
+		for(int i = 2; i<=10; i+=2)
+			even.add(i);
+		
+		bst.addAll(even);
+		
+		bst.writeDot("BST.dot");
+		
+		bst.removeAll(even);
+		
+		bst.writeDot("BSTsansEven.dot");
+		
 
 		System.out.println("Done");
 	}
@@ -663,30 +671,6 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 
 		}
-
-
-		// Recursive method for writing the tree to  a dot file
-//		public void writeDot(FileWriter output) throws Exception
-//		{
-//			output.write(this.data + "[label=\"<L> |<D> " + this.data + "|<R> \"]\n");
-//
-//			if(this.left != null)
-//			{
-//				// write the left subtree
-//				this.left.writeDot(output);
-//
-//				// then make a link between n and the left subtree
-//				output.write(this.data + ":L -> " + this.left.data + ":D\n" );
-//			}
-//			if(this.right != null)
-//			{
-//				// write the left subtree
-//				this.right.writeDot(output);
-//
-//				// then make a link between n and the right subtree
-//				output.write(this.data + ":R -> " + this.right.data + ":D\n" );
-//			}		
-//		}
 
 	}
 

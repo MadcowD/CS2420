@@ -2,6 +2,7 @@ package assignment6;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -136,7 +137,25 @@ public class BSTTester extends TestCase {
 	}
 
 	public void testRemoveAll() {
-		fail("Not yet implemented");
+		bst.add(5);
+		bst.add(2);
+		bst.add(7);
+		bst.add(1);
+		bst.add(3);
+		bst.add(4);
+		bst.add(6);
+		bst.add(8);
+		bst.add(9);
+		bst.add(10);
+		
+		LinkedList<Integer> even = new LinkedList<Integer>();
+		for(int i = 2; i<=10; i+=2)
+			even.add(i);
+		
+		bst.removeAll(even);
+		
+		for(int i = 1; i<10; i+=2)
+			assertTrue(bst.contains(i));
 	}
 
 	public void testSize() {
