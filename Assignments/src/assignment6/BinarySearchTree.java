@@ -16,11 +16,28 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		
 		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
 
-		ArrayList<Integer> list = randomList(20);
+		bst.add(5);
+		bst.add(2);
+		bst.add(8);
+		bst.add(1);
+		bst.add(3);
+		bst.add(4);
+		bst.add(6);
+		bst.add(7);
+		bst.add(9);
+		bst.add(10);
 		
-		bst.addAll(list);
+		LinkedList<Integer> even = new LinkedList<Integer>();
+		for(int i = 2; i<=10; i+=2)
+			even.add(i);
 		
-		bst.writeDot("BST");
+		
+		
+		bst.writeDot("BST.dot");
+		
+		bst.removeAll(even);
+		
+		bst.writeDot("BSTsansEven.dot");
 		
 		System.out.println("Done");
 	}
