@@ -100,7 +100,39 @@ public class BSTTester extends TestCase {
 	}
 
 	public void testRemove() {
-		fail("Not yet implemented");
+		bst.add(10);
+		bst.add(5);
+		bst.add(15);
+		bst.add(3);
+		bst.add(7);
+		bst.add(12);
+		bst.add(17);
+		
+		assertTrue(bst.contains(12));//Testing the first case: Node with no children
+		assertEquals(bst.size(), 7);
+		
+		assertTrue(bst.remove(12));
+		assertTrue(!bst.contains(12));
+		assertEquals(bst.size(), 6);
+		
+		bst.add(12);
+		
+		bst.add(13);//Testing the second case: Node with one child
+		assertTrue(bst.contains(12));
+		assertTrue(bst.contains(13));
+		assertEquals(bst.size(), 8);
+		assertTrue(bst.remove(12));
+		assertTrue(bst.contains(13));
+		assertTrue(!bst.contains(12));
+		assertEquals(bst.size(), 7);
+		
+		
+		assertTrue(bst.contains(10)); //Testing the third case: Node with multiple children/grandchildren, in this case the root
+		assertTrue(bst.remove(10));
+		assertTrue(!bst.contains(10));
+		assertTrue(bst.contains(5));//Checking if roots left is still in the list
+		assertTrue(bst.contains(15));//Checking if roots right is still in the list
+		assertEquals(bst.size(), 6);
 	}
 
 	public void testRemoveAll() {
@@ -150,29 +182,99 @@ public class BSTTester extends TestCase {
 	}
 
 	public void testInOrderDFT() {
-		ArrayList<Integer> list = BinarySearchTree.randomList(10);
-		bst.addAll(list);
+		bst.add(10);
+		bst.add(5);
+		bst.add(15);
+		bst.add(3);
+		bst.add(7);
+		bst.add(12);
+		bst.add(17);
 		
-		List<Integer> inOrder = bst.inOrderDFT();//TODO IM GONNA FIGURE OUT HOW TO TEST THESE.
+		List<Integer> list = bst.inOrderDFT();
+		List<Integer> compare = new ArrayList<Integer>();
 		
-		fail("Not yet implemented.");
+		compare.add(3);
+		compare.add(5);
+		compare.add(7);
+		compare.add(10);
+		compare.add(12);
+		compare.add(15);
+		compare.add(17);
+		
+		for(int i = 0; i<7; i++)
+			assertEquals(list.get(i), compare.get(i));
 	}
 
 	public void testPreOrderDFT() {
-		fail("Not yet implemented");
+		bst.add(10);
+		bst.add(5);
+		bst.add(15);
+		bst.add(3);
+		bst.add(7);
+		bst.add(12);
+		bst.add(17);
+		
+		List<Integer> list = bst.preOrderDFT();
+		List<Integer> compare = new ArrayList<Integer>();
+		
+		compare.add(10);
+		compare.add(5);
+		compare.add(3);
+		compare.add(7);
+		compare.add(15);
+		compare.add(12);
+		compare.add(17);
+		
+		for(int i = 0; i<7; i++)
+			assertEquals(list.get(i), compare.get(i));
 	}
 
 	public void testPostOrderDFT() {
-		fail("Not yet implemented");
+		bst.add(10);
+		bst.add(5);
+		bst.add(15);
+		bst.add(3);
+		bst.add(7);
+		bst.add(12);
+		bst.add(17);
+		List<Integer> list = bst.postOrderDFT();
+		List<Integer> compare = new ArrayList<Integer>();
+		
+		compare.add(3);
+		compare.add(7);
+		compare.add(5);
+		compare.add(12);
+		compare.add(17);
+		compare.add(15);
+		compare.add(10);
+		
+		for(int i = 0; i<7; i++)
+			assertEquals(list.get(i), compare.get(i));
 	}
 
 	public void testLevelOrderBFT() {
-		fail("Not yet implemented");
+		bst.add(10);
+		bst.add(5);
+		bst.add(15);
+		bst.add(3);
+		bst.add(7);
+		bst.add(12);
+		bst.add(17);
+		List<Integer> list = bst.levelOrderBFT();
+		List<Integer> compare = new ArrayList<Integer>();
+		
+		compare.add(10);
+		compare.add(5);
+		compare.add(15);
+		compare.add(3);
+		compare.add(7);
+		compare.add(12);
+		compare.add(17);
+		
+		for(int i = 0; i<7; i++)
+			assertEquals(list.get(i), compare.get(i));
 	}
 
-	public void testWriteDot() {
-		fail("Not yet implemented");
-	}
 	
 	
 	

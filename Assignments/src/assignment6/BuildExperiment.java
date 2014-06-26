@@ -3,8 +3,6 @@ package assignment6;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import lec15.BST;
 import assignment6.AlgorithmTimer.TimeComplexity;
 
 /**
