@@ -271,8 +271,11 @@ public class BSTTester extends TestCase {
 		compare.add(12);
 		compare.add(17);
 		
-		for(int i = 0; i<7; i++)
+		for(int i = 0; i<7; i++){
+			System.out.println(list.get(i));
 			assertEquals(list.get(i), compare.get(i));
+			
+		}
 	}
 
 	

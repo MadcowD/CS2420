@@ -207,9 +207,9 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		ArrayList<Type> result = new ArrayList<Type>();
 		LinkedList<BinaryNode> queue = new LinkedList<BinaryNode>();
 
-		queue.addFirst(root);
+		queue.addLast(root);
 		while(!queue.isEmpty()){
-			BinaryNode n = queue.removeLast();
+			BinaryNode n = queue.removeFirst();
 			result.add(n.getData());
 			if(n.getLeft() != null)
 				queue.add(n.getLeft());
