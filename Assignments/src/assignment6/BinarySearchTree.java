@@ -16,19 +16,19 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
 
-		
+
 		LinkedList<Integer> even = new LinkedList<Integer>();
 		for(int i = 2; i<=10; i+=2)
 			even.add(i);
-		
+
 		bst.addAll(even);
-		
+
 		bst.writeDot("BST.dot");
-		
+
 		bst.removeAll(even);
-		
+
 		bst.writeDot("BSTsansEven.dot");
-		
+
 
 		System.out.println("Done");
 	}
@@ -116,16 +116,16 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 		if(isEmpty())
 			return false;
-		
+
 		else{
-			
+
 			//FIRST WE TRAVESRE TO THE NODE.
 			BinaryNode parent = null;
 			BinaryNode p = this.root;
 			while(!p.getData().equals(item)){
 				int compare = item.compareTo(p.getData());
-				
-					
+
+
 				if(compare > 0){
 					if(p.getRight() != null){
 						parent = p;
@@ -143,7 +143,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 						return false;
 				}
 			}
-			
+
 			//NOW WE GO OVER THE THREE CASES
 			if(p.getLeft() == null){
 				if(parent == null)
@@ -171,7 +171,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 					sparent = successor;
 					successor = successor.getLeft();
 				}
-				
+
 				//NOW WE MUST MOVE THE SUCESSOR
 				if(parent == null)
 					this.root = successor;
@@ -179,20 +179,20 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 					parent.setLeft(successor);
 				else
 					parent.setRight(successor);
-				
+
 				//WE HERE THEN SET THE SUCCESSORS PARENT TO THE PROPER VALUE
 				if(successor == sparent.getLeft())
 					sparent.setLeft(successor.getRight());
 				else
 					sparent.setRight(successor.getRight());
-				
+
 				successor.setRight(p.getRight());
 				successor.setLeft(p.getLeft());
 			}
-			
+
 		}
 		return true;
-		
+
 	}
 
 
@@ -364,24 +364,24 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		list.set(index2, temp);
 	}
 
-//	@Override
-//	public void writeDot(String filename) {
-//		if(isEmpty())
-//			return;
-//		try{
-//			FileWriter fw = new FileWriter(filename);
-//
-//			root.writeDot(fw);
-//
-//
-//			fw.close();
-//		}
-//		catch(Exception e)
-//		{
-//			e.printStackTrace();
-//		}
-//
-//	}
+	//	@Override
+	//	public void writeDot(String filename) {
+	//		if(isEmpty())
+	//			return;
+	//		try{
+	//			FileWriter fw = new FileWriter(filename);
+	//
+	//			root.writeDot(fw);
+	//
+	//
+	//			fw.close();
+	//		}
+	//		catch(Exception e)
+	//		{
+	//			e.printStackTrace();
+	//		}
+	//
+	//	}
 
 
 
@@ -451,29 +451,29 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		}
 
 		public boolean add(Type item) {
-			int compare = item.compareTo(this.data);
-			if(compare == 0)
-				return false;
-			else if(compare > 0)
-			{
-				if(this.right != null)
-					return this.right.add(item);
-				else{
-					this.right = (new BinaryNode(item));
-					return true;
+			BinaryNode p = this;
+			while(true){
+				int compare = item.compareTo(p.data);
+				if(compare == 0)
+					return false;
+				else if(compare > 0)
+				{
+					if(p.getRight() != null)
+						p = p.getRight();
+					else{
+						p.setRight(new BinaryNode(item));
+						return true;
+					}
+				}
+				else if(compare < 0){
+					if(p.getLeft() != null)
+						p = p.getLeft();
+					else{
+						p.setLeft(new BinaryNode(item));
+						return true;
+					}
 				}
 			}
-			else if(compare < 0){
-				if(left != null)
-					return left.add(item);
-				else{
-					this.left = (new BinaryNode(item));
-					return true;
-				}
-			}
-
-			//Unreachable code
-			return false;
 		}
 
 		/**
@@ -630,7 +630,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 			return null;
 		}
-		
+
 
 		/**
 		 * @return The height of the binary tree rooted at this node. The height of a

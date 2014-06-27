@@ -127,7 +127,10 @@ public final class AlgorithmTimer {
 		fa += "\t\t" + name + "\r\n";
 		fa+= "------------------------------------------\r\n";
 		fa+= "\tTiming on: [" +start +", " + end +"] @ " + sampleSize + " samples.\r\n";
-		
+		System.out.println("------------------------------------------");
+		System.out.println("\t\t" + name);
+		System.out.println("------------------------------------------");
+		System.out.print("\tTiming on: [" +start +", " + end +"] @ " + sampleSize + " samples.");
 		
 		for(TimeComplexity complexity : complexities)
 		{
