@@ -440,7 +440,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		 * Recursive method used by postOrderDFT in BinarySearchTree.
 		 * @param result
 		 */
-		protected void inOrderDFT(List<Type> result) {
+		public void inOrderDFT(List<Type> result) {
 			if(getLeft() != null)
 				getLeft().inOrderDFT(result);
 			result.add(this.data);
@@ -451,7 +451,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		 * Recursive method used by postOrderDFT in BinarySearchTree.
 		 * @param result
 		 */
-		protected void preOrderDFT(List<Type> result){
+		public void preOrderDFT(List<Type> result){
 			result.add(this.data);
 
 			if(getLeft() != null)
@@ -466,7 +466,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		 * Recursive method used by postOrderDFT in BinarySearchTree.
 		 * @param result
 		 */
-		protected void postOrderDFT(List<Type> result){
+		public void postOrderDFT(List<Type> result){
 			if(getLeft() != null)
 				getLeft().postOrderDFT(result);
 
@@ -489,7 +489,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		 * @param item - item to be added to the tree
 		 * @return
 		 */
-		protected boolean add(Type item) {
+		public boolean add(Type item) {
 			BinaryNode p = this;
 			while(true){
 				int compare = item.compareTo(p.data);
@@ -694,7 +694,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		 * @param elem - The item searching for
 		 * @return
 		 */
-		protected boolean contains(Type elem){
+		public boolean contains(Type elem){
 			int compare = elem.compareTo(this.data);
 			if(compare == 0)
 				return true;
