@@ -2,10 +2,17 @@ package assignment6;
 
 import assignment6.AlgorithmTimer.TimeComplexity;
 
+/**
+ * 
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
+ *
+ *	Creates, holds, and runs all our experiments in one class. Printing out the values to console and .txt file. 
+ */
 public class BSTtimer {
 
 	public static void main(String[] args){
-		long r = 0x666420666L;
+		long r = 0x666420666L; //our random seed
 		
 		//CREATE OUR EXPERIMENTS
 		AlgorithmTimer buildExp = new AlgorithmTimer("custBSTBUILD", new BuildExperiment(), 1000);
@@ -28,13 +35,13 @@ public class BSTtimer {
 		TimeComplexity[] complexities = new TimeComplexity[] {TimeComplexity.BEST, TimeComplexity.WORST};
 		
 		//RUN THOSE EXPERIMENTS
-		buildExp.generateAnalysis(1, 100000,complexities);
-		bAddJava.generateAnalysis(1, 100000,complexities);
-		bAddCust.generateAnalysis(1, 100000,complexities);
-		bRemJava.generateAnalysis(1, 100000,complexities);
-		bRemCust.generateAnalysis(1, 100000,complexities);
-		bContJava.generateAnalysis(1, 100000,complexities);
-		bContCust.generateAnalysis(1, 100000,complexities);
+		buildExp.generateAnalysis(1, 100000,complexities);//BST Build Experiment
+		bAddJava.generateAnalysis(1, 100000,complexities);//TreeSet add() experiment
+		bAddCust.generateAnalysis(1, 100000,complexities);//BST add() experiment
+		bRemJava.generateAnalysis(1, 100000,complexities);//TreeSet remove() experiment
+		bRemCust.generateAnalysis(1, 100000,complexities);//BST remove() experiment
+		bContJava.generateAnalysis(1, 100000,complexities);//TreeSet contains() experiment
+		bContCust.generateAnalysis(1, 100000,complexities);//BST contains() experiment
 		
 		
 	}

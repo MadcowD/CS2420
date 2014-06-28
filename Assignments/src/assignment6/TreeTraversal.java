@@ -6,6 +6,8 @@ import java.util.List;
  * An interface providing method contracts for tree traversal.
  * 
  * @author Paymon Saebi
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
  */
 public interface TreeTraversal <Type extends Comparable<? super Type>>
 {

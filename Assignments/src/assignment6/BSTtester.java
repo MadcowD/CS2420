@@ -13,19 +13,16 @@ import junit.framework.TestCase;
  * @author Maks Cegielski-Johnson
  * @author William Guss
  * 
- * TODO Most of these need to be also asserted by actually looking at the graph, since we test add with contains and contains with add. >.>
+ * Testing class. Many of these tests can also be done using a DOT file.
  *
  */
 public class BSTtester extends TestCase {
 	
-
-	
 	BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
 
-	public void testBinarySearchTree() {
-		fail("Not yet implemented");
-	}
-
+	/**
+	 * Test for the add method
+	 */
 	public void testAdd() {
 		assertTrue(bst.add(10));
 		assertTrue(!bst.add(10));
@@ -41,6 +38,9 @@ public class BSTtester extends TestCase {
 		
 	}
 
+	/**
+	 * Test for the addAll method
+	 */
 	public void testAddAll() {
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		for(int i = 0; i<10; i++){
@@ -54,6 +54,9 @@ public class BSTtester extends TestCase {
 			assertTrue(bst.contains(i));
 	}
 
+	/**
+	 * Test for the clear method
+	 */
 	public void testClear() {
 		assertEquals(bst.size(), 0);
 		for(int i = 0; i<10; i++){
@@ -64,6 +67,9 @@ public class BSTtester extends TestCase {
 		assertEquals(bst.size(), 0);
 	}
 
+	/**
+	 * Test for the contains method
+	 */
 	public void testContains() {
 		for(int i = 0; i<= 20; i++){
 			if(i%2 == 0)
@@ -76,6 +82,9 @@ public class BSTtester extends TestCase {
 		
 	}
 
+	/**
+	 * Test for the containsAll method.
+	 */
 	public void testContainsAll() {
 		ArrayList<Integer> list = BinarySearchTree.randomList(20);
 		
@@ -85,6 +94,9 @@ public class BSTtester extends TestCase {
 		assertTrue(bst.containsAll(list));
 	}
 
+	/**
+	 * Test for the isEmpty method
+	 */
 	public void testIsEmpty() {
 		assertTrue(bst.isEmpty());
 		bst.add(4);
@@ -100,7 +112,12 @@ public class BSTtester extends TestCase {
 		assertTrue(bst.isEmpty());
 	}
 
+	/**
+	 * Test for the remove method.
+	 */
 	public void testRemove() {
+		assertTrue(!bst.remove(99));
+		
 		bst.add(10);
 		bst.add(5);
 		bst.add(15);
@@ -136,6 +153,9 @@ public class BSTtester extends TestCase {
 		assertEquals(bst.size(), 6);
 	}
 
+	/**
+	 * Test for the removeAll method.
+	 */
 	public void testRemoveAll() {
 		bst.add(5);
 		bst.add(2);
@@ -158,6 +178,9 @@ public class BSTtester extends TestCase {
 			assertTrue(bst.contains(i));
 	}
 
+	/**
+	 * Test for the size method.
+	 */
 	public void testSize() {
 		assertEquals(bst.size(), 0);
 		for(int i = 0; i<10; i++){
@@ -166,6 +189,9 @@ public class BSTtester extends TestCase {
 		assertEquals(bst.size(), 10);
 	}
 
+	/**
+	 * Test for the toArrayList method
+	 */
 	public void testToArrayList() {
 		ArrayList<Integer> list = BinarySearchTree.randomList(10);
 		for(int i = 0; i<10; i++)
@@ -180,6 +206,9 @@ public class BSTtester extends TestCase {
 		
 	}
 
+	/**
+	 * Test for the first method
+	 */
 	public void testFirst() {
 		bst.add(10);
 		bst.add(17);
@@ -190,6 +219,9 @@ public class BSTtester extends TestCase {
 		assertEquals(bst.first(), new Integer(3));
 	}
 
+	/**
+	 * Test for the last method
+	 */
 	public void testLast() {
 		bst.add(10);
 		bst.add(17);
@@ -200,6 +232,9 @@ public class BSTtester extends TestCase {
 		assertEquals(bst.last(), new Integer(19));
 	}
 
+	/**
+	 * Test for the In-Order Depth First Traversal method.
+	 */
 	public void testInOrderDFT() {
 		bst.add(10);
 		bst.add(5);
@@ -224,6 +259,9 @@ public class BSTtester extends TestCase {
 			assertEquals(list.get(i), compare.get(i));
 	}
 
+	/**
+	 * Test for the Pre-Order Depth First Traversal method.
+	 */
 	public void testPreOrderDFT() {
 		bst.add(10);
 		bst.add(5);
@@ -248,6 +286,9 @@ public class BSTtester extends TestCase {
 			assertEquals(list.get(i), compare.get(i));
 	}
 
+	/**
+	 * Test for the Post-Order Depth First Traversal method.
+	 */
 	public void testPostOrderDFT() {
 		bst.add(10);
 		bst.add(5);
@@ -271,6 +312,9 @@ public class BSTtester extends TestCase {
 			assertEquals(list.get(i), compare.get(i));
 	}
 
+	/**
+	 * Test for the Level-Order Breadth First Traversal method.
+	 */
 	public void testLevelOrderBFT() {
 		bst.add(10);
 		bst.add(5);
@@ -291,7 +335,6 @@ public class BSTtester extends TestCase {
 		compare.add(17);
 		
 		for(int i = 0; i<7; i++){
-			System.out.println(list.get(i));
 			assertEquals(list.get(i), compare.get(i));
 			
 		}

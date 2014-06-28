@@ -177,7 +177,6 @@ public final class AlgorithmTimer {
 			w.write(fa);
 			w.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

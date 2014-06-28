@@ -11,6 +11,8 @@ import java.util.NoSuchElementException;
  * interface is much like Java's Set and SortedSet, but simpler.
  * 
  * @author Paymon Saebi
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
  */
 public interface SortedSet<Type extends Comparable<? super Type>> 
 {

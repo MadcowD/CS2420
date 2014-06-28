@@ -9,39 +9,30 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
 
-
+/**
+ * @author William Guss
+ * @author Maks Cegielski-Johnson
+ * 
+ * This class encompasses the idea of a Binary Search Tree, keeping the items in a sorted fashion, using a tree structure.
+ * Allows for O(logN) searches, O(logN) adds in the best case, and O(logN) removal in the best case. 
+ * 
+ * Works best if items are added to the list in a random order, becomes worst case if sorted items are added. 
+ *
+ * @param <Type>
+ */
 public class BinarySearchTree<Type extends Comparable<? super Type>> implements SortedSet<Type>, TreeTraversal<Type>{
-	public static void main(String[] args){
-		//TODO DELETE THIS WHEN WE'RE DONE.
-
-		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
-
-
-		LinkedList<Integer> even = new LinkedList<Integer>();
-		for(int i = 2; i<=10; i+=2)
-			even.add(i);
-
-		bst.addAll(even);
-
-		bst.writeDot("BST.dot");
-
-		bst.removeAll(even);
-
-		bst.writeDot("BSTsansEven.dot");
-
-
-		System.out.println("Done");
-	}
-
-
 	private BinaryNode root = null;
 
 	public BinarySearchTree(){
 	}
 
-	@Override
+	/**
+	 * Adds a given item to the tree if it is not already in the list, 
+	 * returns true if the item was added, false if the item was not added.
+	 * @param item
+	 * @return
+	 */
 	public boolean add(Type item) {
-		// TODO Auto-generated method stub
 		if(item == null)
 			throw new NullPointerException();
 
@@ -56,7 +47,10 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 
 
-	@Override
+	/**
+	 * Adds every item from a given collection to the tree, ignoring duplicates.
+	 * Returns false if no items were added to the tree, true otherwise.
+	 */
 	public boolean addAll(Collection<? extends Type> items) {
 		boolean changed = false;
 		for(Type item : items)
@@ -68,7 +62,9 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 
 
-	@Override
+	/**
+	 * Clears every item in the tree, setting the root to null.
+	 */
 	public void clear() {
 		// We simply let java's garbage collector do the work by setting the root to null
 		root = null;
@@ -77,7 +73,9 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 
 
-	@Override
+	/**
+	 * Driver method for contains. Searches through the list recursively, if the item was found returns true, false otherwise.
+	 */
 	public boolean contains(Type item) {
 		//check for null
 		if(item == null)
@@ -91,7 +89,9 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	}
 
 
-	@Override
+	/**
+	 * Returns true if every item of a given collection is contained in the tree, false otherwise.
+	 */
 	public boolean containsAll(Collection<? extends Type> items) {
 		for(Type item : items){
 			if(!contains(item))
@@ -102,14 +102,19 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 
 
-	@Override
+	/**
+	 * Returns true if the list contains no items, aka the root is null; false otherwise.
+	 */
 	public boolean isEmpty() {
 		return root == null;
 	}
 
 
 
-	@Override
+	/**
+	 * Removes an item from the tree, checking 3 different cases for removal, returning true if the
+	 * item was found and removed, false if no such item is in the tree.
+	 */
 	public boolean remove(Type item) {
 		if(item == null)
 			throw new NullPointerException();
@@ -197,9 +202,11 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 
 
-	@Override
+	/**
+	 * Removes every item of the given collection from the tree, returning true if
+	 * any item was removed, false if no items were removed.
+	 */
 	public boolean removeAll(Collection<? extends Type> items) {
-		// TODO Auto-generated method stub
 		boolean changed = false;
 		for(Type item : items)
 			if(remove(item))
@@ -210,7 +217,9 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 
 
-	@Override
+	/**
+	 * Returns the number of elements in the tree.
+	 */
 	public int size() {
 		return root == null ? 0 : root.size();
 	}
@@ -218,7 +227,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 
 	/**
-	 * This is just unfortunate. -_-
+	 * Returns the ArrayList representation of the tree, ordered from smallest to largest.
 	 */
 	@Override
 	public ArrayList<Type> toArrayList() {
@@ -227,7 +236,9 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 
 
-	@Override
+	/**
+	 * Returns the smallest, leftmost item of the tree, throwing an exception if the list is empty.
+	 */
 	public Type first() throws NoSuchElementException {
 		if(isEmpty())
 			throw new NoSuchElementException();
@@ -237,7 +248,9 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 
 
-	@Override
+	/**
+	 * Returns the largest, rightmost element of the tree, throwing an exception if the list is empty.
+	 */
 	public Type last() throws NoSuchElementException {
 		if(isEmpty())
 			throw new NoSuchElementException();
@@ -250,7 +263,10 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	// TRAVERSAL
 	//----------------------------------
 
-	@Override
+	/**
+	 * Returns a List representation of the In-Order depth first traversal of the tree,
+	 * such that the left child of a node is given first, then the node itself, then the right child
+	 */
 	public List<Type> inOrderDFT() {
 		ArrayList<Type> result = new ArrayList<Type>();
 		if(!isEmpty())
@@ -259,7 +275,10 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		return result;
 	}
 
-	@Override
+	/**
+	 * Returns a List representation of the Pre-Order depth first traversal of the tree,
+	 * such that the node is given, then the left and right children.
+	 */
 	public List<Type> preOrderDFT() {
 		ArrayList<Type> result = new ArrayList<Type>();
 		if(!isEmpty())
@@ -268,7 +287,10 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		return result;
 	}
 
-	@Override
+	/**
+	 * Returns a List representation of the Post-Order depth first traversal of the tree,
+	 * such that the left and right children are given first, and then the node itself.
+	 */
 	public List<Type> postOrderDFT() {
 		ArrayList<Type> result = new ArrayList<Type>();
 		if(!isEmpty())
@@ -277,7 +299,11 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		return result;
 	}
 
-	@Override
+	/**
+	 * Returns a List representation of the Level-Order breadth first traversal of the tree,
+	 * such that the items are given from left to right, going through each row of the tree,
+	 * starting from the root and working down.
+	 */
 	public List<Type> levelOrderBFT() {
 		ArrayList<Type> result = new ArrayList<Type>();
 		LinkedList<BinaryNode> queue = new LinkedList<BinaryNode>();
@@ -297,7 +323,9 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 
 
-	// Driver for writing this tree to a dot file
+	/**
+	 * Driver method that writes the Tree as a .dot file.
+	 */
 	public void writeDot(String filename)
 	{
 		try 
@@ -322,7 +350,12 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	}
 
 
-	// Recursive method for writing the tree to  a dot file
+	/**
+	 * The recursive method for writeDot
+	 * @param n - the binary node
+	 * @param output - the file to be written to
+	 * @throws Exception
+	 */
 	private void writeDotRecursive(BinaryNode n, PrintWriter output) throws Exception
 	{
 		output.println(n.data + "[label=\"<L> |<D> " + n.data + "|<R> \"]");
@@ -345,7 +378,11 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		}		
 	}
 
-
+	/**
+	 * Creates a randomly permutated list of integers from 0 to size-1.
+	 * @param size - the size of the list
+	 * @return - an ArrayList of the integers
+	 */
 	public static ArrayList<Integer> randomList(int size){
 		Random rng = new Random();
 		ArrayList<Integer> temp = new ArrayList<Integer>();
@@ -358,34 +395,20 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		return temp;	
 	}
 
+	/**
+	 * Swap helper method used in randomList method, swaps two elements.
+	 * @param list - the ArrayList the items are in
+	 * @param index1 - the first item to be swapped
+	 * @param index2 - the second item to be swapped
+	 */
 	private final static <T> void normalSwap(ArrayList<T> list, int index1, int index2){
 		T temp = list.get(index1);
 		list.set(index1, list.get(index2));
 		list.set(index2, temp);
 	}
 
-	//	@Override
-	//	public void writeDot(String filename) {
-	//		if(isEmpty())
-	//			return;
-	//		try{
-	//			FileWriter fw = new FileWriter(filename);
-	//
-	//			root.writeDot(fw);
-	//
-	//
-	//			fw.close();
-	//		}
-	//		catch(Exception e)
-	//		{
-	//			e.printStackTrace();
-	//		}
-	//
-	//	}
 
-
-
-	// YOU CAN USE THE PRIVATE CLASS BELOW AS YOUR NODE FOR ASSIGNMENT 6
+	
 	/**
 	 * Represents a general binary tree node. Each binary node contains
 	 * data, a left child, and a right child.
@@ -413,15 +436,22 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 			right = _right;
 		}
 
-		public void inOrderDFT(List<Type> result) {
+		/**
+		 * Recursive method used by postOrderDFT in BinarySearchTree.
+		 * @param result
+		 */
+		protected void inOrderDFT(List<Type> result) {
 			if(getLeft() != null)
 				getLeft().inOrderDFT(result);
 			result.add(this.data);
 			if(getRight() != null)
 				getRight().inOrderDFT(result);
 		}
-
-		public void preOrderDFT(List<Type> result){
+		/**
+		 * Recursive method used by postOrderDFT in BinarySearchTree.
+		 * @param result
+		 */
+		protected void preOrderDFT(List<Type> result){
 			result.add(this.data);
 
 			if(getLeft() != null)
@@ -431,8 +461,12 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 				getRight().preOrderDFT(result);
 
 		}
-
-		public void postOrderDFT(List<Type> result){
+		
+		/**
+		 * Recursive method used by postOrderDFT in BinarySearchTree.
+		 * @param result
+		 */
+		protected void postOrderDFT(List<Type> result){
 			if(getLeft() != null)
 				getLeft().postOrderDFT(result);
 
@@ -450,7 +484,12 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 			return this.right != null || this.left != null;
 		}
 
-		public boolean add(Type item) {
+		/**
+		 * Helper method used by add in BinarySearchTree.
+		 * @param item - item to be added to the tree
+		 * @return
+		 */
+		protected boolean add(Type item) {
 			BinaryNode p = this;
 			while(true){
 				int compare = item.compareTo(p.data);
@@ -567,7 +606,10 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 			return numChildren;
 		}
 
-
+		/**
+		 * Method that returns the size of the tree/subtree at a node.
+		 * @return
+		 */
 		public int size(){
 
 			int size = 1;
@@ -642,15 +684,17 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		 */
 		public int height() 
 		{			
-			// FILL IN - do not return -1
-
 			int rh = getRight() == null ? -1 : getRight().height();
 			int lh = getLeft() == null ? -1 : getLeft().height();
-			// FILL IN - do not return -1
 			return 1 + (rh > lh ? rh : lh);
 		}
 
-		public boolean contains(Type elem){
+		/**
+		 * Helper method used by contains in the BinarySearchTree class on specific nodes.
+		 * @param elem - The item searching for
+		 * @return
+		 */
+		protected boolean contains(Type elem){
 			int compare = elem.compareTo(this.data);
 			if(compare == 0)
 				return true;
@@ -660,16 +704,12 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 				else
 					return false;
 			}
-			else if(compare < 0){
+			else{
 				if(getLeft() != null)
 					return getLeft().contains(elem);
 				else
 					return false;
 			}
-			//Unreachable statement.
-			return false;
-
-
 		}
 
 	}
