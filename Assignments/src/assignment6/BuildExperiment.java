@@ -25,8 +25,11 @@ public class BuildExperiment extends Process {
 	{
 		//Here we reset the binary search tree so that each iteration has the same initial state.
 		bst = new BinarySearchTree<Integer>();
-		if(complexity == TimeComplexity.BEST)
+	
+		if(complexity == TimeComplexity.BEST){
+			Process.Helper.setRandom(new Random(420666));
 			data = Process.Helper.permutedInts(n);
+		}
 		else
 			data = Process.Helper.ascendingInts(n);
 	}

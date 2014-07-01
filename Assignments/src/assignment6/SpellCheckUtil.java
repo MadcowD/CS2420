@@ -11,6 +11,8 @@ import java.util.Scanner;
  * methods for spell-checking documents.
  * 
  * @author Paymon Saebi
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
  */
 public class SpellCheckUtil 
 {

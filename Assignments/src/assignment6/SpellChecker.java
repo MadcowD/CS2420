@@ -14,6 +14,8 @@ import java.util.List;
  * spell checker unless the user input parameters are valid.
  * 
  * @author Paymon Saebi
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
  */
 public class SpellChecker 
 {	
