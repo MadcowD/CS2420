@@ -7,6 +7,12 @@ import java.util.TreeSet;
 
 import assignment6.AlgorithmTimer.TimeComplexity;
 
+/**
+ * 
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
+ * Our experiment for the Contains method, testing both Javas TreeSet and our BST, using balanced trees and unbalanced trees created by sorted lists.
+ */
 public class BalanceContainsExperiment {
 
 
