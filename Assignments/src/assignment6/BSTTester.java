@@ -22,11 +22,7 @@ public class BSTTester extends TestCase {
 	
 	BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
 
-	public void testBinarySearchTree() {
-		fail("Not yet implemented");
-	}
-
-	public void testAdd() {
+	public void testAdd() { 
 		assertTrue(bst.add(10));
 		assertTrue(!bst.add(10));
 		assertTrue(bst.contains(10));		
