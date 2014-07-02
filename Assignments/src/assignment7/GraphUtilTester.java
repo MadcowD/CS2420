@@ -9,7 +9,7 @@ public class GraphUtilTester extends TestCase {
 	}
 
 	public void testDepthFirstSearch () {
-		fail("Not yet implemented"); // TODO
+		
 	}
 
 	public void testBreadthFirstSearch () {

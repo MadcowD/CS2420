@@ -2,13 +2,12 @@ package assignment7;
 
 import java.io.File;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Random;
 import java.util.Scanner;
 
-import assignment6.BinarySearchTree.BinaryNode;
 
 /**
  * Utility class containing methods for operating on graphs.
@@ -57,6 +56,8 @@ public class GraphUtil
 	 */
 	public static List<String> breadthFirstSearch(Graph graph, String startName, String goalName)
 	{		
+		if(!graph.getVertices().containsKey(startName) || !graph.getVertices().containsKey(goalName))
+			throw new UnsupportedOperationException();
 		
 		//CLEAR GRAPH
 		for(Vertex v : graph.getVertices().values()){
@@ -67,7 +68,7 @@ public class GraphUtil
 		
 		
 		//PERFORM BFT BY ELIMINATION
-		List<String> result = new ArrayList<String>(graph.getVertices().size());
+		List<String> result = new LinkedList<String>();
 		LinkedList<Vertex> queue = new LinkedList<Vertex>();
 
 		queue.addLast(graph.getVertices().get(startName));
@@ -97,7 +98,7 @@ public class GraphUtil
 
 		//If we have found the end, add the path back in backwards order.
 		while(end != null){
-			result.add(end.getName());
+			((LinkedList<String>)result).addFirst(end.getName());
 			end = end.getCameFrom();
 		}
 
@@ -122,7 +123,58 @@ public class GraphUtil
 	 */
 	public static List<String> dijkstrasShortestPath(Graph graph, String startName, String goalName)
 	{
-		// TODO
+		if(!graph.getWeighted() || !graph.getVertices().containsKey(startName) || !graph.getVertices().containsKey(goalName))
+			throw new UnsupportedOperationException();
+		
+		//CLEAR GRAPH
+		for(Vertex v : graph.getVertices().values()){
+			v.setCameFrom(null); 
+			v.setVisited(false);
+			v.setCostFromStart(10000);
+		}
+		
+		
+		
+		//PERFORM BFT BY ELIMINATION
+		List<String> result = new LinkedList<String>();
+		PriorityQueue<Vertex> queue = new PriorityQueue<Vertex>();
+
+		queue.add(graph.getVertices().get(startName));
+		graph.getVertices().get(startName).setCostFromStart(0);
+
+		//Create an end node for the case that an end is found.
+		Vertex end = null;
+		
+		//Then loop through the queue.
+		while(!queue.isEmpty()){
+			Vertex n = queue.remove();
+			n.setVisited(true);
+
+			if(n.getName().equals(goalName)){
+				end = n;
+				break;
+			}
+			
+			for(Edge e : n.getEdges()){
+				Vertex neighbor = e.getOtherVertex();
+				if(!neighbor.getVisited()){
+					if(e.getWeight() + n.getCostFromStart() < neighbor.getCostFromStart()){
+						neighbor.setCameFrom(n);
+						neighbor.setCostFromStart(e.getWeight() + n.getCostFromStart());
+						queue.add(neighbor);		
+					}
+				}
+			}
+		}
+
+		//If we have found the end, add the path back in backwards order.
+		while(end != null){
+			((LinkedList<String>)result).addFirst(end.getName());
+			end = end.getCameFrom();
+		}
+		
+			
+		
 
 		return null;
 	}
