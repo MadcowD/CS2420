@@ -60,7 +60,7 @@ public class GraphUtil
 		
 		//CLEAR GRAPH
 		for(Vertex v : graph.getVertices().values()){
-			v.setCameFrom(null);
+			v.setCameFrom(null); 
 			v.setVisited(false);
 		}
 		
