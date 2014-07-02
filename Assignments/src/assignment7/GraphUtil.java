@@ -2,9 +2,13 @@ package assignment7;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+
+import assignment6.BinarySearchTree.BinaryNode;
 
 /**
  * Utility class containing methods for operating on graphs.
@@ -35,11 +39,11 @@ public class GraphUtil
 	 */
 	public static List<String> depthFirstSearch(Graph graph, String startName, String goalName)
 	{		
-		// TODO
 		
+
 		return null;
 	}
-	
+
 	/**
 	 * Performs a breadth-first search on a graph to determine the shortest path from a start vertex to an goal vertex. 
 	 * (See Lecture 18 for the algorithm.)
@@ -53,9 +57,52 @@ public class GraphUtil
 	 */
 	public static List<String> breadthFirstSearch(Graph graph, String startName, String goalName)
 	{		
-		// TODO
 		
-		return null;
+		//CLEAR GRAPH
+		for(Vertex v : graph.getVertices().values()){
+			v.setCameFrom(null);
+			v.setVisited(false);
+		}
+		
+		
+		
+		//PERFORM BFT BY ELIMINATION
+		List<String> result = new ArrayList<String>(graph.getVertices().size());
+		LinkedList<Vertex> queue = new LinkedList<Vertex>();
+
+		queue.addLast(graph.getVertices().get(startName));
+		graph.getVertices().get(startName).setVisited(true);
+
+		//Create an end node for the case that an end is found.
+		Vertex end = null;
+		
+		//Then loop through the queue.
+		while(!queue.isEmpty()){
+			Vertex n = queue.removeFirst();
+
+			if(n.getName().equals(goalName)){
+				end = n;
+				break;
+			}
+			
+			for(Edge e : n.getEdges()){
+				Vertex neighbor = e.getOtherVertex();
+				if(!neighbor.getVisited()){
+					neighbor.setCameFrom(n);
+					neighbor.setVisited(true);
+					queue.addLast(neighbor);
+				}
+			}
+		}
+
+		//If we have found the end, add the path back in backwards order.
+		while(end != null){
+			result.add(end.getName());
+			end = end.getCameFrom();
+		}
+
+
+		return result;
 	}
 
 	/**
@@ -76,10 +123,10 @@ public class GraphUtil
 	public static List<String> dijkstrasShortestPath(Graph graph, String startName, String goalName)
 	{
 		// TODO
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * Performs a topological sort of the vertices in a directed acyclic graph. 
 	 * (See Lecture 19 for the algorithm.)
@@ -91,7 +138,7 @@ public class GraphUtil
 	public static List<String> topologicalSort(Graph graph)
 	{
 		// TODO
-		
+
 		return null;
 	}
 
@@ -138,7 +185,7 @@ public class GraphUtil
 
 		int rand1 = rng.nextInt(vertexCount);
 		int rand2 = rng.nextInt(vertexCount);
-		
+
 		if (acyclic)
 			for (int i = 0; i < edgeDensity * vertexCount; i++)
 			{
@@ -148,21 +195,21 @@ public class GraphUtil
 				for(Edge e : vertex[rand1].getEdges())
 					while(e.getOtherVertex().equals(vertex[rand2]))
 						rand2 = rng.nextInt(vertexCount);
-				
+
 				while (rand2 <= rand1)
 				{
 					rand1 = rng.nextInt(vertexCount);
 					rand2 = rng.nextInt(vertexCount);
-					
+
 					for(Edge e : vertex[rand1].getEdges())
 						while(e.getOtherVertex().equals(vertex[rand2]))
 							rand2 = rng.nextInt(vertexCount);
-							if(rand2 <= rand1)
-								rand2 = rng.nextInt(vertexCount);
+					if(rand2 <= rand1)
+						rand2 = rng.nextInt(vertexCount);
 				}				 
 
 				vertex[rand1].addEdge(vertex[rand2]);
-				
+
 				out.print("\t" + vertex[rand1].getName() + edgeOp + vertex[rand2].getName());
 
 				if (weighted)
@@ -175,7 +222,7 @@ public class GraphUtil
 			{
 				rand1 = rng.nextInt(vertexCount);
 				rand2 = rng.nextInt(vertexCount);
-				
+
 				while (rand2 == rand1)
 				{
 					rand2 = rng.nextInt(vertexCount);
@@ -191,7 +238,7 @@ public class GraphUtil
 		out.println("}");
 		out.close();
 	}
-	
+
 	/**
 	 * Builds a graph according to the edges specified in the given DOT file (e.g., "a -- b" or "a -> b"). 
 	 * Accepts directed ("digraph") or undirected ("graph") graphs.
