@@ -8,8 +8,8 @@ import assignment7.AlgorithmTimer.TimeComplexity;
 
 /**
  * The process interface in which the algorithm will be run.
+ * @author Jesus Hernandez
  * @author William Guss
- * @author Maks Cegielski-Johnson
  *
  */
 public abstract class Process{

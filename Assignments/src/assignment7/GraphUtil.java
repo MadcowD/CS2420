@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 
 /**
@@ -20,8 +21,8 @@ import java.util.Scanner;
  * Building graphs from file routine - to create and build a graph object from a valid dot file  
  * 
  * @author Paymon Saebi
- * @author 
- * @author 
+ * @author Jesus Hernandez
+ * @author William Guss
  */
 public class GraphUtil
 {
@@ -38,9 +39,45 @@ public class GraphUtil
 	 */
 	public static List<String> depthFirstSearch(Graph graph, String startName, String goalName)
 	{		
+		if(!graph.getVertices().containsKey(startName) || !graph.getVertices().containsKey(goalName))
+			throw new UnsupportedOperationException();
 		
+		//CLEAR GRAPH
+		for(Vertex v : graph.getVertices().values()){
+			v.setCameFrom(null); 
+			v.setVisited(false);
+		}
 
-		return null;
+		LinkedList<Vertex> stack = new LinkedList<Vertex>();
+		LinkedList<String> result = new LinkedList<String>();
+		stack.addLast(graph.getVertices().get(startName));
+
+		Vertex end = null;
+		
+		while(stack.size() != 0){
+		
+			Vertex n = stack.removeLast();
+			if(n.getName().equals(goalName))
+				end = n;
+			if(!n.getVisited()){
+			n.setVisited(true);
+			
+				for(Edge e : n.getEdges()){
+					Vertex neighbor = e.getOtherVertex();
+					if(!neighbor.getVisited()){
+						neighbor.setCameFrom(n);
+						stack.addLast(neighbor);
+					}
+				}
+			}
+		}
+		
+		while(end != null)
+		{
+			result.addFirst(end.getName());
+			end = end.getCameFrom();			
+		}
+		return result;
 	}
 
 	/**
@@ -176,7 +213,7 @@ public class GraphUtil
 			
 		
 
-		return null;
+		return result;
 	}
 
 	/**
@@ -189,9 +226,34 @@ public class GraphUtil
 	 */
 	public static List<String> topologicalSort(Graph graph)
 	{
-		// TODO
+		if(!graph.getDirected())
+			throw new UnsupportedOperationException();
+		
+		ConcurrentLinkedQueue<Vertex> q = new ConcurrentLinkedQueue<Vertex>();
+		List<String> result = new LinkedList<String>();
+		
+		for(Vertex v : graph.getVertices().values()){
+			if(v.getInDegree() == 0)
+				q.add(v);
+		}
+		
+		while(q.size() != 0){
+			Vertex n = q.remove();
+			if(n.getVisited())
+				throw new UnsupportedOperationException();
+			result.add(n.getName());
+			for(Edge mark : n.getEdges()){
+				mark.getOtherVertex().decInDegree();
+				if(mark.getOtherVertex().getInDegree() == 0)
+					q.add(mark.getOtherVertex());
+			}
+			n.setVisited(true);
+			
+		}
 
-		return null;
+		if(result.size() != graph.getVertices().size())
+			throw new UnsupportedOperationException();
+		return result;
 	}
 
 	/**
@@ -255,7 +317,7 @@ public class GraphUtil
 
 					for(Edge e : vertex[rand1].getEdges())
 						while(e.getOtherVertex().equals(vertex[rand2]))
-							rand2 = rng.nextInt(vertexCount);
+							rand2 = rng.nextInt(vertexCount); 
 					if(rand2 <= rand1)
 						rand2 = rng.nextInt(vertexCount);
 				}				 
@@ -389,6 +451,110 @@ public class GraphUtil
 			// Skip //-style comments.
 			line = line.replaceFirst("//.*", "");
 		}
+		s.close();
+
+		return g;
+	}
+	
+	/**
+	 * Builds a graph according to the edges specified in the given DOT file (e.g., "a -- b" or "a -> b"). 
+	 * Accepts directed ("digraph") or undirected ("graph") graphs.
+	 * 
+	 * Accepts many valid DOT files (see examples posted with assignment). 
+	 * --accepts \\-style comments 
+	 * --accepts one edge per line or edges terminated with ; 
+	 * --does not accept attributes in [] (e.g., [label = "a label"])
+	 * 
+	 * @param filename - name of the DOT file
+	 */
+	public static Graph buildGraphFromString(String string)
+	{
+		Graph g = new Graph();
+
+		Scanner s = null;
+		try
+		{
+			s = new Scanner(string).useDelimiter(";|\n");
+		} 
+		catch (Exception e)
+		{
+			System.out.print("Unable to utilize the graph .dot file: ");
+			System.err.println(e.getMessage());
+		}
+
+		// Determine if graph is directed or not (i.e., look for "digraph id {" or "graph id {")
+		String line = "", edgeOp = "";
+
+		while (s.hasNext())
+		{
+			line = s.next();
+
+			// Skip //-style comments.
+			line = line.replaceFirst("//.*", "");
+
+			if (line.indexOf("digraph") >= 0)
+			{
+				g.setDirected(true); 
+				edgeOp = "->";
+				line = line.replaceFirst(".*\\{", "");
+				break;
+			}
+			if (line.indexOf("graph") >= 0)
+			{
+				g.setDirected(false);
+				edgeOp = "--";
+				line = line.replaceFirst(".*\\{", "");
+				break;
+			}
+		}
+
+		line = s.next();
+		boolean weighted = line.contains("label");
+
+		if (weighted)
+			g.setWeighted(true);
+
+		// Look for edge operators -- (or ->) and determine the left and right vertices for each edge.
+		while (s.hasNext())
+		{
+			String[] substring2 = null;
+			String[] substring = line.split(edgeOp);
+
+			if (weighted)
+			{
+				substring2 = line.split(" ");
+				substring = substring2[0].split(edgeOp);
+			}
+
+			for (int i = 0; i < substring.length - 1; i += 2)
+			{
+				// remove " and trim whitespace from node string on the left
+				String vertex1 = substring[0].replace("\"", "").trim();
+				if (vertex1.equals(""))
+					continue;
+
+				String vertex2 = substring[1].replace("\"", "").trim();
+				if (vertex2.equals(""))
+					continue;
+
+				if (weighted)
+				{
+					String[] substring3 = substring2[1].split("=");
+					int weight = Integer.parseInt(substring3[1].replace("]", "").trim());
+					g.addEdgeWeighted(vertex1, vertex2, weight);
+				} else
+					g.addEdge(vertex1, vertex2);
+			}
+
+			if (substring[substring.length - 1].indexOf("}") >= 0)
+				break;
+
+			line = s.next();
+
+			// Skip //-style comments.
+			line = line.replaceFirst("//.*", "");
+		}
+		s.close();
 
 		return g;
 	}

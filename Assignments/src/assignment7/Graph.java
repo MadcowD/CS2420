@@ -1,6 +1,7 @@
 package assignment7;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  * Represents a graph structure (a set of vertices each with a set of edges).
@@ -48,6 +49,7 @@ public class Graph
 	{
 		return this.isDirected;
 	}	
+	
 	
 	/**
 	 * Set the graph weighted-ness indicator
