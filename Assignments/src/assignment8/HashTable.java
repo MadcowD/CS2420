@@ -22,6 +22,7 @@ public abstract class HashTable implements Set<String>
 	protected int tableSize;
 	protected HashFunctor functor;
 	protected double lambda;//TODO ARE THESE PROTECTED OR PRIVATE
+	private int collisions = 0;
 	
 	/**
 	 * 
@@ -117,5 +118,40 @@ public abstract class HashTable implements Set<String>
 		}
 		
 		return true;
+	}
+	
+	
+	private static Random r = new Random();
+	
+	/**
+	 * Generates a random string for testing and timing.
+	 * @param length
+	 * @return
+	 */
+	public static String generateRandomString(int length, int start, int end){
+		StringBuilder sb = new StringBuilder();
+		for(int i =0; i < length; i++){
+			sb.append((char)(r.nextInt(end-start)+start));
+		}
+		return sb.toString();
+	}
+	
+	public static String generateRandomString(){
+		return generateRandomString(r.nextInt(511), 1,255);
+	}
+	
+	public static String generateAlphanumericString(){
+		return generateRandomString(r.nextInt(20), 97, 122);
+		
+	}
+	
+	protected void incCollisions(){
+		this.collisions++;
+	}
+	
+	public int getCollisions() {
+		int result = this.collisions;
+		this.collisions = 0;
+		return result;
 	}
 }

@@ -10,7 +10,7 @@ public class TempHashTest {
 		int hashType = 1; //0 for probing, 1 for chaining
 
 		if(hashType == 0){
-			ProbingHashTable h = new ProbingHashTable(11, new GoodHashFunctor());
+			ProbingHashTable h = new ProbingHashTable(11, new FairHashFunctor());
 			h.add("one");
 			print(h.lambda);
 			h.add("two");
@@ -28,7 +28,7 @@ public class TempHashTest {
 			print(Arrays.toString(h.toArray()));
 		}
 		else if(hashType == 1){
-			ChainingHashTable h = new ChainingHashTable(11, new GoodHashFunctor());
+			ChainingHashTable h = new ChainingHashTable(11, new FairHashFunctor());
 			h.add("one");
 			h.add("two");
 			h.add("four");
@@ -50,11 +50,23 @@ public class TempHashTest {
 //			h.add("nineteen");//These push lambda over limit
 //			h.add("twenty");
 			
-			
+			for(int i = 0; i < 100; i++)
+				h.add(HashTable.generateAlphanumericString());
 			print(Arrays.toString(h.toArray()));
 			print(h.getLambda());
 			print(2*h.tableSize-h.tableSize/2.5);
 		}
+		ChainingHashTable good = new ChainingHashTable(100, new FairHashFunctor());
+		ChainingHashTable fair = new ChainingHashTable(100, new GoodHashFunctor());
+		int cA = 0;
+		for(int i = 0; i <  1000000; i++){
+			String lolz = HashTable.generateAlphanumericString();
+			  good.add(lolz);
+			  fair.add(lolz);
+		}
+		System.out.println(good.getCollisions());
+		System.out.println(fair.getCollisions());
+	
 
 
 	}

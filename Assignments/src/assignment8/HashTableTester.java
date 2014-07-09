@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 
 public class HashTableTester extends TestCase {
 	
-	private HashFunctor FUNCTOR = new GoodHashFunctor();
+	private HashFunctor FUNCTOR = new FairHashFunctor();
 
 	private ProbingHashTable probe = new ProbingHashTable(11, FUNCTOR);
 	
