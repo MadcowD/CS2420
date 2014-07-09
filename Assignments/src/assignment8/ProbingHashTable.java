@@ -1,8 +1,19 @@
 package assignment8;
 
 public class ProbingHashTable extends HashTable {
+	
+	private String[] table;
 
+	/**
+	 * Constructor for a ProbingHashTable, creating an array of a prime size capacity (or next largest prime) and using
+	 * a given functor.
+	 * @param capacity - a prime number, if the value is not prime then the next largest prime is used instead
+	 * @param functor - a HashFunctor, used to hash the values into the table
+	 */
 	public ProbingHashTable(int capacity, HashFunctor functor){
+		if(!isPrime(capacity))
+			capacity = nextPrime(capacity);
+		
 		this.tableSize = capacity;
 		this.functor = functor;
 		this.lambda = 0;
@@ -11,16 +22,15 @@ public class ProbingHashTable extends HashTable {
 
 
 	/**
-	 * 
+	 * Adds the given string item to the set. Returns true if the item was successfully added, false if the set already contains the item and therefore was not added
 	 */
 	public boolean add(String item) {
 		//Check if we need to rehash
-		if(this.lambda > 0.5){
+		if(this.lambda > 0.5)
 			this.rehash(); 
-		}
 
-		//TODO
-		if(this.contains(item))//TODO
+
+		if(this.contains(item))
 			return false;
 
 		//Get hash value
@@ -32,6 +42,7 @@ public class ProbingHashTable extends HashTable {
 
 		this.size++;//increment size
 		this.lambda = (double)this.size/this.tableSize;//update lambda
+		
 		return true;
 	}
 	
@@ -75,8 +86,14 @@ public class ProbingHashTable extends HashTable {
 		this.size = 0;
 
 	}
+	
+	public String[] toArray(){
+		return this.table;
+	}
 
-	@Override
+	/**
+	 * Contains method for the ProbingHashTable, returns true if the item is found in the table, returns false if not
+	 */
 	public boolean contains(String item) {
 		int hash = functor.hash(item);
 		hash %= table.length;
@@ -101,7 +118,7 @@ public class ProbingHashTable extends HashTable {
 		int prime = this.tableSize;//create a prime number, make sure it is at least the current table size
 		//Guarantee a prime twice as large as the current one
 		while(prime < 2*this.tableSize)
-			prime = this.nextPrime(prime);//continue to update prime
+			prime = nextPrime(prime);//continue to update prime
 		
 		//The replacement array
 		String[] tempArr = new String[prime];
@@ -123,35 +140,6 @@ public class ProbingHashTable extends HashTable {
 		
 	}
 
-	/**
-	 * Helper method used to generate the next prime integer
-	 * @param n - the lower bound, we want a prime larger than this
-	 * @return - the next prime
-	 */
-	private int nextPrime(int n){
-		boolean isPrime = false; //helper boolean
-		//The next prime
-		int p;
-		
-		/*
-		 * The upper bound is set by Bertrand's postulate,
-		 * which states that if n > 3 is an integer,
-		 * then there will always exist at least 
-		 * one prime such that n < p < 2n - 2
-		 */
-		for(p = n+2; p < 2*n; p+=2){
-			//If p is a composite integer, then p has a divisor less than or equal to the sqrt(p)
-			for(int i = 3; i<=Math.sqrt(p); i+=2){
-				if(p%i == 0){
-					isPrime = false;
-					break;
-				}else
-					isPrime = true;
-			}
-			if(isPrime)
-				break;
-		}
-		return p;
-	}
+	
 
 }

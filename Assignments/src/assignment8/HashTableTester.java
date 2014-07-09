@@ -4,9 +4,11 @@ import junit.framework.TestCase;
 
 public class HashTableTester extends TestCase {
 	
-	private static HashFunctor FUNCTOR = new GoodHashFunctor();
+	private HashFunctor FUNCTOR = new GoodHashFunctor();
 
 	private ProbingHashTable probe = new ProbingHashTable(11, FUNCTOR);
+	
+	//TODO add tests for addAll and containsAll
 	
 	
 	public void testContainsProbe(){
@@ -26,16 +28,20 @@ public class HashTableTester extends TestCase {
 	
 	public void testAddProbeGrow(){
 		//Add 6 items
-		
+		assertEquals(probe.getTableSize(), 11);
 		probe.add("one");
 		probe.add("two");
 		probe.add("three");
 		probe.add("four");
 		probe.add("five");
+		assertTrue(probe.getLambda() < .5);
 		//Check if the next lambda is >.5 or not.
-		
-		//TODO then check if size grows correctly
-		
-		fail("not done");
+		probe.add("six");
+		assertTrue(probe.getLambda() > .5);
+		//now should grow on next add
+		probe.add("seven");
+		assertTrue(probe.getLambda() < .5);
+		assertEquals(probe.getTableSize(), 23); //2*11 is 22, next prime is 23
+
 	}
 }
