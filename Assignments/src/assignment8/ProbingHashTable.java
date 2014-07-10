@@ -26,24 +26,15 @@ public class ProbingHashTable extends HashTable {
 	 */
 	public boolean add(String item) {
 		//Check if we need to rehash
-		if(this.lambda > 0.5)
-			this.rehash(); 
-
-
-		if(this.contains(item))
-			return false;
-
+		if(this.lambda > 0.5){
+			this.size = 0;//need this for insert function so size is accurate
+			this.rehash();
+		}
 		//Get hash value
-		int hashVal = functor.hash(item);
-		hashVal %= this.tableSize;
+		int hashVal = functor.hash(item) % this.tableSize;
 
 		//Helper insert method
-		insert(item, hashVal, this.table);
-
-		this.size++;//increment size
-		this.lambda = (double)this.size/this.tableSize;//update lambda
-		
-		return true;
+		return insert(item, hashVal, this.table);
 	}
 	
 	/**
@@ -52,7 +43,7 @@ public class ProbingHashTable extends HashTable {
 	 * @param hashVal - the item's hash value
 	 * @param table - the table to be inserted to
 	 */
-	private void insert(String item, int hashVal, String[] table){
+	private boolean insert(String item, int hashVal, String[] table){
 		int i = 1;//used for quadratic probing, such that hash + i^2
 		int temp = hashVal;//insert the item at temp
 		
@@ -61,8 +52,13 @@ public class ProbingHashTable extends HashTable {
 			//If an empty slot, insert here
 			if(table[temp] == null){
 				table[temp] = item;
+				this.size++;//increment size
+				this.lambda = (double)this.size/this.tableSize;//update lambda
 				return;
 			}
+			
+			if(table[temp].equals(item))//check if the table contains item already
+				return false;
 			
 			//Else:
 			temp = hashVal + i*i;//Next spot using quadratic probing
@@ -87,6 +83,9 @@ public class ProbingHashTable extends HashTable {
 
 	}
 	
+	/**
+	 * Returns the array representation of the Hash Table
+	 */
 	public String[] toArray(){
 		return this.table;
 	}
@@ -95,15 +94,14 @@ public class ProbingHashTable extends HashTable {
 	 * Contains method for the ProbingHashTable, returns true if the item is found in the table, returns false if not
 	 */
 	public boolean contains(String item) {
-		int hash = functor.hash(item);
-		hash %= table.length;
-		int find = hash;
+		int final HASH = functor.hash(item) % this.tableSize;//don't want HASH to change for this item
+		int find = HASH;//find is the probing value
 		int i = 1;
 		while(table[find] != null){
 			if(table[find].equals(item))
 				return true;
-			find = hash + i*i;
-			if(find > this.table.length)
+			find = HASH + i*i;
+			if(find > this.table.length)//loop around
 				find %= table.length;
 			i++;
 		}
@@ -126,12 +124,12 @@ public class ProbingHashTable extends HashTable {
 		//Move every item over to the new array
 		for(int i = 0; i<this.tableSize; i++){
 			String tempStr = this.table[i];//Set a temp string
-			if(tempStr == null)//Don't do anything if the string is null
-				continue;
-			//Get a new hash value
-			int hashVal = functor.hash(tempStr);
-			hashVal %= prime;
-			insert(tempStr, hashVal, tempArr);//Insert all the items in the correct position
+			if(tempStr != null){
+				//Get a new hash value
+				int hashVal = functor.hash(tempStr);
+				hashVal %= prime;
+				insert(tempStr, hashVal, tempArr);//Insert all the items in the correct position
+			}
 		}
 		
 		//Set the pointers
