@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Represents a "dictionary" of strings using a binary search tree and offers
+ * Represents a "dictionary" of strings using a HashTable and offers
  * methods for spell-checking documents.
  * 
  * @author Paymon Saebi
@@ -56,7 +56,6 @@ public class SpellCheckUtil
 	 */
 	public void addToDictionary(String word) 
 	{
-		//TODO
 		dictionary.add(word);
 	}
 
@@ -67,7 +66,7 @@ public class SpellCheckUtil
 //	 */
 //	public void removeFromDictionary(String word) 
 //	{
-//		//TODO
+//		
 //		dictionary.remove(word);
 //	}
 
@@ -117,6 +116,7 @@ public class SpellCheckUtil
 			 * Java's Scanner class is a simple lexer for Strings and primitive types
 			 * (see the Java API, if you are unfamiliar).
 			 */
+			@SuppressWarnings("resource")
 			Scanner fileInput = new Scanner(file);
 
 			/*

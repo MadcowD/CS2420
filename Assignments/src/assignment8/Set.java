@@ -8,6 +8,8 @@ import java.util.*;
  * much like Java's Set, but simpler.
  * 
  * @author Paymon Saebi
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
  */
 public interface Set<Type>  
 {

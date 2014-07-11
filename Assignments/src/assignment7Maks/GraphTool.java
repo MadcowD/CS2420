@@ -1,4 +1,4 @@
-package assignment7;
+package assignment7Maks;
 
 /**
  * Graph tools command-line user interface. 

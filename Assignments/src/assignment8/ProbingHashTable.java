@@ -1,8 +1,15 @@
 package assignment8;
 
+/**
+ * Data Structure implementation of a HashTable using Quadratic probing. Has methods for adding and checking if an item
+ * is contained in the table. 
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
+ *
+ */
 public class ProbingHashTable extends HashTable {
 	
-	private String[] table;
+	private String[] table;//used to store all the data
 
 	/**
 	 * Constructor for a ProbingHashTable, creating an array of a prime size capacity (or next largest prime) and using
@@ -21,9 +28,7 @@ public class ProbingHashTable extends HashTable {
 	}
 
 
-	/**
-	 * Adds the given string item to the set. Returns true if the item was successfully added, false if the set already contains the item and therefore was not added
-	 */
+
 	public boolean add(String item) {
 		//Check if we need to rehash
 		if(this.lambda > 0.5){
@@ -36,7 +41,41 @@ public class ProbingHashTable extends HashTable {
 		//Helper insert method
 		return insert(item, hashVal, this.table);
 	}
+
+
+	public void clear() {
+		//Set everything to null
+		for(int i = 0; i<this.table.length; i++)
+			this.table[i] = null;
+		this.size = 0;
+
+	}
+
+
+
+	public boolean contains(String item) {
+		final int HASH = functor.hash(item) % this.tableSize;//don't want HASH to change for this item
+		int find = HASH;//find is the probing value
+		int i = 1;
+		while(table[find] != null){
+			if(table[find].equals(item))
+				return true;
+			find = HASH + i*i;
+			if(find > this.table.length)//loop around
+				find %= table.length;
+			i++;
+		}
+		return false;
+	}
+
 	
+	/**
+	 * Returns the array representation of the Hash Table
+	 */
+	public String[] toArray(){
+		return this.table;
+	}
+
 	/**
 	 * Helper method used in adding and rehashing
 	 * @param item - item to be added
@@ -54,7 +93,7 @@ public class ProbingHashTable extends HashTable {
 				table[temp] = item;
 				this.size++;//increment size
 				this.lambda = (double)this.size/this.tableSize;//update lambda
-				return;
+				return true;
 			}
 			
 			if(table[temp].equals(item))//check if the table contains item already
@@ -62,7 +101,7 @@ public class ProbingHashTable extends HashTable {
 			
 			//Else:
 			temp = hashVal + i*i;//Next spot using quadratic probing
-			
+			this.incCollisions();
 			//Loop around
 			if(temp > table.length)
 				temp %= table.length;
@@ -71,52 +110,15 @@ public class ProbingHashTable extends HashTable {
 		}
 		
 	}
-
-	/**
-	 * Clears the Hash Table and resets the size.
-	 */
-	public void clear() {
-		//Set everything to null
-		for(int i = 0; i<this.table.length; i++)
-			this.table[i] = null;
-		this.size = 0;
-
-	}
 	
 	/**
-	 * Returns the array representation of the Hash Table
-	 */
-	public String[] toArray(){
-		return this.table;
-	}
-
-	/**
-	 * Contains method for the ProbingHashTable, returns true if the item is found in the table, returns false if not
-	 */
-	public boolean contains(String item) {
-		int final HASH = functor.hash(item) % this.tableSize;//don't want HASH to change for this item
-		int find = HASH;//find is the probing value
-		int i = 1;
-		while(table[find] != null){
-			if(table[find].equals(item))
-				return true;
-			find = HASH + i*i;
-			if(find > this.table.length)//loop around
-				find %= table.length;
-			i++;
-		}
-		return false;
-	}
-
-
-	/**
-	 * Helper method used to rehash a table if lambda > 0.5
+	 * Helper method used to rehash a table if lambda gets too large
 	 */
 	private void rehash(){
-		int prime = this.tableSize;//create a prime number, make sure it is at least the current table size
-		//Guarantee a prime twice as large as the current one
-		while(prime < 2*this.tableSize)
-			prime = nextPrime(prime);//continue to update prime
+		int prime = this.tableSize * 2;
+		prime = nextPrime(prime);//create a prime number atleast twice as large as the size of the table
+		
+		this.clearCollisions();
 		
 		//The replacement array
 		String[] tempArr = new String[prime];
@@ -137,7 +139,7 @@ public class ProbingHashTable extends HashTable {
 		this.tableSize = prime;
 		
 	}
-
 	
+
 
 }
