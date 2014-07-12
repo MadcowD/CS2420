@@ -71,6 +71,7 @@ public class ChainingHashTable extends HashTable {
 				storage[i].clear();
 		this.size = 0;
 		this.lambda = 0;
+		this.getCollisions();
 		
 	}
 

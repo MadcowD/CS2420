@@ -85,6 +85,7 @@ public class ProbingHashTable extends HashTable {
 	private boolean insert(String item, int hashVal, String[] table){
 		int i = 1;//used for quadratic probing, such that hash + i^2
 		int temp = hashVal;//insert the item at temp
+		temp %= table.length;
 		
 		//Find a place to insert the item
 		while(true){
@@ -103,7 +104,6 @@ public class ProbingHashTable extends HashTable {
 			temp = hashVal + i*i;//Next spot using quadratic probing
 			this.incCollisions();
 			//Loop around
-			if(temp > table.length)
 				temp %= table.length;
 			
 			i++;//Increment quadratic probe
