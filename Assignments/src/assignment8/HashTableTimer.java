@@ -2,6 +2,12 @@ package assignment8;
 
 import assignment8.AlgorithmTimer.TimeComplexity;
 
+/**
+ * Our timing class, runs all the experiments from HashTableExperiment using the timing framework.
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
+ *
+ */
 public class HashTableTimer {
 	public static void main(String[] args){
 		TimeComplexity[] complexities = new TimeComplexity[] {TimeComplexity.AVERAGE};

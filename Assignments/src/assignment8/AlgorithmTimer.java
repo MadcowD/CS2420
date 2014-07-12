@@ -10,7 +10,7 @@ import java.util.Map;
  /** A timing framework built for CS2420, because we are lazy. 
  * Essentially takes a functor (AlgorithmTimer.Process) and tests it using different
  * methods and complexities. Streamlines data export.
- * @author Jesus Hernandez
+ * @author Maks Cegielski-Johnson
  * @author William Guss
  */
 public final class AlgorithmTimer {

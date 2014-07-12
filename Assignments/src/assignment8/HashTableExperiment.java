@@ -1,10 +1,14 @@
 package assignment8;
-import java.util.List;
-import java.util.Random;
 
 import assignment8.AlgorithmTimer.TimeComplexity;
 import assignment8.Process;
 
+/**
+ * The Hash Table experiment class, holds the different experiments with the constructor.
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
+ *
+ */
 public class HashTableExperiment extends Process{
 	private HashTable data;
 	private boolean time;
