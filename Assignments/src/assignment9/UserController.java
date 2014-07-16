@@ -85,6 +85,7 @@ public class UserController
 	        	if(input.equals("done"))
 	        	{
 	        		System.out.println("\nUser command connection has been shut down...");
+	        		manager.runTask();
 	        		break;
 	        	}
 	        	else 
