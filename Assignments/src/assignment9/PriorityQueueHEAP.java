@@ -27,6 +27,7 @@ public class PriorityQueueHEAP<AnyType>
 		pq.add(12);
 		pq.add(3);
 		pq.add(24);
+		pq.deleteMin();
 		System.out.println(Arrays.toString(pq.toArray()));
 	}
 
@@ -116,9 +117,9 @@ public class PriorityQueueHEAP<AnyType>
 
 		for( ; hole*2 <= this.currentSize; hole = child){
 			child = hole*2;
-			if(child != this.currentSize && cmp.compare(this.array[child+1], this.array[child])< 0)
+			if(child != this.currentSize && compare(this.array[child+1], this.array[child])< 0)
 				child++;
-			if(cmp.compare(this.array[child],tmp)<0)
+			if(compare(this.array[child],tmp)<0)
 				this.array[hole] = this.array[child];
 			else
 				break;
@@ -140,11 +141,14 @@ public class PriorityQueueHEAP<AnyType>
 			this.enlargeArray(array.length*2 + 1);
 		
 		int hole = ++this.currentSize;
-		for(this.array[1] = x; cmp.compare(x, this.array[hole/2]) < 0; hole /= 2)
+			
+		
+		for(this.array[0] = x; compare(x, this.array[hole/2]) < 0; hole /= 2)
 			this.array[hole] = this.array[hole/2];
 		this.array[hole] = x;
-			
+		this.array[0] = null;			
 	}
+	
 	@SuppressWarnings("unchecked")
 	private void enlargeArray(int size){
 		AnyType[] arr = (AnyType[])new Object[size];
@@ -165,10 +169,9 @@ public class PriorityQueueHEAP<AnyType>
 	 */
 	public Object[] toArray() 
 	{    
-		int i = 1;
-		Object[] result = new Object[this.size()];
-		for(AnyType t : this.array)
-			result[i++] = t;
+		Object[] result = new Object[this.currentSize];
+		for(int i = 1; i<1+this.currentSize;  i++)
+			result[i-1] = this.array[i];
 		return result;
 	}
 
@@ -179,6 +182,8 @@ public class PriorityQueueHEAP<AnyType>
 	@SuppressWarnings("unchecked")
 	private int compare(AnyType lhs, AnyType rhs) 
 	{
+		if(lhs == null | rhs == null)
+			return -1;
 		if (cmp == null)
 			return ((Comparable<? super AnyType>) lhs).compareTo(rhs); // safe to ignore warning
 		// We won't test your code on non-Comparable types if we didn't supply a Comparator

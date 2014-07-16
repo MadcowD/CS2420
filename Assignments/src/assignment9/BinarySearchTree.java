@@ -21,12 +21,25 @@ import java.util.Random;
  *
  * @param <Type>
  */
-public class BinarySearchTree<Type extends Comparable<? super Type>>{
+public class BinarySearchTree<Type>{
 	private BinaryNode root = null;
+	private Comparator<? super Type> cmp;
+	
 
-	public BinarySearchTree(){
+	public int compare(Type l, Type r){
+		return this.cmp.compare(l, r);
 	}
 
+	public BinarySearchTree(Comparator<? super Type> c){
+		this.cmp = c;
+	}
+	
+	public BinarySearchTree(){
+		this.cmp = new Comparator<Type>(){
+			
+		};
+		
+	}
 	/**
 	 * Adds a given item to the tree if it is not already in the list, 
 	 * returns true if the item was added, false if the item was not added.
@@ -129,7 +142,9 @@ public class BinarySearchTree<Type extends Comparable<? super Type>>{
 			BinaryNode parent = null;
 			BinaryNode p = this.root;
 			while(!p.getData().equals(item)){
-				int compare = item.compareTo(p.getData());
+				
+				Integer compare = null;
+				if(item instanceof Comparable<Type>)= item.compareTo(p.getData());
 
 
 				if(compare > 0){
