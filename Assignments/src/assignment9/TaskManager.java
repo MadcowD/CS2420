@@ -204,12 +204,15 @@ public class TaskManager
 		}
 	}	
 	
-	public class TaskComparator implements Comparator<Object>{
+	public class TaskComparator implements Comparator<Task>{
 
 		@Override
-		public int compare(Object arg0, Object arg1) {
+		public int compare(Task t1, Task t2) {
+			if(t1.getPriorityGroup() == t2.getPriorityGroup()){
+				return t1.getPriorityLevel() - t2.getPriorityLevel();
+			}
 			
-			return 0;
+			return t1.getPriorityGroup() - t2.getPriorityGroup();
 		}
 		
 	}

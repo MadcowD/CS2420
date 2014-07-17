@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.PriorityQueue;
 
 
 /**
@@ -75,13 +74,13 @@ public class Graph
 				if(e.getWeight() < 0)
 					throw new UnsupportedOperationException("Negative weight");//We don't want a negative weight for Dijkstra's
 		}
-		PriorityQueue<Vertex> queue = new PriorityQueue<Vertex>();//The priority queue
+		PriorityQueueHEAP<Vertex> queue = new PriorityQueueHEAP<Vertex>();//The priority queue
 		vertices.get(startName).setCostFromStart(0);//Set start cost to 0
 		queue.add(vertices.get(startName));//Enqueue the start
 
 		//Main process
 		while(!queue.isEmpty()){
-			Vertex temp = queue.poll();//Dequeue the first item
+			Vertex temp = queue.deleteMin();//Dequeue the first item
 			if(temp.equals(vertices.get(goalName)))//We found the goal, so break;
 				break;
 			temp.setVisited(true);

@@ -40,7 +40,7 @@ public class PriorityQueueBST<AnyType>
 	public int size() 
 	{
 		//TODO
-		return 0;
+		return this.BST.size();
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class PriorityQueueBST<AnyType>
 	 */
 	public void clear() 
 	{
-		//TODO
+		this.BST.clear();
 	}
 
 	/**
@@ -60,7 +60,7 @@ public class PriorityQueueBST<AnyType>
 	public AnyType findMin() throws NoSuchElementException 
 	{
 		//TODO
-		return null;
+		return this.BST.first();
 	}
 
 	/**
@@ -71,8 +71,12 @@ public class PriorityQueueBST<AnyType>
 	 */
 	public AnyType deleteMin() throws NoSuchElementException 
 	{
-		//TODO
-		return null;
+		if(this.BST.isEmpty())
+			throw new NoSuchElementException();
+		
+		AnyType item = this.BST.first();
+		this.BST.remove(item);
+		return item;
 	}
 
 	/**
@@ -83,7 +87,7 @@ public class PriorityQueueBST<AnyType>
 	 */
 	public void add(AnyType x) 
 	{
-		//TODO
+		this.BST.add(x);
 	}	
 
 	/**
@@ -93,8 +97,13 @@ public class PriorityQueueBST<AnyType>
 	 */
 	public Object[] toArray() 
 	{    
-		//TODO
-		return null;
+		ArrayList<AnyType> list = BST.toArrayList();
+		Object[] result = new Object[this.size()];
+		int i = 0;
+		for(AnyType t : list){
+			result[i++] = t;
+		}
+		return result;
 	}	
 }
 
