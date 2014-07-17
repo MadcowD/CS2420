@@ -144,7 +144,7 @@ public class BinarySearchTree<Type>{
 			while(!p.getData().equals(item)){
 				
 				Integer compare = null;
-				if(item instanceof Comparable<Type>)= item.compareTo(p.getData());
+				if(item instanceof Comparable<Type>)= compare(item, p.getData());
 
 
 				if(compare > 0){
