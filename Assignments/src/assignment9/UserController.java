@@ -23,9 +23,23 @@ public class UserController
 		//Ensure that the user has given at least one parameter
 		//If not, print an error message about it and return
 		
+		if(args.length < 1){
+			System.out.println("You need atleast one parameter to run the program");
+			return;
+		}
+		
+		try{
+			File f = new File(args[0]);	
+		} catch(Exception e){
+			System.out.println("Incorrect file");
+			return;
+		}
+		
 		//TODO
 		//Create a file object from args[0] parameter
-		//Ensure that the parameter given is a valid file	
+		//Ensure that the parameter given is a valid file
+		
+		run_task_manager(f);
 		
 		//TODO
 		//If the file is valid and everything is good, run the method below
