@@ -26,18 +26,12 @@ public class BinarySearchTree<Type>{
 	private Comparator<? super Type> cmp;
 	
 
-	public int compare(Type l, Type r){
-		return this.cmp.compare(l, r);
-	}
-
 	public BinarySearchTree(Comparator<? super Type> c){
 		this.cmp = c;
 	}
 	
 	public BinarySearchTree(){
-		this.cmp = new Comparator<Type>(){
-			
-		};
+		cmp = null;
 		
 	}
 	/**
@@ -57,6 +51,17 @@ public class BinarySearchTree<Type>{
 		}
 		else
 			return root.add(item);
+	}
+	
+	private int compare(Type lhs, Type rhs) 
+	{
+		if(lhs == null | rhs == null)
+			return -1;
+		if (cmp == null)
+			return ((Comparable<? super Type>) lhs).compareTo(rhs); // safe to ignore warning
+		// We won't test your code on non-Comparable types if we didn't supply a Comparator
+
+		return cmp.compare(lhs, rhs);
 	}
 
 
@@ -144,7 +149,7 @@ public class BinarySearchTree<Type>{
 			while(!p.getData().equals(item)){
 				
 				Integer compare = null;
-				if(item instanceof Comparable<Type>)= compare(item, p.getData());
+				compare = compare(item, p.getData());
 
 
 				if(compare > 0){
@@ -322,7 +327,10 @@ public class BinarySearchTree<Type>{
 	public List<Type> levelOrderBFT() {
 		ArrayList<Type> result = new ArrayList<Type>();
 		LinkedList<BinaryNode> queue = new LinkedList<BinaryNode>();
-
+		
+		if(root == null)
+			return result;
+		
 		queue.addLast(root);
 		while(!queue.isEmpty()){
 			BinaryNode n = queue.removeFirst();
@@ -507,7 +515,7 @@ public class BinarySearchTree<Type>{
 		public boolean add(Type item) {
 			BinaryNode p = this;
 			while(true){
-				int compare = item.compareTo(p.data);
+				int compare = compare(item, p.data);
 				if(compare == 0)
 					return false;
 				else if(compare > 0)
@@ -710,7 +718,7 @@ public class BinarySearchTree<Type>{
 		 * @return
 		 */
 		public boolean contains(Type elem){
-			int compare = elem.compareTo(this.data);
+			int compare = compare(elem, this.data);
 			if(compare == 0)
 				return true;
 			else if(compare > 0){

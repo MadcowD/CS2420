@@ -52,7 +52,7 @@ public class Graph
 	 */
 	public List<String> dijkstrasShortestPath(String startName, String goalName)
 	{
-		if(this.getWeighted())
+		if(!this.getWeighted())
 			throw new UnsupportedOperationException("The graph is not weighted");
 
 

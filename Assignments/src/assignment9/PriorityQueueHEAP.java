@@ -111,6 +111,11 @@ public class PriorityQueueHEAP<AnyType>
 		return minItem;
 	}
 
+	
+	/**
+	 * 
+	 * @param hole
+	 */
 	private void percolateDown(int hole){
 		int child;
 		AnyType tmp = this.array[hole];
@@ -149,6 +154,10 @@ public class PriorityQueueHEAP<AnyType>
 		this.array[0] = null;			
 	}
 	
+	/**
+	 * 
+	 * @param size
+	 */
 	@SuppressWarnings("unchecked")
 	private void enlargeArray(int size){
 		AnyType[] arr = (AnyType[])new Object[size];

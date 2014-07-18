@@ -21,7 +21,7 @@ public class PriorityQueueBST<AnyType>
 	 */
 	public PriorityQueueBST() 
 	{
-		//TODO
+		this.BST = new BinarySearchTree<AnyType>();
 	}
 
 	/**
@@ -31,7 +31,7 @@ public class PriorityQueueBST<AnyType>
 	 */
 	public PriorityQueueBST(Comparator<? super AnyType> cmp) 
 	{
-		//TODO
+		this.BST = new BinarySearchTree<AnyType>(cmp);
 	}
 
 	/**
@@ -41,6 +41,10 @@ public class PriorityQueueBST<AnyType>
 	{
 		//TODO
 		return this.BST.size();
+	}
+	
+	public boolean isEmpty(){
+		return this.BST.isEmpty();
 	}
 
 	/**
@@ -59,7 +63,6 @@ public class PriorityQueueBST<AnyType>
 	 */
 	public AnyType findMin() throws NoSuchElementException 
 	{
-		//TODO
 		return this.BST.first();
 	}
 
