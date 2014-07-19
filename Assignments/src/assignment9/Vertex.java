@@ -7,6 +7,8 @@ import java.util.Iterator;
  * Represents vertices for graphs.
  * 
  * @author Paymon Saebi
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
  */
 public class Vertex implements Comparable<Vertex>
 {

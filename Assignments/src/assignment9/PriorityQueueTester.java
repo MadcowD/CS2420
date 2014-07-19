@@ -1,6 +1,7 @@
 package assignment9;
 
 import java.util.Comparator;
+import java.util.NoSuchElementException;
 
 import junit.framework.TestCase;
 
@@ -8,13 +9,16 @@ import junit.framework.TestCase;
  * @author Maks Cegielski-Johnson
  * @author William Guss
  *
+ *	This is the test class for both the BST based PriorityQueue
+ *	and heap based PriorityQueue.
  */
 public class PriorityQueueTester extends TestCase {
 
-	PriorityQueueHEAP<Integer> heap = new PriorityQueueHEAP<Integer>();
-	PriorityQueueBST<Integer> bst = new PriorityQueueBST<Integer>();
+	PriorityQueueHEAP<Integer> heap = new PriorityQueueHEAP<Integer>();//Heap based PQ
+	PriorityQueueBST<Integer> bst = new PriorityQueueBST<Integer>();//BST based PQ.
+	
 	/**
-	 * Test method for {@link assignment9.PriorityQueueHEAP#size()}.
+	 * Tests whether the size method works correctly for BST PQ.
 	 */
 	public void testSizeHeap() {
 		assertEquals(heap.size(), 0);
@@ -30,6 +34,9 @@ public class PriorityQueueTester extends TestCase {
 		assertEquals(heap.size(), 0);
 	}
 
+	/**
+	 * Tests whether the size method works correctly for BST PQ.
+	 */
 	public void testSizeBST(){
 		assertEquals(bst.size(), 0);
 		bst.add(3);
@@ -41,11 +48,10 @@ public class PriorityQueueTester extends TestCase {
 		bst.deleteMin();
 		bst.deleteMin();
 		assertEquals(bst.size(), 0);
-
 	}
 
 	/**
-	 * Test method for {@link assignment9.PriorityQueueHEAP#clear()}.
+	 * Tests whether the clear method works correctly for Heap PQ.
 	 */
 	public void testClearHeap() {
 		assertEquals(heap.size(), 0);
@@ -56,6 +62,9 @@ public class PriorityQueueTester extends TestCase {
 		assertEquals(heap.size(), 0);
 	}
 
+	/**
+	 * Tests whether the clear method works correctly for BST PQ.
+	 */
 	public void testClearBST(){
 		assertEquals(bst.size(), 0);
 		for(int i = 0; i < 5; i++)
@@ -66,7 +75,7 @@ public class PriorityQueueTester extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link assignment9.PriorityQueueHEAP#isEmpty()}.
+	 * Test whether the isEmpty method works correctly for Heap PQ.
 	 */
 	public void testIsEmptyHeap() {
 		assertTrue(heap.isEmpty());
@@ -77,6 +86,9 @@ public class PriorityQueueTester extends TestCase {
 
 	}
 
+	/**
+	 * Test whether the isEmpty method works correctly for BST PQ.
+	 */
 	public void testIsEmptyBST(){
 		assertTrue(bst.isEmpty());
 		bst.add(1);
@@ -86,7 +98,7 @@ public class PriorityQueueTester extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link assignment9.PriorityQueueHEAP#findMin()}.
+	 * Tests whether min items are correctly found in the Heap PQ.
 	 */
 	public void testFindMinHeap() {
 		heap.add(10);
@@ -114,6 +126,9 @@ public class PriorityQueueTester extends TestCase {
 		assertEquals(heap.size(), 0);
 	}
 
+	/**
+	 * Tests whether min items are correctly found in the BST PQ.
+	 */
 	public void testFindMinBST(){
 		bst.add(10);
 		bst.add(13);
@@ -138,7 +153,7 @@ public class PriorityQueueTester extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link assignment9.PriorityQueueHEAP#deleteMin()}.
+	 * Tests whether min items are correctly deleted from the Heap PQ.
 	 */
 	public void testDeleteMinHeap() {
 		heap.add(10);
@@ -148,7 +163,6 @@ public class PriorityQueueTester extends TestCase {
 		heap.add(25);
 		heap.add(24);
 		heap.add(14);
-
 
 		assertEquals(heap.deleteMin(), new Integer(2));
 		assertEquals(heap.deleteMin(), new Integer(10));
@@ -160,7 +174,9 @@ public class PriorityQueueTester extends TestCase {
 		assertEquals(heap.size(), 0);
 	}
 
-
+	/**
+	 * Tests whether min items are correctly deleted from the BST PQ.
+	 */
 	public void testDeleteMinBST(){
 		bst.add(10);
 		bst.add(13);
@@ -170,7 +186,6 @@ public class PriorityQueueTester extends TestCase {
 		bst.add(24);
 		bst.add(14);
 
-
 		assertEquals(bst.deleteMin(), new Integer(2));
 		assertEquals(bst.deleteMin(), new Integer(10));
 		assertEquals(bst.deleteMin(), new Integer(13));
@@ -179,8 +194,9 @@ public class PriorityQueueTester extends TestCase {
 		assertEquals(bst.deleteMin(), new Integer(25));
 		assertEquals(bst.size(), 0);
 	}
+	
 	/**
-	 * Test method for {@link assignment9.PriorityQueueHEAP#add(java.lang.Object)}.
+	 * Tests whether items are correctly added to the Heap PQ.
 	 */
 	public void testAddHeap() {
 		assertEquals(heap.size(), 0);
@@ -190,6 +206,9 @@ public class PriorityQueueTester extends TestCase {
 
 	}
 
+	/**
+	 * Tests whether items are correctly added to the BST PQ.
+	 */
 	public void testAddBST(){
 		assertEquals(bst.size(), 0);
 		bst.add(13);
@@ -197,10 +216,8 @@ public class PriorityQueueTester extends TestCase {
 		assertEquals(bst.findMin(), new Integer(13));
 	}
 
-
-
 	/**
-	 * Test method for {@link assignment9.PriorityQueueHEAP#toArray()}.
+	 * Tests whether the Heap correctly returns the array representation
 	 */
 	public void testToArray() {
 		Object[] compare = {1, 3, 5, 14, 12};
@@ -215,6 +232,9 @@ public class PriorityQueueTester extends TestCase {
 			assertEquals(compare[i], heapArr[i]);
 	}
 
+	/**
+	 * Tests whether the BST correctly returns the array representation
+	 */
 	public void testToArrayBST(){
 		Object[] compare = {1, 3, 5, 12, 14};
 		bst.add(14);
@@ -229,12 +249,57 @@ public class PriorityQueueTester extends TestCase {
 			assertEquals(compare[i], bstArr[i]);
 	}
 	
-	//TESTING WITH COMPARATOR
 	
+	
+	/**
+	 * Test to determine if errors are caught correctly in the Heap and BST
+	 */
+	public void testErrors(){
+		boolean fail1 = true;//heap findMin
+		boolean fail2 = true;//heap deleteMin
+		boolean fail3 = true;//bst findMin
+		boolean fail4 = true;//bst deleteMin
+		
+		try{
+			heap.findMin();
+		}catch(NoSuchElementException e){
+			fail1 = false;
+		}
+
+		try{
+			heap.deleteMin();
+		}catch(NoSuchElementException e){
+			fail2 = false;
+		}
+
+		try{
+			bst.findMin();
+		}catch(NoSuchElementException e){
+			fail3 = false;
+		}
+
+		try{
+			bst.deleteMin();
+		}catch(NoSuchElementException e){
+			fail4 = false;
+		}
+
+		if(fail1 || fail2 || fail3 || fail4)
+			fail("An exception was not thrown");
+		else
+			assertTrue(true);
+
+	}
+
+	////////////////TESTING WITH COMPARATOR//////////////
+
 	private PriorityQueueBST<Integer> bstC = new PriorityQueueBST<Integer>(new MaxComp());
 	private PriorityQueueHEAP<Integer> heapC = new PriorityQueueHEAP<Integer>(new MaxComp());
-	
-	
+
+
+	/**
+	 * Tests to determine whether using a different comparator works for BST
+	 */
 	public void testMaxTree(){
 		bstC.add(4);
 		bstC.add(13);
@@ -242,12 +307,12 @@ public class PriorityQueueTester extends TestCase {
 		bstC.add(5);
 		bstC.add(2);
 		bstC.add(30);
-		
+
 		Object[] compare = {30, 17, 13, 5, 4, 2};
 		Object[] toArr = bstC.toArray();
 		for(int i = 0; i < bstC.size(); i++)
 			assertEquals(compare[i], toArr[i]);
-		
+
 		assertEquals(bstC.findMin(), new Integer(30));//Should delete 30, not 2
 		assertEquals(bstC.deleteMin(), new Integer(30));
 		assertEquals(bstC.deleteMin(), new Integer(17));
@@ -255,9 +320,12 @@ public class PriorityQueueTester extends TestCase {
 		assertEquals(bstC.deleteMin(), new Integer(5));
 		assertEquals(bstC.deleteMin(), new Integer(4));
 		assertEquals(bstC.deleteMin(), new Integer(2));
-		
+
 	}
-	
+
+	/**
+	 * Test to determine whether using a different comparator works for Heaps
+	 */
 	public void testMaxHeap(){
 		heapC.add(4);
 		heapC.add(13);
@@ -265,12 +333,12 @@ public class PriorityQueueTester extends TestCase {
 		heapC.add(5);
 		heapC.add(2);
 		heapC.add(30);
-		
+
 		Object[] compare = {30, 5, 17, 4, 2, 13};
 		Object[] toArr = heapC.toArray();
 		for(int i = 0; i < heapC.size(); i++)
 			assertEquals(compare[i], toArr[i]);
-		
+
 		assertEquals(heapC.findMin(), new Integer(30));//Should delete 30, not 2
 		assertEquals(heapC.deleteMin(), new Integer(30));
 		assertEquals(heapC.deleteMin(), new Integer(17));
@@ -278,14 +346,12 @@ public class PriorityQueueTester extends TestCase {
 		assertEquals(heapC.deleteMin(), new Integer(5));
 		assertEquals(heapC.deleteMin(), new Integer(4));
 		assertEquals(heapC.deleteMin(), new Integer(2));
-		
+
 	}
-	
-	
+
+
 	/**
-	 * 
 	 * This class returns the opposite of the natural ordering of Integers, used for Max-Heap
-	 *
 	 */
 	private class MaxComp implements Comparator<Integer>{
 
@@ -297,7 +363,7 @@ public class PriorityQueueTester extends TestCase {
 				return -1;
 			return 0;
 		}
-		
+
 	}
 
 }

@@ -23,16 +23,22 @@ import java.util.Random;
  */
 public class BinarySearchTree<Type>{
 	private BinaryNode root = null;
-	private Comparator<? super Type> cmp;
+	private Comparator<? super Type> cmp;//used if not comparable
 	
 
+	/**
+	 * Constructor if comparator is desired
+	 * @param c - the comparator
+	 */
 	public BinarySearchTree(Comparator<? super Type> c){
 		this.cmp = c;
 	}
 	
+	/**
+	 * Constructor if no comparator is passed, automatically use comparable
+	 */
 	public BinarySearchTree(){
 		cmp = null;
-		
 	}
 	/**
 	 * Adds a given item to the tree if it is not already in the list, 
@@ -53,6 +59,13 @@ public class BinarySearchTree<Type>{
 			return root.add(item);
 	}
 	
+	/**
+	 * Compare method, used to decide whether comparator is used or if comparable is used
+	 * @param lhs - the left hand side
+	 * @param rhs - the right hand side
+	 * @return an integer, ordering based on comparator or comparable
+	 */
+	@SuppressWarnings("unchecked")
 	private int compare(Type lhs, Type rhs) 
 	{
 		if(lhs == null | rhs == null)
@@ -564,6 +577,7 @@ public class BinarySearchTree<Type>{
 		 * @param _data
 		 *          - the node data to be set.
 		 */
+		@SuppressWarnings("unused")
 		public void setData(Type _data) 
 		{
 			data = _data;
@@ -617,6 +631,7 @@ public class BinarySearchTree<Type>{
 		 * 
 		 * @return The number of children of this node
 		 */
+		@SuppressWarnings("unused")
 		public int numChildren()
 		{
 			int numChildren = 0;
@@ -682,6 +697,7 @@ public class BinarySearchTree<Type>{
 		 * It is either the smallest node in the right subtree,
 		 * or the largest node in the left subtree.
 		 */
+		@SuppressWarnings("unused")
 		public BinaryNode getSuccessor() 
 		{			
 			if(hasChildren()){
@@ -705,6 +721,7 @@ public class BinarySearchTree<Type>{
 		 * The height of a tree with more than one node is the greater of its two subtrees'
 		 * heights, plus 1
 		 */
+		@SuppressWarnings("unused")
 		public int height() 
 		{			
 			int rh = getRight() == null ? -1 : getRight().height();
@@ -734,8 +751,6 @@ public class BinarySearchTree<Type>{
 					return false;
 			}
 		}
-
 	}
-
 }
 

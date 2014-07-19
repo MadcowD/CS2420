@@ -10,26 +10,14 @@ import java.util.*;
  * The min heap is implemented implicitly as an array.
  * 
  * @author Paymon Saebi
- * @author
- * @author
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
  */
 public class PriorityQueueHEAP<AnyType> 
 {
-	private AnyType[] array;
-	private int currentSize;	
-	private Comparator<? super AnyType> cmp;
-	
-	
-	public static void main(String[] args){
-		PriorityQueueHEAP<Integer> pq = new PriorityQueueHEAP<>();
-		pq.add(10);
-		pq.add(5);
-		pq.add(12);
-		pq.add(3);
-		pq.add(24);
-		pq.deleteMin();
-		System.out.println(Arrays.toString(pq.toArray()));
-	}
+	private AnyType[] array;//basing array
+	private int currentSize;//how many items in the heap	
+	private Comparator<? super AnyType> cmp; //the comparator
 
 	/**
 	 * Constructs an empty priority queue. Orders elements according
@@ -68,17 +56,19 @@ public class PriorityQueueHEAP<AnyType>
 	/**
 	 * Makes this priority queue empty.
 	 */
+	@SuppressWarnings("unchecked")
 	public void clear() 
 	{
-		for(int i = 0; i < this.array.length; i++)
-			this.array[i] = null;
+		//just point the array at a new Object[], let garbage collect
+		array = (AnyType[]) new Object[10]; 
 		this.currentSize = 0;
 	}
 
+	/**
+	 * Returns whether the queue is empty or not
+	 */
 	public boolean isEmpty(){
-		if(this.currentSize == 0)
-			return true;
-		return false;
+		return this.currentSize == 0;
 	}
 
 	/**
@@ -89,6 +79,9 @@ public class PriorityQueueHEAP<AnyType>
 	 */
 	public AnyType findMin() throws NoSuchElementException 
 	{
+		if(this.isEmpty())
+			throw new NoSuchElementException();
+		
 		return array[1];
 	}
 
@@ -104,8 +97,10 @@ public class PriorityQueueHEAP<AnyType>
 		if(this.isEmpty())
 			throw new NoSuchElementException();
 
-		AnyType minItem = this.findMin();
-		this.array[1] = array[this.currentSize--];
+		AnyType minItem = this.findMin();//get the min item
+		
+		this.array[1] = array[this.currentSize--];//replace first item with the last item
+		
 		percolateDown(1);
 
 		return minItem;
@@ -113,7 +108,7 @@ public class PriorityQueueHEAP<AnyType>
 
 	
 	/**
-	 * 
+	 * Helper method to percolate down, used for deleteMin
 	 * @param hole
 	 */
 	private void percolateDown(int hole){
@@ -147,7 +142,7 @@ public class PriorityQueueHEAP<AnyType>
 		
 		int hole = ++this.currentSize;
 			
-		
+		//percolate up
 		for(this.array[0] = x; compare(x, this.array[hole/2]) < 0; hole /= 2)
 			this.array[hole] = this.array[hole/2];
 		this.array[hole] = x;
@@ -155,8 +150,8 @@ public class PriorityQueueHEAP<AnyType>
 	}
 	
 	/**
-	 * 
-	 * @param size
+	 * Used to grow the array if it is too small
+	 * @param size - the size to enlarge to
 	 */
 	@SuppressWarnings("unchecked")
 	private void enlargeArray(int size){

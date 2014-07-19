@@ -7,12 +7,12 @@ import java.util.*;
  * The queue is implemented as a binary search tree. 
  * 
  * @author Paymon Saebi
- * @author
- * @author
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
  */
 public class PriorityQueueBST<AnyType> 
 {
-	private BinarySearchTree<AnyType> BST;
+	private BinarySearchTree<AnyType> BST;//The backing BST
 
 	/**
 	 * Constructs an empty priority queue. Orders elements according
@@ -39,10 +39,12 @@ public class PriorityQueueBST<AnyType>
 	 */
 	public int size() 
 	{
-		//TODO
 		return this.BST.size();
 	}
 	
+	/**
+	 * @return whether the BST is empty or not
+	 */
 	public boolean isEmpty(){
 		return this.BST.isEmpty();
 	}
@@ -63,6 +65,7 @@ public class PriorityQueueBST<AnyType>
 	 */
 	public AnyType findMin() throws NoSuchElementException 
 	{
+		//Exception throw in BST class itself
 		return this.BST.first();
 	}
 
@@ -74,9 +77,7 @@ public class PriorityQueueBST<AnyType>
 	 */
 	public AnyType deleteMin() throws NoSuchElementException 
 	{
-		if(this.BST.isEmpty())
-			throw new NoSuchElementException();
-		
+		//Exception throw in BST class itself
 		AnyType item = this.BST.first();
 		this.BST.remove(item);
 		return item;
@@ -100,13 +101,7 @@ public class PriorityQueueBST<AnyType>
 	 */
 	public Object[] toArray() 
 	{    
-		ArrayList<AnyType> list = BST.toArrayList();
-		Object[] result = new Object[this.size()];
-		int i = 0;
-		for(AnyType t : list){
-			result[i++] = t;
-		}
-		return result;
+		return BST.toArrayList().toArray();
 	}	
 }
 

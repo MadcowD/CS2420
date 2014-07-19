@@ -10,6 +10,8 @@ import java.util.List;
  * Represents a graph structure (a set of vertices each with a set of edges).
  * 
  * @author Paymon Saebi
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
  */
 public class Graph
 {

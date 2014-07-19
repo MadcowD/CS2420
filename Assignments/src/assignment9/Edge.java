@@ -4,6 +4,8 @@ package assignment9;
  * Represents a directed edge for graph vertices.
  * 
  * @author Paymon Saebi
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
  */
 public class Edge
 {

@@ -9,8 +9,8 @@ import java.util.Scanner;
  * Represents an arbitrary task management infrastructure 
  *
  * @author Paymon saebi
- * @author
- * @author
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
  */
 public class TaskManager 
 {
@@ -29,7 +29,7 @@ public class TaskManager
 	}
 	
 	/**
-	 * 
+	 * Sends the command
 	 * @param command
 	 */
 	public void sendComm(String command) 
@@ -38,7 +38,7 @@ public class TaskManager
 	}
 	
 	/**
-	 * 
+	 * Whether the tasks are done or not
 	 * @return
 	 */
 	public boolean isDone() 
@@ -47,7 +47,7 @@ public class TaskManager
 	}
 	
 	/**
-	 * 
+	 * Get the current task
 	 * @return
 	 */
 	public Task getTask() 
@@ -56,7 +56,7 @@ public class TaskManager
 	}
 	
 	/**
-	 * 
+	 * Get the next task
 	 * @return
 	 */
 	public Task nextTask() 
@@ -65,7 +65,7 @@ public class TaskManager
 	}	
 	
 	/**
-	 * 
+	 * Run the next task
 	 * @return
 	 */
 	public Task runTask() 
@@ -99,7 +99,7 @@ public class TaskManager
 	}
 	
 	/**
-	 * 
+	 * Add tasks
 	 * @param tasks
 	 */
 	public void populateTasks(File tasks) 

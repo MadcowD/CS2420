@@ -8,14 +8,14 @@ import java.util.Scanner;
  * represents the user controller software for remote device utilization
  
  * @author Paymon Saebi
- * @author
- * @author
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
  */
 public class UserController 
 {
 	/**
-	 * 
-	 * @param args
+	 * The main method that runs the Task Manager, catching any exceptions
+	 * @param args - the first paramater must be the task file
 	 */
 	public static void main(String[] args) 
 	{ 		
