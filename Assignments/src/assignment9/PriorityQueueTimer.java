@@ -10,14 +10,19 @@ public class PriorityQueueTimer {
 		int averageTime = 100;
 
 //		new AlgorithmTimer("heapAdd", 
-//				new BinaryHeapAddExperiment(new PriorityQueueHEAP<Integer>()),
+//				new BinaryHeapAddExperiment(),
 //				averageTime).generateAnalysis(1, 100000, complexities);
+		
+		new AlgorithmTimer("heapRemove",
+				new BinaryHeapRemoveExperiment(), averageTime).generateAnalysis(1, 100000,complexities);
 		
 		new AlgorithmTimer("heapCompareAdd",
 				new BinaryHeapAndBSTExperiment("heap"), averageTime).generateAnalysis(1, 10000, complexities);
 		
 		new AlgorithmTimer("BSTCompareAdd",
 				new BinaryHeapAndBSTExperiment("bst"), averageTime).generateAnalysis(1, 10000, complexities);
+		
+
 
 	}
 
