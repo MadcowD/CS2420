@@ -8,7 +8,7 @@ public class PriorityQueueDeleteMinExperiment extends Process {
 	@Override
 	public void generateData (int n, TimeComplexity complexity) {
 		pq.clear();
-		for(Integer i : Helper.ascendingInts(n))
+		for(Integer i : Helper.permutedInts(n))
 			pq.add(i);
 		
 		super.generateData(n, complexity);
@@ -17,6 +17,7 @@ public class PriorityQueueDeleteMinExperiment extends Process {
 	
 	@Override
 	public long run (int n, TimeComplexity complexity) {
+		for(int i = 0; i < n; i++)
 		pq.deleteMin();
 		return 0;
 	}

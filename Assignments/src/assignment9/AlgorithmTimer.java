@@ -241,7 +241,7 @@ public final class AlgorithmTimer {
 			
 			// In the case the we are collecting numerical data such as hash collisons
 			if(code == 0)
-				netTime += (runTime- startTime) - (overTime - runTime);
+				netTime += (runTime- startTime);// - (overTime - runTime);
 			else
 				netTime += code;
 
