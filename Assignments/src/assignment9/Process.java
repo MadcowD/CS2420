@@ -88,7 +88,7 @@ public abstract class Process{
 		public static List<Integer> descendingInts(int n){
 			ArrayList<Integer> temp = new ArrayList<Integer>(n);
 			
-			for(int i = n; i > 0; i++)
+			for(int i = n; i > 0; i--)
 				temp.add(i);
 			
 			return temp;

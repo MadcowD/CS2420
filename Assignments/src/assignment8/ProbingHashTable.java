@@ -139,6 +139,17 @@ public class ProbingHashTable extends HashTable {
 		this.tableSize = prime;
 		
 	}
+
+
+
+	@Override
+	public void reset () {
+		tableSize = 11;
+		this.table = new String[tableSize];
+		this.size = 0;
+		this.lambda = 0;
+		
+	}
 	
 
 

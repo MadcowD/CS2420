@@ -44,7 +44,7 @@ public class ChainingHashTable extends HashTable {
 			storage[hashValue] = new LinkedList<String>();
 			storage[hashValue].addFirst(item);
 			this.size++;
-			this.lambda = (double)this.size/(double)this.tableSize;
+			this.lambda = (lambda*tableSize+1)/tableSize;
 			return true;
 		}
 		//Otherwise let's check for uniqueness and then add if uniqueness perserved.
@@ -112,5 +112,15 @@ public class ChainingHashTable extends HashTable {
 				for(String item : l)
 					this.add(item);
 
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public void reset () {
+		tableSize = 11;
+		this.storage = (LinkedList<String>[]) new LinkedList[tableSize];
+		this.size = 0;
+		this.lambda = 0;
+		
 	}
 }

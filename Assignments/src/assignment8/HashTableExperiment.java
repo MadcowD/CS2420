@@ -21,7 +21,7 @@ public class HashTableExperiment extends Process{
 	
 	@Override
 	public void generateData (int n, TimeComplexity complexity) {
-		data.clear();
+		data.reset();
 		super.generateData(n, complexity);
 	}
 	

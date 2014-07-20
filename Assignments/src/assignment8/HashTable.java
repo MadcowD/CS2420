@@ -170,4 +170,6 @@ public abstract class HashTable implements Set<String>
 		this.collisions = 0;
 		return result;
 	}
+	
+	public abstract void reset();
 }

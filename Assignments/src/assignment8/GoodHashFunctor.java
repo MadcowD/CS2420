@@ -12,8 +12,11 @@ public class GoodHashFunctor implements HashFunctor {
 
 	public int hash(String item) {
 		int hashVal = 0;
-		for(int i = 0; i<item.length(); i++)
-			hashVal = 37*hashVal + item.charAt(i);
+		int lastPrime = 37;
+		for(int i = 0; i<item.length(); i++){
+			hashVal = HashTable.nextPrime(lastPrime)*hashVal + item.charAt(i)*31;
+			lastPrime = HashTable.nextPrime(lastPrime);
+		}
 
 		return Math.abs(hashVal);//take absolute value to prevent integer overflow
 	}

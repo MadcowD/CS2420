@@ -137,23 +137,23 @@ public final class AlgorithmTimer {
 			new File(complexityDir).mkdirs();
 
 
-			System.out.println("--[LOW RANGE] @ " + lowEnd);
-
-			Hashtable<Integer,Long> lowData = new Hashtable<Integer,Long>();
-			long lowVal = time(start, lowEnd, lowStep, complexity, lowData);
-			writeMap(lowData, complexityDir + "low@" + lowEnd + ".txt");
-			System.out.println("TOTAL: " + lowVal + "\n");
-			fa+="\t[LOW RANGE] @" +lowEnd + ": "+ lowVal +"\r\n";
-
-
-
-			System.out.println("--[MID RANGE] @ " +  midEnd);
-
-			Hashtable<Integer,Long> midData = new Hashtable<Integer,Long>();
-			long midVal = time(start, midEnd, midStep, complexity, midData);
-			System.out.println("TOTAL: " + midVal + "\n");
-			writeMap(midData, complexityDir + "mid@" + midEnd+ ".txt");
-			fa+="\t[MID RANGE] @" +midEnd + ": "+ midVal +"\r\n";
+//			System.out.println("--[LOW RANGE] @ " + lowEnd);
+//
+//			Hashtable<Integer,Long> lowData = new Hashtable<Integer,Long>();
+//			long lowVal = time(start, lowEnd, lowStep, complexity, lowData);
+//			writeMap(lowData, complexityDir + "low@" + lowEnd + ".txt");
+//			System.out.println("TOTAL: " + lowVal + "\n");
+//			fa+="\t[LOW RANGE] @" +lowEnd + ": "+ lowVal +"\r\n";
+//
+//
+//
+//			System.out.println("--[MID RANGE] @ " +  midEnd);
+//
+//			Hashtable<Integer,Long> midData = new Hashtable<Integer,Long>();
+//			long midVal = time(start, midEnd, midStep, complexity, midData);
+//			System.out.println("TOTAL: " + midVal + "\n");
+//			writeMap(midData, complexityDir + "mid@" + midEnd+ ".txt");
+//			fa+="\t[MID RANGE] @" +midEnd + ": "+ midVal +"\r\n";
 
 
 
