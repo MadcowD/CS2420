@@ -5,6 +5,14 @@ import java.util.List;
 
 import assignment9.AlgorithmTimer.TimeComplexity;
 
+/**
+ * 
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
+ * 
+ * Add timing experiment for Heap based PQ. 
+ *
+ */
 public class PriorityQueueAddExperiment extends Process {
 	PriorityQueueHEAP<Integer> pq = new PriorityQueueHEAP<Integer>();
 	List<Integer> data = new ArrayList<Integer>();
