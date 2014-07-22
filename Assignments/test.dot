@@ -1,0 +1,8 @@
+digraph BST {
+node [shape=record]
+4[label="<L> |<D> 4|<R> "]
+14[label="<L> |<D> 14|<R> "]
+19[label="<L> |<D> 19|<R> "]
+14:R -> 19:D
+4:R -> 14:D
+}

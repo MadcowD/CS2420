@@ -1,16 +1,16 @@
 package maksFinal;
 
-public class BinaryTrieNode implements Comparable<BinaryTrieNode>{
+public class CompressionData implements Comparable<CompressionData>{
 
 	private int frequency;
 	private int characterValue;	
 	
-	public BinaryTrieNode(int frequency, int characterValue){
+	public CompressionData(int frequency, int characterValue){
 		this.frequency = frequency;
 		this.characterValue = characterValue;
 	}
 	
-	public BinaryTrieNode(int value, boolean frequency){
+	public CompressionData(int value, boolean frequency){
 		if(frequency){
 			this.frequency = value;
 			this.characterValue = -1;
@@ -38,7 +38,7 @@ public class BinaryTrieNode implements Comparable<BinaryTrieNode>{
 	
 	@Override
 	public boolean equals(Object arg0){
-		BinaryTrieNode other = (BinaryTrieNode) arg0;
+		CompressionData other = (CompressionData) arg0;
 		return this.characterValue == other.characterValue;
 	}
 	
@@ -49,7 +49,7 @@ public class BinaryTrieNode implements Comparable<BinaryTrieNode>{
 	}
 
 	@Override
-	public int compareTo(BinaryTrieNode other) {
+	public int compareTo(CompressionData other) {
 		if(this.frequency == other.frequency)
 			return -other.characterValue + this.characterValue;
 		return -other.frequency + this.frequency;

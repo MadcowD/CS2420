@@ -45,10 +45,13 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 			return root.add(item);
 	}
 	
-	public BinaryNode merge(Type data, Type left, Type right){
-		BinaryNode node = new BinaryNode(data, new BinaryNode(left), new BinaryNode(right));
+	public BinarySearchTree<Type> merge(Type sum, Type left, Type right){
+		BinarySearchTree<Type> bst = new BinarySearchTree<Type>();
+		bst.root = new BinaryNode(sum);
+		bst.root.left = new BinaryNode(left);
+		bst.root.right = new BinaryNode(right);
 		
-		return node;
+		return bst;
 	}
 	
 	public BinaryNode createNode(Type data){
@@ -97,6 +100,16 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		else
 			return root.contains(item);
 
+	}
+	
+	public String binaryValue(Type item){
+		if(item == null)
+			throw new NullPointerException();
+		
+		if(isEmpty())
+			return -1 + "";
+		else
+			return root.binaryValue(item, "");
 	}
 
 
@@ -447,6 +460,8 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 			right = _right;
 		}
 
+
+
 		/**
 		 * Recursive method used by postOrderDFT in BinarySearchTree.
 		 * @param result
@@ -720,6 +735,24 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 					return getLeft().contains(elem);
 				else
 					return false;
+			}
+		}
+		
+		public String binaryValue(Type item, String data) {
+			int compare = item.compareTo(this.data);
+			if(compare == 0)
+				return data + "";
+			else if(compare > 0){
+				if(getRight()!= null)
+					return getRight().binaryValue(item, data + 1);
+				else
+					return "error";
+			}
+			else{
+				if(getLeft() != null)
+					return getLeft().binaryValue(item, data + 0);
+				else
+					return "error";
 			}
 		}
 

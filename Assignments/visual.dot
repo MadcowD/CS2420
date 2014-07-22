@@ -1,0 +1,4 @@
+digraph BST {
+node [shape=record]
+Character: ￿ and Frequency: 11[label="<L> |<D> Character: ￿ and Frequency: 11|<R> "]
+}

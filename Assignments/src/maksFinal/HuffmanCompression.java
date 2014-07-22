@@ -10,8 +10,8 @@ public class HuffmanCompression {
 	private static int CHOICE = 1;
 	public static String[] view = new String[1];
 	
-	private static BinarySearchTree<BinaryTrieNode> bst = new BinarySearchTree<BinaryTrieNode>();
-
+	private static BinarySearchTree<CompressionData> bst = new BinarySearchTree<CompressionData>();
+	private static BinarySearchTree<CompressionData> tempBST = new BinarySearchTree<CompressionData>();
 
 	public static void main(String[] args){
 		String inputString = "hello.txt";//Sample document
@@ -29,8 +29,10 @@ public class HuffmanCompression {
 			huffman(inputString);
 			bst.writeDot("visual.dot");
 			System.out.println(view[0]);
-			bst2.writeDot("test.dot");
+//			bst2.writeDot("test.dot");
 		}
+		
+		
 	}
 
 
@@ -38,10 +40,10 @@ public class HuffmanCompression {
 	public static void huffman(String inputString){
 		FileWriter write = null;//write the compressed file
 
-		PriorityQueue<BinaryTrieNode> pq = new PriorityQueue<>();
+		PriorityQueue<CompressionData> pq = new PriorityQueue<>();
 //		HashMap<Integer, Integer> characters = new HashMap<>();
 		
-		LinkedList<BinaryTrieNode> characters = new LinkedList<>();
+		LinkedList<CompressionData> characters = new LinkedList<>();
 		//		ArrayList<Integer> characters = new ArrayList<>();//Stores all the characters in the input
 
 		int readInt;//characters (ints) being read
@@ -55,7 +57,7 @@ public class HuffmanCompression {
 				if(readInt < 0)//if end of file, break
 					break;
 				
-				BinaryTrieNode tempTrie = new BinaryTrieNode(readInt,false);//Trie Node of freq 1
+				CompressionData tempTrie = new CompressionData(readInt,false);//Trie Node of freq 1
 				
 				if(characters.contains(tempTrie)){
 					int location = characters.indexOf(tempTrie);
@@ -73,19 +75,19 @@ public class HuffmanCompression {
 		
 		view[0] = characters.toString();//View the List (optional)
 		
-		for(BinaryTrieNode n : characters){
+		for(CompressionData n : characters){
 			pq.add(n);
 		}
 		while(pq.size() > 1){
-			BinaryTrieNode left = pq.poll();
-			BinaryTrieNode right = pq.poll();
-			BinaryTrieNode center = new BinaryTrieNode(left.getFrequency() + right.getFrequency(), true);
+			CompressionData left = pq.poll();
+			CompressionData right = pq.poll();
+			CompressionData center = new CompressionData(left.getFrequency() + right.getFrequency(), true);
 			bst.merge(center, left, right);
 			pq.add(center);
 		}
 		
 		System.out.println(pq.toString());
-//		bst.add(pq.poll());
+		bst.add(pq.poll());
 		System.out.println(bst.toArrayList().toString());
 		
 	}
