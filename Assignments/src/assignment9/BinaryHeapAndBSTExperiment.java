@@ -6,6 +6,14 @@ import java.util.List;
 import assignment9.AlgorithmTimer.TimeComplexity;
 import assignment9.Process.Helper;
 
+/**
+ * 
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
+ * 
+ * Add timing experiment for Heap based PQ and BST based PQ. 
+ *
+ */
 public class BinaryHeapAndBSTExperiment extends Process{
 
 	private PriorityQueueHEAP<Integer> heap;

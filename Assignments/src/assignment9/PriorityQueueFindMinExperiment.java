@@ -2,6 +2,14 @@ package assignment9;
 
 import assignment9.AlgorithmTimer.TimeComplexity;
 
+/**
+ * 
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
+ * 
+ * FindMin timing experiment for Heap based PQ. 
+ *
+ */
 public class PriorityQueueFindMinExperiment extends Process {
 	PriorityQueueHEAP<Integer> pq = new PriorityQueueHEAP<Integer>();
 	
