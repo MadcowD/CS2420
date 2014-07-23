@@ -4,6 +4,9 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Random;
 
+import FinalProject.util.Edge;
+import FinalProject.util.Graph;
+
 /**
  * 
  * @author Paymon saebi

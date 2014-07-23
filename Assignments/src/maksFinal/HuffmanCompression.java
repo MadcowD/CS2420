@@ -4,13 +4,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 
-import maksFinal.BinaryTrie.Leaf;
 
 public class HuffmanCompression {
 	private static int CHOICE = 1;
-	public static String[] view = new String[1];
+	public static String[] view = new String[2];
 
 	private static BinarySearchTree<CompressionData> bst = new BinarySearchTree<CompressionData>();
 	private static BinarySearchTree<CompressionData> tempBST = new BinarySearchTree<CompressionData>();
@@ -20,7 +20,7 @@ public class HuffmanCompression {
 
 		BinarySearchTree<Integer> bst2 = new BinarySearchTree<Integer>();
 		
-		BinaryTrie result;
+		BinaryTrie3 result;
 		bst2.add(4);
 		bst2.add(14);
 		bst2.add(19);
@@ -30,9 +30,10 @@ public class HuffmanCompression {
 			System.out.println("Done");//To notify that main has finished
 		}
 		else{
-			result = buildTrie(inputString);
+			buildTrie(inputString);
 //			bst.writeDot("visual.dot");
 			System.out.println(view[0]);
+			System.out.println(view[1]);
 			
 //			bst2.writeDot("test.dot");
 		}
@@ -42,22 +43,22 @@ public class HuffmanCompression {
 
 
 
-	public static BinaryTrie buildTrie(String inputString){
+	public static void buildTrie(String inputString){
 		FileWriter write = null;//write the compressed file
 
 		ArrayList<Character> characters = new ArrayList<>();//Stores all the characters in the input
 
-		char readInt;//characters (ints) being read
+		int readInt;//characters (ints) being read
 
 		try{
 			FileReader fr = new FileReader(inputString);//The FileReader
 			//Loop until end of file (-1)
 
 			while(true){
-				readInt = (char) fr.read();//get the next char
+				readInt = fr.read();//get the next char
 				if(readInt < 0)//if end of file, break
 					break;
-				characters.add(readInt);//add to array
+				characters.add((char)readInt);//add to array
 			}
 			fr.close();
 		}catch(Exception e){
@@ -65,40 +66,45 @@ public class HuffmanCompression {
 		}
 		HashMap<Character, Integer> map = new HashMap<Character, Integer>();
 		ArrayList<Character> unique = new ArrayList<>();
-		ArrayList<Integer> frequency = new ArrayList<>();
 
 		for(char c : characters){
 			if(map.containsKey(c)){
 				int temp = map.remove(c);
-				map.put(c, temp++);
+				map.put(c, ++temp);
 			}
 			else{
 				map.put(c, 1);
 				unique.add(c);
 			}
 		}
+		
+		PriorityQueue<Node> pq = new PriorityQueue<>();
+		LinkedList<Leaf> sample = new LinkedList<>();
+		ArrayList<String> viewCode = new ArrayList<>();
 
 		for(char c : unique){
-			frequency.add(map.get(c));
+			Leaf l = new Leaf(c, map.get(c));
+			sample.add(l);
+			pq.add(l);
 		}
-
-		//Now we have an ArrayList of all the characters and frequencies
-		PriorityQueue<BinaryTrie> pq = new PriorityQueue<BinaryTrie>();
-		BinaryTrie result;
-
-		for(int i = 0; i < unique.size(); i++){
-			pq.add(new Leaf(frequency.get(i), unique.get(i)));
-		}
+		
+		
+		view[0] = pq.toString();
 
 		while(pq.size() > 1){
-			BinaryTrie a = pq.poll();
-			BinaryTrie b = pq.poll();
-			pq.add(new Node(a,b));
+			Node left = pq.poll();
+			Node right = pq.poll();
+			pq.add(new Branch(right, left));
 		}
 
-		result = pq.poll();
-		return result;
+		Node trie = pq.poll();
+		System.out.println(trie.getFrequency());
 
+		for(Leaf l : sample){
+			viewCode.add(l.getCode());
+		}
+		
+		view[1] = viewCode.toString();
 
 
 	}
