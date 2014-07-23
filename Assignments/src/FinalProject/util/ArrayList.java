@@ -22,7 +22,7 @@ import java.util.NoSuchElementException;
  *
  * @param <E> - generic type placeholder
  */
-public class ArrayBasedCollection<E> implements Collection<E> 
+public class ArrayList<E> implements Collection<E> 
 {
 	E data[]; // Storage for the items in the collection
 	int size; // Keep track of how many items we hold
@@ -31,7 +31,7 @@ public class ArrayBasedCollection<E> implements Collection<E>
 	 *  Creates a new ArrayBasedCollection with an initial size of 0
 	 */ 
 	@SuppressWarnings("unchecked")  
-	public ArrayBasedCollection()
+	public ArrayList()
 	{
 
 		size = 0;
@@ -287,27 +287,7 @@ public class ArrayBasedCollection<E> implements Collection<E>
 			
 	}  
   
-	/** 
-	 * Returns a new ArrayList<E> that contains all the items in the collection but is sorted using
-	 * a comparator, ordering the items from smallest (according to the comparator) to largest. Sorted using
-	 * an insertion sort algorithm
-	 */
-	@SuppressWarnings("unchecked")
-	public ArrayList<E> toSortedList(Comparator<? super E> cmp)
-	{
-		E[] sorted = (E[]) data.clone();
-		for(int i = 1; i<size; i++){
-			E val = sorted[i];
-			int j;
-			for(j = i-1; j>=0 && cmp.compare(sorted[j], val) > 0; j--)
-				sorted[j+1] = sorted[j];
-			sorted[j+1] = val;
-		}
-	   
-		ArrayList<E> result = new ArrayList<E>();
-		result.add((E) sorted);
-		return result;
-	}  
+
    
 	/**
 	 *  Iterator for the ArrayBasedCollection class
@@ -354,7 +334,7 @@ public class ArrayBasedCollection<E> implements Collection<E>
 		{
 			if(!removedNext){
 				removedNext =  true;
-				ArrayBasedCollection.this.remove(data[index--]);
+				ArrayList.this.remove(data[index--]);
 			}
 			else
 				throw new IllegalStateException();

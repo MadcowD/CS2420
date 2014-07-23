@@ -5,7 +5,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import FinalProject.util.ArrayBasedCollection;
+import FinalProject.util.ArrayList;
 import FinalProject.util.BinarySearchTree;
 import FinalProject.util.PriorityQueue;
 
@@ -48,7 +48,7 @@ public class Dictionary {
 	}
 
 
-	private ArrayBasedCollection<Word> getAlternatives (Word word) {
+	private ArrayList<Word> getAlternatives (Word word) {
 		String data = word.getWord();
 		int n = data.length();
 		Word[] result = new Word[53*n + 25];
@@ -57,7 +57,7 @@ public class Dictionary {
 		for(int i = 0; i < n; i++){
 			StringBuilder sb = new StringBuilder(data);
 			sb.deleteCharAt(i);
-			if()
+			
 		}
 		
 		for(int i = 0; i < n-1; i++){

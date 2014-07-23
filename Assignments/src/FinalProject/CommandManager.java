@@ -4,18 +4,19 @@
 package FinalProject;
 
 import FinalProject.commands.SpellCheckCommand;
+import FinalProject.util.ArrayList;
 
 /**
  * @author William Guss
  * @author Maks Cegielski-Johnson
  */
 public class CommandManager {
-	
+	ArrayList<Command> commands;
 	
 	
 	
 	public void register (String string, Command command) {
-		// TODO Auto-generated method stub
+		commands.add(command);
 		
 	}
 

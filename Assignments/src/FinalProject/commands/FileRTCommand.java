@@ -10,7 +10,7 @@ import FinalProject.CommandManager;
  * @author William Guss
  * @author Maks Cegielski-Johnson
  */
-public class FileRTCommand extends FinalProject.Command {
+public class FileRTCommand implements FinalProject.Command {
 
 	@Override
 	public boolean run (CommandManager manager, Object... args) {
