@@ -11,35 +11,38 @@ import maksFinal.BinaryTrie.Leaf;
 public class HuffmanCompression {
 	private static int CHOICE = 1;
 	public static String[] view = new String[1];
-	
+
 	private static BinarySearchTree<CompressionData> bst = new BinarySearchTree<CompressionData>();
 	private static BinarySearchTree<CompressionData> tempBST = new BinarySearchTree<CompressionData>();
 
 	public static void main(String[] args){
 		String inputString = "hello.txt";//Sample document
-		
+
 		BinarySearchTree<Integer> bst2 = new BinarySearchTree<Integer>();
+		
+		BinaryTrie result;
 		bst2.add(4);
 		bst2.add(14);
 		bst2.add(19);
-		
+
 		if(CHOICE < 0){
 			writeFileToBits(inputString);//Convert from characters to bits
 			System.out.println("Done");//To notify that main has finished
 		}
 		else{
-			huffman(inputString);
-			bst.writeDot("visual.dot");
+			result = buildTrie(inputString);
+//			bst.writeDot("visual.dot");
 			System.out.println(view[0]);
+			
 //			bst2.writeDot("test.dot");
 		}
-		
-		
+
+
 	}
 
 
 
-	public static void huffman(String inputString){
+	public static BinaryTrie buildTrie(String inputString){
 		FileWriter write = null;//write the compressed file
 
 		ArrayList<Character> characters = new ArrayList<>();//Stores all the characters in the input
@@ -63,7 +66,7 @@ public class HuffmanCompression {
 		HashMap<Character, Integer> map = new HashMap<Character, Integer>();
 		ArrayList<Character> unique = new ArrayList<>();
 		ArrayList<Integer> frequency = new ArrayList<>();
-		
+
 		for(char c : characters){
 			if(map.containsKey(c)){
 				int temp = map.remove(c);
@@ -74,22 +77,30 @@ public class HuffmanCompression {
 				unique.add(c);
 			}
 		}
-		
+
 		for(char c : unique){
 			frequency.add(map.get(c));
 		}
 
 		//Now we have an ArrayList of all the characters and frequencies
-		PriorityQueue<Leaf> pq = new PriorityQueue<Leaf>();
-		BinaryTrie result = new BinaryTrie();
-		
+		PriorityQueue<BinaryTrie> pq = new PriorityQueue<BinaryTrie>();
+		BinaryTrie result;
+
 		for(int i = 0; i < unique.size(); i++){
 			pq.add(new Leaf(frequency.get(i), unique.get(i)));
 		}
-		
-		
-		
-		
+
+		while(pq.size() > 1){
+			BinaryTrie a = pq.poll();
+			BinaryTrie b = pq.poll();
+			pq.add(new Node(a,b));
+		}
+
+		result = pq.poll();
+		return result;
+
+
+
 	}
 
 
