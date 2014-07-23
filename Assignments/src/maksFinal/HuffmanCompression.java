@@ -3,8 +3,10 @@ package maksFinal;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.HashMap;
 import java.util.PriorityQueue;
+
+import maksFinal.BinaryTrie.Leaf;
 
 public class HuffmanCompression {
 	private static int CHOICE = 1;
@@ -40,58 +42,55 @@ public class HuffmanCompression {
 	public static void huffman(String inputString){
 		FileWriter write = null;//write the compressed file
 
-		PriorityQueue<CompressionData> pq = new PriorityQueue<>();
-//		HashMap<Integer, Integer> characters = new HashMap<>();
-		
-		LinkedList<CompressionData> characters = new LinkedList<>();
-		//		ArrayList<Integer> characters = new ArrayList<>();//Stores all the characters in the input
+		ArrayList<Character> characters = new ArrayList<>();//Stores all the characters in the input
 
-		int readInt;//characters (ints) being read
+		char readInt;//characters (ints) being read
 
 		try{
 			FileReader fr = new FileReader(inputString);//The FileReader
 			//Loop until end of file (-1)
 
 			while(true){
-				readInt = fr.read();//get the next char
+				readInt = (char) fr.read();//get the next char
 				if(readInt < 0)//if end of file, break
 					break;
-				
-				CompressionData tempTrie = new CompressionData(readInt,false);//Trie Node of freq 1
-				
-				if(characters.contains(tempTrie)){
-					int location = characters.indexOf(tempTrie);
-					characters.get(location).updateFrequency();//increment frequency by 1
-				}
-				else{
-					characters.add(tempTrie);//add the freq 1 character
-				}
-
+				characters.add(readInt);//add to array
 			}
 			fr.close();
 		}catch(Exception e){
 			e.printStackTrace();//Exceptions
 		}
+		HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+		ArrayList<Character> unique = new ArrayList<>();
+		ArrayList<Integer> frequency = new ArrayList<>();
 		
-		view[0] = characters.toString();//View the List (optional)
-		
-		for(CompressionData n : characters){
-			pq.add(n);
+		for(char c : characters){
+			if(map.containsKey(c)){
+				int temp = map.remove(c);
+				map.put(c, temp++);
+			}
+			else{
+				map.put(c, 1);
+				unique.add(c);
+			}
 		}
-		while(pq.size() > 1){
-			CompressionData left = pq.poll();
-			CompressionData right = pq.poll();
-			CompressionData center = new CompressionData(left.getFrequency() + right.getFrequency(), true);
-			bst.merge(center, left, right);
-			pq.add(center);
+		
+		for(char c : unique){
+			frequency.add(map.get(c));
+		}
+
+		//Now we have an ArrayList of all the characters and frequencies
+		PriorityQueue<Leaf> pq = new PriorityQueue<Leaf>();
+		BinaryTrie result = new BinaryTrie();
+		
+		for(int i = 0; i < unique.size(); i++){
+			pq.add(new Leaf(frequency.get(i), unique.get(i)));
 		}
 		
-		System.out.println(pq.toString());
-		bst.add(pq.poll());
-		System.out.println(bst.toArrayList().toString());
+		
+		
 		
 	}
-
 
 
 
