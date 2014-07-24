@@ -14,9 +14,27 @@ public class Leaf extends Node{
 	public String toString(){
 		return symbol + "=" + this.getFrequency();
 	}
+	
+	public char getChar(){
+		return symbol;
+	}
+	
+	
+//	
+//	private int getByteCode(){
+//		Node temp = this;
+//		int code = 1;
+//		while(temp.parent != null){
+//			if(!temp.isZero){
+//				code |= 1;
+//				code = code >> 1;
+//			}
+//		}
+//	}
+	
 
 	//TODO CONVERT TO BITS?
-	private void makeCode(){
+	private void makeStringCode(){
 		Node temp = this;
 		StringBuilder code = new StringBuilder();
 
@@ -35,7 +53,7 @@ public class Leaf extends Node{
 
 	public String getCode(){
 		if(code == null)
-			this.makeCode();
+			this.makeStringCode();
 		return code;
 	}
 
