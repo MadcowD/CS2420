@@ -10,7 +10,6 @@ import java.util.LinkedList;
  *
  */
 public class ChainingHashTable extends HashTable {
-	
 	private LinkedList<String>[] storage;//used to store all the data
 	
 	@SuppressWarnings("unchecked")

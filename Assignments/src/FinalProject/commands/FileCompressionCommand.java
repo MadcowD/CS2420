@@ -19,5 +19,14 @@ public class FileCompressionCommand implements Command {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	
+	/* (non-Javadoc)
+	 * @see FinalProject.Command#init(java.lang.Object[])
+	 */
+	public void init(Object... args) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
