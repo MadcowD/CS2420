@@ -57,6 +57,7 @@ public class PermutationTechnique {
 		
 		System.out.println(list.toString());
 		System.out.println(list.size());
+		
 
 	}
 	
