@@ -1,11 +1,10 @@
-package maksFinal;
-
-
+package FinalProject.compression;
 
 public class Node implements Comparable<Node>{
 
 	Branch parent;
 	int frequency;
+	boolean isZero;
 
 	public Branch getParent(){
 		return this.parent;
@@ -18,7 +17,6 @@ public class Node implements Comparable<Node>{
 	public Node(int frequency){
 		this.frequency = frequency;
 	}
-
 
 	@Override
 	public int compareTo(Node other) {

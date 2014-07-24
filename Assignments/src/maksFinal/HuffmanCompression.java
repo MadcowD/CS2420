@@ -7,6 +7,10 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
+import FinalProject.compression.Branch;
+import FinalProject.compression.Leaf;
+import FinalProject.compression.Node;
+
 
 public class HuffmanCompression {
 	private static int CHOICE = 1;
@@ -97,8 +101,8 @@ public class HuffmanCompression {
 			pq.add(new Branch(right, left));
 		}
 
-		Node trie = pq.poll();
-		System.out.println(trie.getFrequency());
+		Node root = pq.poll();
+		System.out.println(root.getFrequency());
 
 		for(Leaf l : sample){
 			viewCode.add(l.getCode());

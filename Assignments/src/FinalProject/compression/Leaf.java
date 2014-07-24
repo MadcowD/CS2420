@@ -1,4 +1,4 @@
-package maksFinal;
+package FinalProject.compression;
 
 public class Leaf extends Node{
 	private char symbol;
@@ -10,21 +10,21 @@ public class Leaf extends Node{
 		this.symbol = symbol;
 		code = null;
 	}
-	
-	public String toString(){
-		return "The character is: " + symbol + " and the frequency is " + this.getFrequency();
-	}
-	
 
-	public void makeCode(){
+	public String toString(){
+		return symbol + "=" + this.getFrequency();
+	}
+
+	//TODO CONVERT TO BITS?
+	private void makeCode(){
 		Node temp = this;
 		StringBuilder code = new StringBuilder();
 
 		while(temp.parent != null){
-			if(temp.parent.one == this)
-				code.append('1');
-			else
-				code.append('0');
+			if(!temp.isZero)
+				code.insert(0, '1');
+			else if(temp.isZero)
+				code.insert(0, '0');
 
 			temp = temp.parent;
 
@@ -32,7 +32,7 @@ public class Leaf extends Node{
 
 		this.code = code.toString();
 	}
-	
+
 	public String getCode(){
 		if(code == null)
 			this.makeCode();
@@ -47,5 +47,6 @@ public class Leaf extends Node{
 		else 
 			return this.compareTo(other);
 	}
+
 
 }
