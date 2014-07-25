@@ -4,13 +4,14 @@
 package FinalProject.commands;
 
 
+import FinalProject.Command;
 import FinalProject.CommandManager;
 
 /**
  * @author William Guss
  * @author Maks Cegielski-Johnson
  */
-public class FileRTCommand implements FinalProject.Command {
+public class FileRTCommand extends Command {
 
 	/* (non-Javadoc)
 	 * @see FinalProject.Command#run(FinalProject.CommandManager, java.lang.Object[])
@@ -24,8 +25,8 @@ public class FileRTCommand implements FinalProject.Command {
 	/* (non-Javadoc)
 	 * @see FinalProject.Command#init(java.lang.Object[])
 	 */
-	public void init(Object... args) {
-		// TODO Auto-generated method stub
+	public boolean init(Object... args) {
+		return false;
 		
 	}
 
