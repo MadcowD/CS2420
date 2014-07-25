@@ -64,7 +64,8 @@ public class CommandManager {
 			{
 				//Initialize commands
 				for(KeyValuePair<String, Command> c : commands)
-					c.Value.init(statsFile, args);
+					if(!c.Value.init(statsFile, args))
+						c.Value.setEnabled(false);
 				
 				return true;
 			}	
@@ -107,7 +108,8 @@ public class CommandManager {
 			return true;
 		}
 		
-		//TODO: FIX
+		//On exit
+		System.out.print("Thanks for using the text processor...");
 		return false;
 	}
 	
@@ -127,9 +129,15 @@ public class CommandManager {
 	 * @return If the command ran successfully.
 	 */
 	public  boolean run (String string, Object... args) {
+		//Preferably we should use a hashmap.
 		for(KeyValuePair<String, Command> c : commands)
-			if(c.Key.equals(string))
-				return c.Value.run(this, args);
+			if(c.Key.equals(string)){
+				if(c.Value.isEnabled())
+					return c.Value.run(this, args);
+				else
+					System.out.println("Command disabled. Please choose another option:");
+			}
+				
 				
 		return false;
 		

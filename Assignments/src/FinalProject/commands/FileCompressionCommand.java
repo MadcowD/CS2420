@@ -10,7 +10,7 @@ import FinalProject.CommandManager;
  * @author William Guss
  * @author Maks Cegielski-Johnson
  */
-public class FileCompressionCommand implements Command {
+public class FileCompressionCommand extends Command {
 
 	/* (non-Javadoc)
 	 * @see FinalProject.Command#run(FinalProject.CommandManager, java.lang.Object[])
@@ -24,8 +24,9 @@ public class FileCompressionCommand implements Command {
 	/* (non-Javadoc)
 	 * @see FinalProject.Command#init(java.lang.Object[])
 	 */
-	public void init(Object... args) {
+	public boolean init(Object... args) {
 		// TODO Auto-generated method stub
+		return true;
 		
 	}
 
