@@ -2,7 +2,6 @@ package maksFinal;
 
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
@@ -10,90 +9,61 @@ import java.util.PriorityQueue;
 import FinalProject.compression.Branch;
 import FinalProject.compression.Leaf;
 import FinalProject.compression.Node;
+import FinalProject.util.ArrayList;
 
 
 public class HuffmanCompression {
 	private static int CHOICE = 1;
 	public static String[] view = new String[2];
 
-	private static BinarySearchTree<CompressionData> bst = new BinarySearchTree<CompressionData>();
-	private static BinarySearchTree<CompressionData> tempBST = new BinarySearchTree<CompressionData>();
+
 
 	public static void main(String[] args){
 		String inputString = "hello.txt";//Sample document
 
-		BinarySearchTree<Integer> bst2 = new BinarySearchTree<Integer>();
-		
-		BinaryTrie3 result;
-		bst2.add(4);
-		bst2.add(14);
-		bst2.add(19);
+		ArrayList<Integer> chars = readCharacters(inputString);
+		HashMap<Character, String> map = buildTrie(chars);
+		compressFile(chars, map);
 
-		if(CHOICE < 0){
-			writeFileToBits(inputString);//Convert from characters to bits
-			System.out.println("Done");//To notify that main has finished
-		}
-		else{
-			buildTrie(inputString);
-//			bst.writeDot("visual.dot");
-			System.out.println(view[0]);
-			System.out.println(view[1]);
-			
-//			bst2.writeDot("test.dot");
-		}
+	}
+
+
+
+	public static void compressFile(ArrayList<Integer> characters, HashMap<Character, String> translation){
+
 
 
 	}
 
 
 
-	public static void buildTrie(String inputString){
-		FileWriter write = null;//write the compressed file
+	public static void buildTrie(ArrayList<Integer> characters){
 
-		ArrayList<Character> characters = new ArrayList<>();//Stores all the characters in the input
-
-		int readInt;//characters (ints) being read
-
-		try{
-			FileReader fr = new FileReader(inputString);//The FileReader
-			//Loop until end of file (-1)
-
-			while(true){
-				readInt = fr.read();//get the next char
-				if(readInt < 0)//if end of file, break
-					break;
-				characters.add((char)readInt);//add to array
-			}
-			fr.close();
-		}catch(Exception e){
-			e.printStackTrace();//Exceptions
-		}
 		HashMap<Character, Integer> map = new HashMap<Character, Integer>();
 		ArrayList<Character> unique = new ArrayList<>();
 
-		for(char c : characters){
+		HashMap<Character, String> result = new HashMap<Character,String>();
+
+		for(int c : characters){
 			if(map.containsKey(c)){
 				int temp = map.remove(c);
-				map.put(c, ++temp);
+				map.put((char)c, ++temp);
 			}
 			else{
-				map.put(c, 1);
-				unique.add(c);
+				map.put((char)c, 1);
+				unique.add((char)c);
 			}
 		}
-		
+
 		PriorityQueue<Node> pq = new PriorityQueue<>();
-		LinkedList<Leaf> sample = new LinkedList<>();
-		ArrayList<String> viewCode = new ArrayList<>();
+		LinkedList<Leaf> leaves = new LinkedList<>();
 
 		for(char c : unique){
 			Leaf l = new Leaf(c, map.get(c));
-			sample.add(l);
+			leaves.add(l);
 			pq.add(l);
 		}
-		
-		
-		view[0] = pq.toString();
+
 
 		while(pq.size() > 1){
 			Node left = pq.poll();
@@ -101,19 +71,48 @@ public class HuffmanCompression {
 			pq.add(new Branch(right, left));
 		}
 
-		Node root = pq.poll();
-		System.out.println(root.getFrequency());
+		for(Leaf l : leaves)
+			result.put(l.getChar(), l.getCode());
 
-		for(Leaf l : sample){
-			viewCode.add(l.getCode());
+		StringBuilder string = new StringBuilder();//The translation
+
+		for(int c : characters){
+			string.append(result.get((char)c));
 		}
-		
-		view[1] = viewCode.toString();
+
+		try{
+			FileWriter fw = new FileWriter("output.txt");
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 
 
 	}
 
 
+	public static ArrayList<Integer> readCharacters(String file){
+		ArrayList<Integer> characters = new ArrayList<>();//Stores all the characters in the input
+
+		int readInt;//characters (ints) being read
+
+		try{
+			FileReader fr = new FileReader(file);//The FileReader
+			//Loop until end of file (-1)
+
+			while(true){
+				readInt = fr.read();//get the next char
+				if(readInt < 0)//if end of file, break
+					break;
+				characters.add(readInt);//add to array
+			}
+			fr.close();
+		}catch(Exception e){
+			e.printStackTrace();//Exceptions
+		}
+
+		return characters;
+	}
 
 
 	/**

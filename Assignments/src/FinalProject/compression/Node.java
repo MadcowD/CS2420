@@ -20,7 +20,7 @@ public class Node implements Comparable<Node>{
 
 	@Override
 	public int compareTo(Node other) {
-		return -other.frequency + this.frequency;
+		return this.frequency - other.frequency;
 	}
 
 	
