@@ -81,8 +81,8 @@ public class ArrayList<E> implements Collection<E>
 	{
 
 		//if arg0 is already in the array return false
-		if(this.contains(arg0))
-			return false;
+//		if(this.contains(arg0))
+//			return false;
 
 		if(size == data.length)
 			grow();
