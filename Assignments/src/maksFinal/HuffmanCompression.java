@@ -16,7 +16,7 @@ public class HuffmanCompression {
 	private static int CHOICE = 1;
 	public static String[] view = new String[2];
 
-	
+
 
 	public static void main(String[] args){
 		String inputString = "hello.txt";//Sample document
@@ -26,40 +26,22 @@ public class HuffmanCompression {
 		compressFile(chars, map);
 
 	}
-	
-	
-	
+
+
+
 	public static void compressFile(ArrayList<Integer> characters, HashMap<Character, String> translation){
-		StringBuilder result = new StringBuilder();//The translation
-		
-		for(int c : characters){
-			result.append(translation.get((char)c));
-		}
-		
-		try{
-			FileWriter fw = new FileWriter("output.txt");
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
-		
-	}
 
-	
-	public static HashMap<Character, Integer> getFrequencyMap(ArrayList<Integer> characters){
-		HashMap<Character, Integer> map = new HashMap<Character, Integer>();
-		
-		
-		return map;
+
+
 	}
 
 
-	public static HashMap<Character, String> buildTrie(ArrayList<Integer> characters){
-		
+
+	public static void buildTrie(ArrayList<Integer> characters){
+
 		HashMap<Character, Integer> map = new HashMap<Character, Integer>();
 		ArrayList<Character> unique = new ArrayList<>();
-		
+
 		HashMap<Character, String> result = new HashMap<Character,String>();
 
 		for(int c : characters){
@@ -69,18 +51,19 @@ public class HuffmanCompression {
 			}
 			else{
 				map.put((char)c, 1);
+				unique.add((char)c);
 			}
 		}
-		
+
 		PriorityQueue<Node> pq = new PriorityQueue<>();
-		LinkedList<Leaf> sample = new LinkedList<>();
+		LinkedList<Leaf> leaves = new LinkedList<>();
 
 		for(char c : unique){
 			Leaf l = new Leaf(c, map.get(c));
-			sample.add(l);
+			leaves.add(l);
 			pq.add(l);
 		}
-		
+
 
 		while(pq.size() > 1){
 			Node left = pq.poll();
@@ -88,10 +71,22 @@ public class HuffmanCompression {
 			pq.add(new Branch(right, left));
 		}
 
-		for(Leaf l : sample)
+		for(Leaf l : leaves)
 			result.put(l.getChar(), l.getCode());
 
-		return result;
+		StringBuilder string = new StringBuilder();//The translation
+
+		for(int c : characters){
+			string.append(result.get((char)c));
+		}
+
+		try{
+			FileWriter fw = new FileWriter("output.txt");
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
 
 	}
 
@@ -115,7 +110,7 @@ public class HuffmanCompression {
 		}catch(Exception e){
 			e.printStackTrace();//Exceptions
 		}
-		
+
 		return characters;
 	}
 
