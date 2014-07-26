@@ -59,11 +59,11 @@ public class HuffmanCompression {
 		}
 		stringCode.append(EOF);
 		//Append extra 0s to make full byte
-		while(stringCode.length() % 8 != 0){
+		while((stringCode.length() + header.capacity()) % 8 != 0){
 			stringCode.append('0');
 		}
 		stringCode.deleteCharAt(stringCode.length()-1);//Overcounting
-//		stringCode.deleteCharAt(stringCode.length()-1);
+		stringCode.deleteCharAt(stringCode.length()-1);
 
 		String str = stringCode.toString();//Use for parsing
 
@@ -107,7 +107,6 @@ public class HuffmanCompression {
 			e.printStackTrace();
 		}
 
-		//		System.out.println(read.toString());
 		ArrayList<Character> unique = new ArrayList<Character>();
 
 		HashMap<Character, Integer> frequencies = new HashMap<Character, Integer>();
@@ -124,22 +123,30 @@ public class HuffmanCompression {
 		}
 
 
-		HashMap<Character, String> translate = buildTrie(frequencies, unique);
+		translate = buildTrie(frequencies, unique);
 		StringBuilder sb = new StringBuilder();
 
 		for(; i<data.length; i++){
 			sb.append(Integer.toBinaryString(data[i]));
 		}
 		
-		StringReader sr = new StringReader(sb.toString());
-		
 		char[] decypher = sb.toString().toCharArray();
 		System.out.println(Arrays.toString(decypher));
 
+		Node temp = root;
+		
+		StringBuilder tempResult = new StringBuilder();
 		for(int j = 0; j < decypher.length; j++){
-			//TODO CONTINUE
+			temp = temp.traverse(Integer.parseInt(decypher[j] + ""));
+			System.out.println(decypher[j]);
+			if(temp instanceof Leaf){
+				System.out.println(((Leaf) temp).getChar());
+				tempResult.append(((Leaf) temp).getChar());
+				temp = root;
+			}
+
 		}
-				
+		System.out.println(tempResult.toString());	
 		
 	}
 
@@ -197,6 +204,8 @@ public class HuffmanCompression {
 		//Create the translation from the tree
 		for(Leaf l : leaves)
 			translate.put(l.getChar(), l.getCode());
+		
+		System.out.println(translate.toString());
 
 		return translate;
 	}
