@@ -15,6 +15,22 @@ public class Branch extends Node {
 		this.zero.parent = this;
 	}
 	
+	
+	public Leaf traverse(int i){
+		Node temp = this;
+		
+		if(temp instanceof Leaf)
+			return (Leaf) temp;
+		
+		if(i == 1){
+			temp = one;
+		}
+		else if(i == 0)
+			temp = zero;
+		return null;
+		
+	}
+	
 	public String toString(){
 		return this.getFrequency() + " (" + zero + " " + one + ")";
 	}

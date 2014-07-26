@@ -2,9 +2,12 @@ package maksFinal;
 
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.StringReader;
 import java.nio.ByteBuffer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Scanner;
 
 import FinalProject.compression.Branch;
 import FinalProject.compression.Leaf;
@@ -20,13 +23,15 @@ public class HuffmanCompression {
 	private static HashMap<Character, Integer> frequency = new HashMap<Character, Integer>();//Every character and frequency as a map
 	private static ArrayList<Character> unique = new ArrayList<Character>();//All the unique characters, a set of the characters
 	private static ArrayList<Character> characters;//A list of every character in order that it appears
+	private static Node root;
+	private static char end;
 
 	public static void main(String[] args){
 		compressFile("hello.txt", "output_compress.txt");
 		decompress("output_compress.txt", "ok");
 	}
-	
-	
+
+
 	public static void compressFile(String file, String output){
 		////Setup////
 		readCharacters(file);//Get every character in the file
@@ -41,8 +46,10 @@ public class HuffmanCompression {
 			header.put((byte)c);
 			header.putInt(frequency.get(c));
 		}
-		header.put((byte)-1);
+		
+		header.put((byte)0);
 		header.putInt(0);
+		
 		header.flip();//Reset pointers on header
 
 		//Create string of the translation code
@@ -56,6 +63,7 @@ public class HuffmanCompression {
 			stringCode.append('0');
 		}
 		stringCode.deleteCharAt(stringCode.length()-1);//Overcounting
+//		stringCode.deleteCharAt(stringCode.length()-1);
 
 		String str = stringCode.toString();//Use for parsing
 
@@ -72,7 +80,6 @@ public class HuffmanCompression {
 		}
 
 		code.flip();//Reset the pointers for the code
-
 		//Write the bytes to a text file
 		try{
 			FileWriter fw = new FileWriter(output);
@@ -89,49 +96,51 @@ public class HuffmanCompression {
 	}
 
 
-	public static void decompress(String input, String output){
-		ArrayList<Integer> read = new ArrayList<Integer>();
 
+	public static void decompress(String input, String output){
+		byte[] data = new byte[0];
 		try{
-			FileReader fr = new FileReader(input);
-			while(true){
-				int fileInt = fr.read();
-				if(fileInt < 0)
-					break;
-				read.add(fileInt);
-				
-			}
-			fr.close();
+			data = Files.readAllBytes(Paths.get(input));
+			System.out.println(Arrays.toString(data));
+
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-//		System.out.println(read.toString());
+
+		//		System.out.println(read.toString());
 		ArrayList<Character> unique = new ArrayList<Character>();
-		
+
 		HashMap<Character, Integer> frequencies = new HashMap<Character, Integer>();
 		int i = 0;
-		int c = 20;
-		int f;
-		while(c != (char)(-1)){
-			c = read.get(i);
-			i += 4;
-			f = read.get(i);
-			unique.add((char)c);
-			frequencies.put((char)c, f); 
-			i++;
+
+		System.out.println(data.length);
+		int freq = 1;
+		for(i = 0; i < data.length; i+= 5){
+			freq = data[i+1] + data[i+2] + data[i+3] + data[i+4];
+			if(freq == 0)
+				break;
+			frequencies.put((char) data[i], freq);
+			unique.add((char)data[i]);
 		}
-		
+
+
 		HashMap<Character, String> translate = buildTrie(frequencies, unique);
 		StringBuilder sb = new StringBuilder();
-		
-		for(; i<read.size(); i++){
-			sb.append(Integer.toBinaryString(i));
+
+		for(; i<data.length; i++){
+			sb.append(Integer.toBinaryString(data[i]));
 		}
-		Scanner s = new Scanner(sb.toString());
-		s.nextShort();
-		System.out.println(sb.toString());
-		System.out.println(frequencies.toString());
+		
+		StringReader sr = new StringReader(sb.toString());
+		
+		char[] decypher = sb.toString().toCharArray();
+		System.out.println(Arrays.toString(decypher));
+
+		for(int j = 0; j < decypher.length; j++){
+			//TODO CONTINUE
+		}
+				
+		
 	}
 
 
@@ -156,15 +165,17 @@ public class HuffmanCompression {
 			pq.add(new Branch(right, left));
 		}
 
+		root = pq.deleteMin();
+
 		//Create the translation from the tree
 		for(Leaf l : leaves)
 			translate.put(l.getChar(), l.getCode());
 	}
-	
+
 	private static HashMap<Character, String> buildTrie(HashMap<Character,Integer> frequencies, ArrayList<Character> unique){
 		PriorityQueue<Node> pq = new PriorityQueue<>();
 		ArrayList<Leaf> leaves = new ArrayList<Leaf>();//All the leaves
-		
+
 		HashMap<Character, String> translate = new HashMap<Character,String>();
 
 		//Add every leaf to the queue and list
@@ -181,10 +192,12 @@ public class HuffmanCompression {
 			pq.add(new Branch(right, left));
 		}
 
+		root = pq.deleteMin();
+
 		//Create the translation from the tree
 		for(Leaf l : leaves)
 			translate.put(l.getChar(), l.getCode());
-		
+
 		return translate;
 	}
 

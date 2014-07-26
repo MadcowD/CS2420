@@ -19,19 +19,6 @@ public class Leaf extends Node{
 		return symbol;
 	}
 	
-	
-//	
-//	private int getByteCode(){
-//		Node temp = this;
-//		int code = 1;
-//		while(temp.parent != null){
-//			if(!temp.isZero){
-//				code |= 1;
-//				code = code >> 1;
-//			}
-//		}
-//	}
-	
 
 	//TODO CONVERT TO BITS?
 	private void makeStringCode(){

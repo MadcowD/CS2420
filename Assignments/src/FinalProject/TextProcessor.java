@@ -8,7 +8,7 @@ import java.util.Scanner;
 import FinalProject.commands.FileCompressionCommand;
 import FinalProject.commands.FileRTCommand;
 import FinalProject.commands.SpellCheckCommand;
-import FinalProject.commands.WordSpellCheckCommand;
+//import FinalProject.commands.WordSpellCheckCommand;//TODO
 
 /**
  * @author Willy Guss
@@ -20,8 +20,8 @@ public class TextProcessor {
 	 */
 	public static CommandManager cManager = new CommandManager();
 	static{
-		cManager.register("Word spell check", 		new WordSpellCheckCommand());
-		cManager.register("File spell check", 		new WordSpellCheckCommand());
+//		cManager.register("Word spell check", 		new WordSpellCheckCommand());//TODO uncomment
+//		cManager.register("File spell check", 		new WordSpellCheckCommand());
 		cManager.register("File compression", 		new FileCompressionCommand());
 		cManager.register("File decompression", 	new FileCompressionCommand());
 		cManager.register("File remote transfer", 	new FileRTCommand());
