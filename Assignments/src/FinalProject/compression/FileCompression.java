@@ -1,13 +1,14 @@
-package maksFinal;
+package FinalProject.compression;
 
+import java.util.HashMap;//TODO USE OUR OWN HASHMAP
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.StringReader;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.HashMap;
 
 import FinalProject.compression.Branch;
 import FinalProject.compression.Leaf;
@@ -16,29 +17,33 @@ import FinalProject.util.ArrayList;
 import FinalProject.util.PriorityQueue;
 
 
-public class HuffmanCompression {
-	private final static char EOF = (char)(-1);//End of file character
+
+public class FileCompression {
+	private final static char EOF = (char)(0);//End of file character TODO fix?
 
 	private static HashMap<Character, String> translate = new HashMap<Character, String>();//Every character and translation for it as a map
 	private static HashMap<Character, Integer> frequency = new HashMap<Character, Integer>();//Every character and frequency as a map
 	private static ArrayList<Character> unique = new ArrayList<Character>();//All the unique characters, a set of the characters
 	private static ArrayList<Character> characters;//A list of every character in order that it appears
-	private static Node root;
-	private static char end;
+	private static Node root;//The root Node, used for decompression
 
+	
 	public static void main(String[] args){
-		compressFile("hello.txt", "output_compress.txt");
-		decompress("output_compress.txt", "ok");
+		compressFile(args[0], "compression_file_huffman.txt");
+		decompressFile("compression_file_huffman.txt", args[1]);
 	}
 
 
-	public static void compressFile(String file, String output){
+	/**
+	 * The main method for compressing a file using Huffman Compression.
+	 * @param inputFile - the input file name, given by the user
+	 * @param output - the output file name, given by the user
+	 */
+	public static void compressFile(String inputFile, String output){
 		////Setup////
-		readCharacters(file);//Get every character in the file
+		readCharacters(inputFile);//Get every character in the file
 		generateFrequency();//Generate a frequency map and get every unique character
 		buildTrie();//Build the trie and generate a translation map
-
-
 
 		//Create Header
 		ByteBuffer header = ByteBuffer.allocate(unique.size()*5+5);
@@ -46,10 +51,10 @@ public class HuffmanCompression {
 			header.put((byte)c);
 			header.putInt(frequency.get(c));
 		}
-		
+		//End of Header:
 		header.put((byte)0);
 		header.putInt(0);
-		
+
 		header.flip();//Reset pointers on header
 
 		//Create string of the translation code
@@ -57,13 +62,12 @@ public class HuffmanCompression {
 		for(char c : characters){
 			stringCode.append(translate.get(c));
 		}
-		stringCode.append(EOF);
+		//TODO MAYBE INSERT THE EOF CHARACTER
+
 		//Append extra 0s to make full byte
-		while((stringCode.length() + header.capacity()) % 8 != 0){
+		while((stringCode.length()%8 != 0))
 			stringCode.append('0');
-		}
-		stringCode.deleteCharAt(stringCode.length()-1);//Overcounting
-		stringCode.deleteCharAt(stringCode.length()-1);
+
 
 		String str = stringCode.toString();//Use for parsing
 
@@ -71,8 +75,8 @@ public class HuffmanCompression {
 		ByteBuffer code = ByteBuffer.allocate(str.length()/8);//Allocate enough memory for the bytes
 
 		//Looping through 8 bits of the string representation
-		int i = 0; int j = 7;
-		while(j < stringCode.length()){
+		int i = 0; int j = 8;
+		while(j <= stringCode.length()){
 			String sub = str.substring(i, j);//create a substring of byte size
 			int b = Integer.parseInt(sub, 2);//parse an integer in binary from the bits
 			code.put((byte)b);//place the byte into the code
@@ -80,74 +84,92 @@ public class HuffmanCompression {
 		}
 
 		code.flip();//Reset the pointers for the code
-		//Write the bytes to a text file
+
+		//Write the bytes to a text file	
 		try{
-			FileWriter fw = new FileWriter(output);
-			//Write the header
-			while(header.position() < header.limit())
-				fw.write(header.get());
-			//Write the rest of the code
-			while(code.position() < code.limit())
-				fw.write(code.get());
-			fw.close();//Must close to work
-		}catch(Exception e){
-			e.printStackTrace();//Catch any errors
-		}
-	}
+			//Prepare output
+			FileOutputStream io = new FileOutputStream(new File(output));
+			BufferedOutputStream buff = new BufferedOutputStream(io);
+			//Write the header and code
+			byte[] input = header.array();
+			buff.write(input);
+			input = code.array();
+			buff.write(input);
 
-
-
-	public static void decompress(String input, String output){
-		byte[] data = new byte[0];
-		try{
-			data = Files.readAllBytes(Paths.get(input));
-			System.out.println(Arrays.toString(data));
+			buff.close();//Necessary, close the stream.
 
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+	}
 
-		ArrayList<Character> unique = new ArrayList<Character>();
 
-		HashMap<Character, Integer> frequencies = new HashMap<Character, Integer>();
-		int i = 0;
+	/**
+	 * The main method for decompressing a file using the Huffman algorithm. 
+	 * @param input - the file to be decompressed, given by the user
+	 * @param output - the output file name, given by the user.
+	 */
+	public static void decompressFile(String input, String output){
+		byte[] data = new byte[0];//All the bytes from the input
+		//Read the input
+		try{
+			data = Files.readAllBytes(Paths.get(input));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 
-		System.out.println(data.length);
-		int freq = 1;
+		ArrayList<Character> unique = new ArrayList<Character>();//Local unique character list
+		HashMap<Character, Integer> frequencies = new HashMap<Character, Integer>();//Local frequency map
+
+		int i;//need indexing for later
+		//Create the frequency map
 		for(i = 0; i < data.length; i+= 5){
-			freq = data[i+1] + data[i+2] + data[i+3] + data[i+4];
+			int freq = data[i+1] + data[i+2] + data[i+3] + data[i+4];
 			if(freq == 0)
-				break;
+				break;//If reach a frequency of zero, we know this character does not exist so this is the end of header
 			frequencies.put((char) data[i], freq);
 			unique.add((char)data[i]);
 		}
 
-
-		translate = buildTrie(frequencies, unique);
-		StringBuilder sb = new StringBuilder();
-
+		i+=5;//Shift the index to the start of the code
+		translate = buildTrie(frequencies, unique);//Create the Huffman Trie
+		StringBuilder sb = new StringBuilder();//StringBuilder for the binary representation
+		int a;
 		for(; i<data.length; i++){
-			sb.append(Integer.toBinaryString(data[i]));
+			a = data[i] & 0xFF;//Fixes negative integers to be representable as a byte
+			String binaryString = Integer.toBinaryString(a);
+			StringBuilder binaryStringBuilder = new StringBuilder(binaryString);//Builder for byte length
+			//Extends ensures that the binary String is 8 bits long
+			while(binaryStringBuilder.length() < 8){
+				binaryStringBuilder.insert(0, '0');
+			}
+			sb.append(binaryStringBuilder.toString());
 		}
-		
-		char[] decypher = sb.toString().toCharArray();
-		System.out.println(Arrays.toString(decypher));
 
-		Node temp = root;
-		
-		StringBuilder tempResult = new StringBuilder();
+		char[] decypher = sb.toString().toCharArray();//Character array of all the bits
+
+		Node temp = root;//Temporary Node for traversal
+
+		StringBuilder result = new StringBuilder();//String builder for the final result
+
 		for(int j = 0; j < decypher.length; j++){
-			temp = temp.traverse(Integer.parseInt(decypher[j] + ""));
-			System.out.println(decypher[j]);
+			temp = temp.traverse(Integer.parseInt(decypher[j] + ""));//Traverse either 1 or 0
+			//If we are at a leaf then this is a character and we reset the pointer to the root
 			if(temp instanceof Leaf){
-				System.out.println(((Leaf) temp).getChar());
-				tempResult.append(((Leaf) temp).getChar());
+				result.append(((Leaf) temp).getChar());
 				temp = root;
 			}
 
 		}
-		System.out.println(tempResult.toString());	
-		
+		//Write the translation to the file
+		try{
+			FileWriter fw = new FileWriter(output);
+			fw.write(result.toString());
+			fw.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
 	}
 
 
@@ -179,6 +201,12 @@ public class HuffmanCompression {
 			translate.put(l.getChar(), l.getCode());
 	}
 
+	/**
+	 * Build trie with given parameters as the frequencies and list of unique characters. Used for decompression
+	 * @param frequencies - map of characters and their frequencies
+	 * @param unique - list of unique characters
+	 * @return - returns the characters and their translations
+	 */
 	private static HashMap<Character, String> buildTrie(HashMap<Character,Integer> frequencies, ArrayList<Character> unique){
 		PriorityQueue<Node> pq = new PriorityQueue<>();
 		ArrayList<Leaf> leaves = new ArrayList<Leaf>();//All the leaves
@@ -199,13 +227,12 @@ public class HuffmanCompression {
 			pq.add(new Branch(right, left));
 		}
 
-		root = pq.deleteMin();
+		root = pq.deleteMin();//Get the root for decompression
 
 		//Create the translation from the tree
 		for(Leaf l : leaves)
 			translate.put(l.getChar(), l.getCode());
-		
-		System.out.println(translate.toString());
+
 
 		return translate;
 	}
@@ -253,54 +280,6 @@ public class HuffmanCompression {
 			fr.close();
 		}catch(Exception e){
 			e.printStackTrace();//Exceptions
-		}
-	}
-
-
-	/**
-	 * Converts a given text file into the binary string representation, used for testing and practice
-	 * @param inputString - the text file
-	 */
-	public static void writeFileToBits(String inputString){
-
-		FileWriter write = null;//write the compressed file
-
-		ArrayList<Integer> characters = new ArrayList<>();//Stores all the characters in the input
-
-		int readInt;//characters (ints) being read
-
-		try{
-			FileReader fr = new FileReader(inputString);//The FileReader
-			//Loop until end of file (-1)
-
-			while(true){
-				readInt = fr.read();//get the next char
-				if(readInt < 0)//if end of file, break
-					break;
-				characters.add(readInt);//add to array
-			}
-			fr.close();
-		}catch(Exception e){
-			e.printStackTrace();//Exceptions
-		}
-
-
-		String bits;//The binary value 
-		StringBuilder toFile = new StringBuilder("");//StringBuilder
-
-		//For every character convert to bits and then append to String
-		for(int i = 0; i<characters.size(); i++){
-			bits = Integer.toBinaryString(characters.get(i));//Can be changed to binary or hex
-			toFile.append(bits);//add the bits to the String
-		}
-		//Write the String to a file
-
-		try{
-			write = new FileWriter("output.txt");//Create new file
-			write.write(toFile.toString());//Write the String of bits to the file
-			write.close();//CLOSE THE WRITER, IMPORTANT
-		}catch(Exception e){
-			e.printStackTrace();//Stack Trace
 		}
 	}
 }
