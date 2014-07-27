@@ -1,10 +1,10 @@
 package FinalProject.language;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
 
 import FinalProject.util.BinarySearchTree;
 import FinalProject.util.PriorityQueue;
@@ -39,16 +39,64 @@ public class Dictionary {
 	 */
 	public Word find(String wordToFind){
 		Word result;
+		
 		Word wordizedSearch = new Word(wordToFind);
 		
 		if(dictionary.contains(wordizedSearch))
 			result = wordizedSearch;
 		else{
-			result = this.getAlternatives(wordizedSearch).deleteMin();
+			Word[] list = this.getAlternatives(wordizedSearch);
+			PriorityQueue<Word> alternatives = new PriorityQueue<Word>();
+			
+			for(Word w : list){
+				if(this.dictionary.contains(w)){
+					alternatives.add(w);
+				}
+			}
+			result = alternatives.deleteMin();
 		}
 		
 		
 		return result;//Find the closest word
+	}
+	
+	
+	
+	
+	
+	//TODO UGH SO ANNOYING
+	public void verboseAlternatives(String word){
+		int n = word.length();
+		Word[] words = this.getAlternatives(new Word(word));
+		
+		try{
+			FileWriter fw = new FileWriter("alternatives.txt");
+			fw.write("User string: " + word + "\r\n\n");
+			for(int i = 0; i < n; i++){
+				fw.write("Deletion string: " + words[i].getWord() + "\r\n");
+			}
+			fw.write("\r\nCreated " + n + " deletion alternatives\r\n");
+			for(int i = n; i < n+n-1; i++){
+				fw.write("Transposition string: " + words[i].getWord() + "\n");
+			}
+			fw.write("Created " + (n-1) + " transposition alternatives\n");
+			for(int i = n+n-1; i < 25*(n+n-1); i++){
+				fw.write("Substitution string: " + words[i].getWord() + "\r\n");
+			}
+			fw.write("Created " + 25*(n) + " substitution alternatives\n");
+			int x = 25*(n+n-1);
+			fw.close();
+			for(int i = x; i < 26*(x+1); i++){
+				fw.write("Insertion string: " + words[i].getWord() + "\n");
+			}
+			fw.write("Created " + 26*(n+1) + " insertion alternatives\n\n");
+			
+			fw.write("TOTAL: generated " + words.length + " alternative spellings!");
+			fw.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 
 
@@ -58,7 +106,7 @@ public class Dictionary {
 	 * @param word - the alternatives to be found
 	 * @return - PriorityQueue with alternatives
 	 */
-	private PriorityQueue<Word> getAlternatives(Word word) {
+	private Word[] getAlternatives(Word word) {
 		String str = word.getWord();
 		int n = str.length();
 
@@ -67,7 +115,7 @@ public class Dictionary {
 		StringBuilder sb2;
 		int add = 0;
 		
-		PriorityQueue<Word> alternatives = new PriorityQueue<Word>();
+//		PriorityQueue<Word> alternatives = new PriorityQueue<Word>();
 		
 		//Deletion
 		for(int i = 0; i < n; i++){
@@ -105,13 +153,7 @@ public class Dictionary {
 			}
 		}
 		
-		for(Word w : result){
-			if(this.dictionary.contains(w)){
-				alternatives.add(w);
-			}
-		}
-		
-		return alternatives;
+		return result;
 	}
 }
 

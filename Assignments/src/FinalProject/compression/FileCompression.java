@@ -269,8 +269,8 @@ public class FileCompression {
 
 		try{
 			FileReader fr = new FileReader(file);//The FileReader
+			
 			//Loop until end of file (-1)
-
 			while(true){
 				readInt = fr.read();//get the next char
 				if(readInt < 0)//if end of file, break
