@@ -1,12 +1,16 @@
 package FinalProject.language;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 
+
+import FinalProject.Command;
 import FinalProject.util.BinarySearchTree;
+import FinalProject.util.KeyValuePair;
 import FinalProject.util.PriorityQueue;
 
 public class Dictionary {
@@ -20,6 +24,23 @@ public class Dictionary {
 	 */
 	public Dictionary(String fileName){
 		try {
+			
+//			else
+//			{
+//				File statsFile = new File(args[0]);
+//				
+//				if(!statsFile.exists())
+//					System.out.println("Invalid word stats file argument!");
+//				else //When the file exists and the arguments are valid, load the file.
+//				{
+//					//Initialize commands
+//					for(KeyValuePair<String, Command> c : commands)
+//						c.Value.setEnabled(c.Value.init(statsFile, args));
+//					
+//					return true;
+//				}	
+//			}
+			
 			Object[] data = Files.readAllLines(Paths.get(fileName), Charset.defaultCharset()).toArray();
 			
 			for(Object strObject : data){

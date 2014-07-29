@@ -44,11 +44,11 @@ public abstract class SpellCheckCommand extends Command {
 	 * @see FinalProject.Command#init(java.lang.Object[])
 	 */
 	public boolean init(Object... args) {
-		if(args == null || args.length == 0 || WordDB != null)
+		if(args == null || args.length == 0)
 			return false;
 		
 		//Build the WordDB from the command line arguments
-		WordDB = new Dictionary((String)args[0]);
+		if(WordDB != null) WordDB = new Dictionary((String)args[0]);
 		return true;
 		
 	}

@@ -53,26 +53,12 @@ public class CommandManager {
 		
 		//If arguments are being checked confirm proper number of arguments
 		if(INIT_ARGC != -1 && (args == null || args.length != INIT_ARGC))
-			System.out.println("Incorrect number of arguments!");
-		else
-		{
-			File statsFile = new File(args[0]);
-			
-			if(!statsFile.exists())
-				System.out.println("Invalid word stats file argument!");
-			else //When the file exists and the arguments are valid, load the file.
-			{
-				//Initialize commands
-				for(KeyValuePair<String, Command> c : commands)
-					if(!c.Value.init(statsFile, args))
-						c.Value.setEnabled(false);
-				
-				return true;
-			}	
-		}
-			
+			System.out.println("Incorrect number of arguments!");	
 		
 		//This follows from the specifications given, the program need not terminate.
+		for(KeyValuePair<String, Command> c : commands)
+			c.Value.setEnabled(c.Value.init(args));
+		
 		return true;
 	}
 	
@@ -96,7 +82,13 @@ public class CommandManager {
 	public boolean process (String string) {
 		if(!string.equals("exit")){
 			try{
-				commands.get(Integer.parseInt(string)-1).Value.run(this);
+				Command c = commands.get(Integer.parseInt(string)-1).Value;
+				
+				if(c.isEnabled())
+					return c.run(this);
+				else
+					System.out.println("Command disabled. Please choose another option:");
+			
 			}
 			catch(NumberFormatException e){
 				System.out.println("Invalid option, please choose again:");
