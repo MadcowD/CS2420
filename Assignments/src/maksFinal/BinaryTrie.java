@@ -1,5 +1,6 @@
 package maksFinal;
 
+import java.io.InputStream;
 import java.util.Arrays;
 
 import FinalProject.util.GoodHashFunctor;
@@ -11,22 +12,8 @@ public class BinaryTrie{
 	
 	public static void main(String[] args){
 		
-		byte test = (byte)Integer.parseInt("11111111", 2);
-		System.out.println(test);
-		
-		HashTable<KeyValuePair<Character, String>> map = new HashTable<KeyValuePair<Character,String>>(11, new GoodHashFunctor());
-		
-		char[] chars = {'a','b','c'};
-		String[] strs = {"000","001","101"};
-		
-		int i = 0;
-		for(char c : chars){
-			map.add(new KeyValuePair<Character,String>(c, strs[i]));
-		}
-		
-
-		map.toArray();
-
+		byte test = (byte)Integer.parseInt("10110010", 2);
+		System.out.println(Integer.toBinaryString(test));
 	}
 
 

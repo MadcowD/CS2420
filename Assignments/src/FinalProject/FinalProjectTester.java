@@ -7,7 +7,7 @@ public class FinalProjectTester {
 		
 		Dictionary d = new Dictionary("wordstats1.txt");
 		
-		System.out.print(d.dictionary.first());
+		d.verboseAlternatives("devic");
 		
 	}
 }

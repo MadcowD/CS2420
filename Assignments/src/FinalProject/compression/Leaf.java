@@ -15,12 +15,17 @@ public class Leaf extends Node{
 		return symbol + "=" + this.getFrequency();
 	}
 	
+	/**
+	 * Return the character of the leaf
+	 * @return
+	 */
 	public char getChar(){
 		return symbol;
 	}
 	
-
-	//TODO CONVERT TO BITS?
+	/**
+	 * Makes the binary String representation of the code for a given leaf node, traversing up the trie.
+	 */
 	private void makeStringCode(){
 		Node temp = this;
 		StringBuilder code = new StringBuilder();
@@ -38,13 +43,21 @@ public class Leaf extends Node{
 		this.code = code.toString();
 	}
 
+	/**
+	 * Driver method for getting the String representation of the code.
+	 * @return
+	 */
 	public String getCode(){
 		if(code == null)
 			this.makeStringCode();
 		return code;
 	}
 
-
+	/**
+	 * Compare method, comparing leaves based on their frequency, unless a tie, then on the characters.
+	 * @param other
+	 * @return
+	 */
 	public int compareTo(Leaf other){
 		if(this.compareTo(other) == 0){
 			return this.symbol - other.symbol;
