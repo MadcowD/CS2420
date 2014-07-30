@@ -1,21 +1,20 @@
 package FinalProject.language;
 
-<<<<<<< HEAD
+
 import java.io.File;
-=======
+
 import java.io.FileWriter;
->>>>>>> db0f338d301781872640ace3a11992632191c0f7
+
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-<<<<<<< HEAD
+
 
 
 import FinalProject.Command;
-=======
->>>>>>> db0f338d301781872640ace3a11992632191c0f7
+
 import FinalProject.util.BinarySearchTree;
 import FinalProject.util.KeyValuePair;
 import FinalProject.util.PriorityQueue;
@@ -92,32 +91,45 @@ public class Dictionary {
 	
 	
 	
-	//TODO UGH SO ANNOYING
+	/**
+	 * The verbose method for spell checking a single word, printing out all the
+	 * alternatives for the passed String into a text file named after the String,
+	 * for example if the word to be passed is "paymon" the text file will be called
+	 * "paymon.txt"
+	 * @param word - word to be spell checked verbosely
+	 */
 	public void verboseAlternatives(String word){
 		int n = word.length();
 		Word[] words = this.getAlternatives(new Word(word));
 		
 		try{
-			FileWriter fw = new FileWriter("alternatives.txt");
-			fw.write("User string: " + word + "\r\n\n");
+			FileWriter fw = new FileWriter(word + ".txt");
+			fw.write("User string: " + word + "\r\n\r\n");
+			//Deletions
 			for(int i = 0; i < n; i++){
 				fw.write("Deletion string: " + words[i].getWord() + "\r\n");
 			}
-			fw.write("\r\nCreated " + n + " deletion alternatives\r\n");
+			fw.write("Created " + n + " deletion alternatives\r\n\r\n");
+			
+			//Transposition
 			for(int i = n; i < n+n-1; i++){
-				fw.write("Transposition string: " + words[i].getWord() + "\n");
+				fw.write("Transposition string: " + words[i].getWord() + "\r\n");
 			}
-			fw.write("Created " + (n-1) + " transposition alternatives\n");
-			for(int i = n+n-1; i < 25*(n+n-1); i++){
+			fw.write("Created " + (n-1) + " transposition alternatives\r\n\r\n");
+			
+			//Substitution
+			int x = 25*n + 2*n - 1;//variable to shorten code
+			for(int i = n+n-1; i < x; i++){
 				fw.write("Substitution string: " + words[i].getWord() + "\r\n");
 			}
-			fw.write("Created " + 25*(n) + " substitution alternatives\n");
-			int x = 25*(n+n-1);
-			fw.close();
-			for(int i = x; i < 26*(x+1); i++){
-				fw.write("Insertion string: " + words[i].getWord() + "\n");
+			fw.write("Created " + 25*(n) + " substitution alternatives\r\n\r\n");
+			
+			//Insertion
+			for(int i = x; i < 26*(n+1) + x; i++){
+				fw.write("Insertion string: " + words[i].getWord() + "\r\n");
 			}
-			fw.write("Created " + 26*(n+1) + " insertion alternatives\n\n");
+			fw.write("Created " + 26*(n+1) + " insertion alternatives\r\n\r\n");
+			
 			
 			fw.write("TOTAL: generated " + words.length + " alternative spellings!");
 			fw.close();
@@ -129,10 +141,9 @@ public class Dictionary {
 
 
 	/**
-	 * Performs all the permutations of the String, returning a Priority 
-	 * Queue with all the words sorted by frequency
+	 * Performs all the permutations of the String, returning a array of words
 	 * @param word - the alternatives to be found
-	 * @return - PriorityQueue with alternatives
+	 * @return - Array of words with alternatives
 	 */
 	private Word[] getAlternatives(Word word) {
 		String str = word.getWord();
@@ -142,8 +153,6 @@ public class Dictionary {
 		StringBuilder sb;
 		StringBuilder sb2;
 		int add = 0;
-		
-//		PriorityQueue<Word> alternatives = new PriorityQueue<Word>();
 		
 		//Deletion
 		for(int i = 0; i < n; i++){
