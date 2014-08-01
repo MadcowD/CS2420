@@ -84,7 +84,7 @@ public class TextProcessor {
 	 * @param dstFile
 	 */
 	public static void compressFile(String srcFile, String dstFile){
-		 cManager.run("File compression", true, srcFile, dstFile);
+		 cManager.run("File compression", srcFile, dstFile);
 	}
 	
 	/**
@@ -94,7 +94,7 @@ public class TextProcessor {
 	 * @param dstFile
 	 */
 	public static void decompressFile(String srcFile, String dstFile){
-		 cManager.run("File decompression", false, srcFile, dstFile);
+		 cManager.run("File decompression", srcFile, dstFile);
 	}
 	
 

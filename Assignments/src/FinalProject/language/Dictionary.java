@@ -61,10 +61,18 @@ public class Dictionary {
 			result = wordizedSearch;
 		else{
 			Word[] list;
+			try{
 			if(!verbose)
 				list = this.getAlternatives(wordizedSearch);
 			else
 				list = this.verboseAlternatives(wordizedSearch);
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				return new Word("");
+			}
+			list = new Word[0];
 			
 			PriorityQueue<Word> alternatives = new PriorityQueue<Word>();
 
