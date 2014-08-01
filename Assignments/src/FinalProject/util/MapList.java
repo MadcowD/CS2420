@@ -22,7 +22,7 @@ import java.util.NoSuchElementException;
  *
  * @param <E> - generic type placeholder
  */
-public class ArrayList<E> implements Collection<E> 
+public class MapList<E> implements Collection<E> 
 {
 	E data[]; // Storage for the items in the collection
 	int size; // Keep track of how many items we hold
@@ -31,7 +31,7 @@ public class ArrayList<E> implements Collection<E>
 	 *  Creates a new ArrayBasedCollection with an initial size of 0
 	 */ 
 	@SuppressWarnings("unchecked")  
-	public ArrayList()
+	public MapList()
 	{
 
 		size = 0;
@@ -341,7 +341,7 @@ public class ArrayList<E> implements Collection<E>
 		{
 			if(!removedNext){
 				removedNext =  true;
-				ArrayList.this.remove(data[index--]);
+				MapList.this.remove(data[index--]);
 			}
 			else
 				throw new IllegalStateException();
