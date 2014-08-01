@@ -25,14 +25,13 @@ public abstract class SpellCheckCommand extends Command {
 		
 		
 		//PERFORM SPELL CHECKING
-		for(int i = 0; i < data.length; i++){
 			try{
-				String correction = SpellCheckCommand.WordDB.find(data[i], verbose).getWord();
+				String correction = SpellCheckCommand.WordDB.find(data[0], verbose).getWord();
 				
-				if(correction.equals(data[i])) 
+				if(correction.equals(data[0])) 
 					return 0; //Word is already correct
 				else{
-					data[i] = correction;
+					data[0] = correction;
 					return 1; //Word was corrected 
 				}
 			}
@@ -41,7 +40,6 @@ public abstract class SpellCheckCommand extends Command {
 					return 2; //Unknown word
 				
 			}
-		}
 		return -1;
 	}
 

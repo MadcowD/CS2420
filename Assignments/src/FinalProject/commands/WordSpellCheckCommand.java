@@ -34,7 +34,7 @@ public class WordSpellCheckCommand extends SpellCheckCommand{
 
 		//Run the actual spell checking algorithm
 		String[] data = {word};
-		int result =  super.run(manager, new String[] {word}, verbose);
+		int result =  super.run(manager, data, verbose);
 		
 		if(result == 0)
 			System.out.println(word + " is a known word!");

@@ -18,7 +18,7 @@ public class FileRTCommand extends Command {
 	 */
 	public int run (CommandManager manager, Object... args) {
 		// TODO Auto-generated method stub
-		return -1;
+		return 1;
 	}
 
 

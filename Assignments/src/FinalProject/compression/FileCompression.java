@@ -98,8 +98,9 @@ public class FileCompression {
 
 			buff.close();//Necessary, close the stream.
 
+			System.out.println(inputFile +" was compressed successfully!");
 		}catch(Exception e){
-			e.printStackTrace();
+			System.out.println(inputFile +" compression was unsuccessful!");
 		}
 	}
 
@@ -166,8 +167,10 @@ public class FileCompression {
 			FileWriter fw = new FileWriter(output);
 			fw.write(result.toString());
 			fw.close();
+			
+			System.out.println(input + " was decompressed successfully!");
 		}catch(Exception e){
-			e.printStackTrace();
+			System.out.println(input + " was decompressed unsuccessfully!");
 		}
 
 	}
