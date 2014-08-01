@@ -1,13 +1,22 @@
+/**
+ * 
+ */
 package FinalProject;
 
-import FinalProject.language.Dictionary;
+import junit.framework.TestCase;
 
-public class FinalProjectTester {
-	public static void main(String... args){
-		
-		Dictionary d = new Dictionary("wordstats1.txt");
-		
-		d.verboseAlternatives("devic");
-		
+/**
+ * @author cegielsk
+ *
+ */
+public class FinalProjectTester extends TestCase {
+
+	protected void setUp() throws Exception {
+		super.setUp();
 	}
+	
+	
+	
+	
+
 }

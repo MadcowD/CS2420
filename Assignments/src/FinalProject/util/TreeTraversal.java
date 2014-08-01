@@ -1,6 +1,5 @@
 package FinalProject.util;
 
-import java.util.List;
 
 /**
  * An interface providing method contracts for tree traversal.
@@ -16,27 +15,27 @@ public interface TreeTraversal <Type extends Comparable<? super Type>>
 	 * 
 	 * @return the list containing the tree elements
 	 */
-	public List<Type> inOrderDFT();
+	public ArrayList<Type> inOrderDFT();
 	/**
 	 * Performs an in-order depth-first-traversal of the tree
 	 * 
 	 * @return the list containing the tree elements
 	 */
-	public List<Type> preOrderDFT();
+	public ArrayList<Type> preOrderDFT();
 	
 	/**
 	 * Performs a post-order depth-first-traversal of the tree
 	 * 
 	 * @return the list containing the tree elements
 	 */
-	public List<Type> postOrderDFT();
+	public ArrayList<Type> postOrderDFT();
 	
 	/**
 	 * Performs a level-order breath-first-traversal of the tree
 	 * 
 	 * @return the list containing the tree elements
 	 */
-	public List<Type> levelOrderBFT();
+	public ArrayList<Type> levelOrderBFT();
 	
 	/**
 	 * Creates a file with .dot extension to contain information about the tree

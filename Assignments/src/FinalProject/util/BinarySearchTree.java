@@ -3,9 +3,9 @@ package FinalProject.util;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Collection;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
+import FinalProject.util.*;
 
 /**
  * @author William Guss
@@ -227,9 +227,8 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	/**
 	 * Returns the ArrayList representation of the tree, ordered from smallest to largest.
 	 */
-	@Override
 	public ArrayList<Type> toArrayList() {
-		return new ArrayList<Type>(this.inOrderDFT());
+		return this.inOrderDFT();
 	}
 
 
@@ -277,7 +276,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 * Returns a List representation of the Pre-Order depth first traversal of the tree,
 	 * such that the node is given, then the left and right children.
 	 */
-	public List<Type> preOrderDFT() {
+	public ArrayList<Type> preOrderDFT() {
 		ArrayList<Type> result = new ArrayList<Type>();
 		if(!isEmpty())
 			root.preOrderDFT(result);
@@ -289,7 +288,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 * Returns a List representation of the Post-Order depth first traversal of the tree,
 	 * such that the left and right children are given first, and then the node itself.
 	 */
-	public List<Type> postOrderDFT() {
+	public ArrayList<Type> postOrderDFT() {
 		ArrayList<Type> result = new ArrayList<Type>();
 		if(!isEmpty())
 			root.postOrderDFT(result);
@@ -449,7 +448,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		 * Recursive method used by postOrderDFT in BinarySearchTree.
 		 * @param result
 		 */
-		public void preOrderDFT(List<Type> result){
+		public void preOrderDFT(ArrayList<Type> result){
 			result.add(this.data);
 
 			if(getLeft() != null)
@@ -464,7 +463,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		 * Recursive method used by postOrderDFT in BinarySearchTree.
 		 * @param result
 		 */
-		public void postOrderDFT(List<Type> result){
+		public void postOrderDFT(ArrayList<Type> result){
 			if(getLeft() != null)
 				getLeft().postOrderDFT(result);
 

@@ -1,11 +1,7 @@
 package FinalProject.util;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-
-import assignment9.PriorityQueueHEAP;
+//import java.util.HashMap;
 
 
 /**
@@ -54,7 +50,7 @@ public class Graph
 	 * @throws UnsupportedOperationException if the graph is not weighted, or there are no vertices in the graph
 	 *         with the names startName or goalName 
 	 */
-	public List<String> dijkstrasShortestPath(String startName, String goalName)
+	public LinkedList<String> dijkstrasShortestPath(String startName, String goalName)
 	{
 		if(!this.getWeighted())
 			throw new UnsupportedOperationException("The graph is not weighted");
@@ -78,7 +74,7 @@ public class Graph
 				if(e.getWeight() < 0)
 					throw new UnsupportedOperationException("Negative weight");//We don't want a negative weight for Dijkstra's
 		}
-		PriorityQueueHEAP<Vertex> queue = new PriorityQueueHEAP<Vertex>();//The priority queue
+		PriorityQueue<Vertex> queue = new PriorityQueue<Vertex>();//The priority queue
 		vertices.get(startName).setCostFromStart(0);//Set start cost to 0
 		queue.add(vertices.get(startName));//Enqueue the start
 
@@ -99,7 +95,7 @@ public class Graph
 		}
 		
 		//Prepare result
-		List<String> list = new LinkedList<String>();
+		LinkedList<String> list = new LinkedList<String>();
 
 
 		Vertex temp = vertices.get(goalName);//set a temp Vertex as the goal
@@ -118,8 +114,8 @@ public class Graph
 	 * Returns all the vertices of the graph as a linked list. 
 	 * @return LinkedList<Vertex> list of the Vertex objects.
 	 */
-	public List<Vertex> listVertices(){
-		List<Vertex> result = new LinkedList<Vertex>();
+	public LinkedList<Vertex> listVertices(){
+		LinkedList<Vertex> result = new LinkedList<Vertex>();
 		Collection<Vertex> val = vertices.values();
 		for(Vertex v : val){
 			result.add(v);
