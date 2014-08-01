@@ -6,7 +6,7 @@ import FinalProject.CommandManager;
 
 public class WordSpellCheckCommand extends SpellCheckCommand{
 	@Override
-	public boolean run(CommandManager manager, Object... args) {
+	public int run(CommandManager manager, Object... args) {
 		String word = "";
 		boolean verbose = false;
 		
@@ -24,13 +24,26 @@ public class WordSpellCheckCommand extends SpellCheckCommand{
 			String[] input = kb.nextLine().split(" |-");
 			
 			word = input[0];
+			
+			//Enable verbose options.
 			if(input.length == 2)
 				verbose = input[1].equals("f");
+			
 		}
 		
 
 		//Run the actual spell checking algorithm
+		String[] data = {word};
+		int result =  super.run(manager, new String[] {word}, verbose);
 		
-		return super.run(manager, new String[] {word}, verbose);
+		if(result == 0)
+			System.out.println(word + " is a known word!");
+		else if(result == 1)
+			System.out.println(""+word+" is an unknown word, "+data[0]+" is a known word!");
+		else if(result == 2)
+			System.out.println(word + " is an unknown word!");
+		
+		return result;
+		
 	}
 }

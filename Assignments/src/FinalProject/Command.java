@@ -12,7 +12,7 @@ public abstract class Command {
 	 * @param args The arguments to the run method.
 	 * @return Whether or not the algorithm ran successfully.
 	 */
-	public abstract boolean run(CommandManager manager, Object... args);
+	public abstract int run(CommandManager manager, Object... args);
 
 	
 	/**

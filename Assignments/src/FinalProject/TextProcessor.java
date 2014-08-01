@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 import FinalProject.commands.FileCompressionCommand;
 import FinalProject.commands.FileRTCommand;
-import FinalProject.commands.SpellCheckCommand;
+import FinalProject.commands.FileSpellCheckCommand;
 //import FinalProject.commands.WordSpellCheckCommand;//TODO
 import FinalProject.commands.WordSpellCheckCommand;
 
@@ -22,9 +22,9 @@ public class TextProcessor {
 	public static CommandManager cManager = new CommandManager();
 	static{
 		cManager.register("Word spell check", 		new WordSpellCheckCommand());//TODO uncomment
-		cManager.register("File spell check", 		new WordSpellCheckCommand());
-		cManager.register("File compression", 		new FileCompressionCommand());
-		cManager.register("File decompression", 	new FileCompressionCommand());
+		cManager.register("File spell check", 		new FileSpellCheckCommand());
+		cManager.register("File compression", 		new FileCompressionCommand(false));
+		cManager.register("File decompression", 	new FileCompressionCommand(true));
 		cManager.register("File remote transfer", 	new FileRTCommand());
 	}
 	
@@ -34,7 +34,6 @@ public class TextProcessor {
 	 */
 	public static void main (String[] args) {
 		Scanner kb = new Scanner(System.in);
-		
 		if(cManager.init(args)){
 			do    	 cManager.display();
 			while	(cManager.process(kb.nextLine()));
