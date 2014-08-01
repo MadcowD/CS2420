@@ -1,6 +1,6 @@
 package FinalProject.compression;
 
-import java.util.HashMap;//TODO USE OUR OWN HASHMAP
+//import java.util.HashMap;//TODO USE OUR OWN HASHMAP
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -14,15 +14,17 @@ import FinalProject.compression.Branch;
 import FinalProject.compression.Leaf;
 import FinalProject.compression.Node;
 import FinalProject.util.ArrayList;
+import FinalProject.util.KeyValuePair;
 import FinalProject.util.PriorityQueue;
 
 
 
 public class FileCompression {
-	private final static char EOF = (char)(0);//End of file character TODO fix?
-
-	private static HashMap<Character, String> translate = new HashMap<Character, String>();//Every character and translation for it as a map
-	private static HashMap<Character, Integer> frequency = new HashMap<Character, Integer>();//Every character and frequency as a map
+	private final static char EOF = (char)(3);//End of file character TODO fix?
+	private static ArrayList<KeyValuePair<Character, String>> translate = new ArrayList<>();
+	private static ArrayList<KeyValuePair<Character, Integer>> frequency = new ArrayList<>();
+//	private static HashMap<Character, String> translate = new HashMap<Character, String>();//Every character and translation for it as a map
+//	private static HashMap<Character, Integer> frequency = new HashMap<Character, Integer>();//Every character and frequency as a map
 	private static ArrayList<Character> unique = new ArrayList<Character>();//All the unique characters, a set of the characters
 	private static ArrayList<Character> characters;//A list of every character in order that it appears
 	private static Node root;//The root Node, used for decompression
@@ -62,7 +64,6 @@ public class FileCompression {
 		for(char c : characters){
 			stringCode.append(translate.get(c));
 		}
-		//TODO MAYBE INSERT THE EOF CHARACTER
 
 		//Append extra 0s to make full byte
 		while((stringCode.length()%8 != 0))
@@ -254,7 +255,7 @@ public class FileCompression {
 			}
 		}
 
-		frequency.put(EOF, 0);//Add a end of file character with frequency 0
+		frequency.put(EOF, 1);//Add a end of file character with frequency 0
 	}
 
 
