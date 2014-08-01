@@ -46,19 +46,28 @@ public class CommandManager {
 	 * 				the command managers static class declaration.
 	 * @return
 	 */
-	public boolean init(String... args) {
+	public boolean init(Object... args) {
 		//Perform primary intialization code
+		//add shutdown hooks (shutdown courtesies)
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+		    public void run() {
+		    	System.out.println("Thanks for using the text processor...");
+		    }
+		}));
+		
 		//An interesting extension would to be creating a modular argument class
 		//so that commands can be extensibly initialized based on commandline options, etc. 
 		
 		//If arguments are being checked confirm proper number of arguments
-		if(INIT_ARGC != -1 && (args == null || args.length != INIT_ARGC))
+		if(INIT_ARGC != -1 && (args == null || args.length != INIT_ARGC)){
 			System.out.println("Incorrect number of arguments!");	
+			System.exit(1);
+		}
 		
 		//This follows from the specifications given, the program need not terminate.
 		for(KeyValuePair<String, Command> c : commands)
-			c.Value.setEnabled(c.Value.init(args));
-		
+			c.Value.setEnabled(c.Value.init((Object[]) args));
+
 		return true;
 	}
 	
@@ -111,9 +120,13 @@ public class CommandManager {
 	 */
 	public void display () {
 		for(int i = 0; i < commands.size(); i++)
-			System.out.println((i+1) + ") " + commands.get(i).Key);
+			if(commands.get(i).Value.isEnabled())
+				System.out.println((i+1) + ") " + commands.get(i).Key);
+			else //This is never reached by paymons specifications
+				System.out.println((i+1) + ") [DISABLED] " + commands.get(i).Key);
 	}
 
+	
 	/**
 	 * Runs a given command (O(n) where n is the number of commands);
 	 * @param string The command name
@@ -121,7 +134,6 @@ public class CommandManager {
 	 * @return If the command ran successfully.
 	 */
 	public  boolean run (String string, Object... args) {
-		//Preferably we should use a hashmap.
 		for(KeyValuePair<String, Command> c : commands)
 			if(c.Key.equals(string)){
 				if(c.Value.isEnabled())

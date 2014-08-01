@@ -12,6 +12,12 @@ import FinalProject.CommandManager;
  */
 public class FileCompressionCommand extends Command {
 
+	public boolean decompress = false;
+	
+	public FileCompressionCommand(boolean decompress){
+		this.decompress = decompress;
+	}
+	
 	/* (non-Javadoc)
 	 * @see FinalProject.Command#run(FinalProject.CommandManager, java.lang.Object[])
 	 */

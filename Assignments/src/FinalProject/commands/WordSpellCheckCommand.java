@@ -24,13 +24,15 @@ public class WordSpellCheckCommand extends SpellCheckCommand{
 			String[] input = kb.nextLine().split(" |-");
 			
 			word = input[0];
+			
+			//Enable verbose options.
 			if(input.length == 2)
 				verbose = input[1].equals("f");
+			
 		}
 		
 
 		//Run the actual spell checking algorithm
-		
 		return super.run(manager, new String[] {word}, verbose);
 	}
 }
