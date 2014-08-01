@@ -51,7 +51,7 @@ public class FileCompression {
 		ByteBuffer header = ByteBuffer.allocate(unique.size()*5+5);
 		for(char c : unique){
 			header.put((byte)c);
-			header.putInt(frequency.get(c).Value);
+			header.putInt(frequency.get(c));
 		}
 		//End of Header:
 		header.put((byte)0);
