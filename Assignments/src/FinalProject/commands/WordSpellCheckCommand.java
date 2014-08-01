@@ -17,6 +17,7 @@ public class WordSpellCheckCommand extends SpellCheckCommand{
 		}
 		//If arguments are invalid, prompt the user.
 		else{
+			@SuppressWarnings("resource")
 			Scanner kb = new Scanner(System.in);
 			
 			//Prompt the user as it pertains to 
