@@ -94,7 +94,7 @@ public class CommandManager {
 				Command c = commands.get(Integer.parseInt(string)-1).Value;
 				
 				if(c.isEnabled())
-					return c.run(this);
+					return c.run(this) != -1;
 				else
 					System.out.println("Command disabled. Please choose another option:");
 			
@@ -137,7 +137,7 @@ public class CommandManager {
 		for(KeyValuePair<String, Command> c : commands)
 			if(c.Key.equals(string)){
 				if(c.Value.isEnabled())
-					return c.Value.run(this, args);
+					return c.Value.run(this, args) != -1;
 				else
 					System.out.println("Command disabled. Please choose another option:");
 			}

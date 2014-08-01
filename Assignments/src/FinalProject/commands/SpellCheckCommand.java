@@ -13,10 +13,10 @@ public abstract class SpellCheckCommand extends Command {
 	 */
 	public static Dictionary WordDB;
 
-	public boolean run (CommandManager manager, Object... args) {
+	public int run (CommandManager manager, Object... args) {
 		//Given that arguments are passed to the method
 		if(args == null || args.length == 0)
-			return false;
+			return -1;
 		
 		//construct parameters.
 		String[] data = (String[]) args[0];
@@ -29,20 +29,20 @@ public abstract class SpellCheckCommand extends Command {
 			try{
 				String correction = SpellCheckCommand.WordDB.find(data[i], verbose).getWord();
 				
-				
-				if(correction.equals(data[i])) System.out.println(data[i] + " is a known word!");
+				if(correction.equals(data[i])) 
+					return 0; //Word is already correct
 				else{
-					System.out.println(""+data[i]+" is an unknown word, "+correction+" is a known word!");
 					data[i] = correction;
+					return 1; //Word was corrected 
 				}
-
 			}
 			catch(NoSuchElementException e) {
-				if(data.length == 1) System.out.println(data[i] + " is an unknown word!");
+				if(data.length == 1)
+					return 2; //Unknown word
+				
 			}
 		}
-		return true;
-			
+		return -1;
 	}
 
 	/* (non-Javadoc)

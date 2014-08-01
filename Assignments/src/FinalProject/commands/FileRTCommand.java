@@ -16,9 +16,9 @@ public class FileRTCommand extends Command {
 	/* (non-Javadoc)
 	 * @see FinalProject.Command#run(FinalProject.CommandManager, java.lang.Object[])
 	 */
-	public boolean run (CommandManager manager, Object... args) {
+	public int run (CommandManager manager, Object... args) {
 		// TODO Auto-generated method stub
-		return false;
+		return -1;
 	}
 
 
