@@ -29,8 +29,8 @@ public class FileCompression {
 
 	
 	public static void main(String[] args){
-		compressFile(args[0], "compression_file_huffman.txt");
-		decompressFile("compression_file_huffman.txt", args[1]);
+		compressFile("hello_world.txt", "compression_file_huffman.txt");
+		decompressFile("compression_file_huffman.txt", "new_world.txt");
 	}
 
 

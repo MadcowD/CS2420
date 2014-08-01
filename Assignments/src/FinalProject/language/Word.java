@@ -27,7 +27,7 @@ public class Word implements Comparable<Word>{
 	}
 	
 	public String toString(){
-		return "The word is " + word + " and has frequency " + frequency; 
+		return word + "=" + frequency; 
 	}
 	
 	public String getWord(){
