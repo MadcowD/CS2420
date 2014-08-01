@@ -4,8 +4,10 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Random;
 
+import FinalProject.util.ArrayList;
 import FinalProject.util.Edge;
 import FinalProject.util.Graph;
+import FinalProject.util.LinkedList;
 
 /**
  * 
@@ -44,7 +46,7 @@ public class DeviceManager
 		initializeNetwork();
 		int delay = 0, time = 0;
 
-		List<String> path = network.dijkstrasShortestPath("control", "device");
+		LinkedList<String> path = network.dijkstrasShortestPath("control", "device");
 		System.out.println("\nStablishing a connection, please wait ...");
 
 		for (int i = 0; i < path.size() - 1; i++)
