@@ -1,14 +1,12 @@
 package FinalProject.language;
 
 
-import java.io.File;
-
 import java.io.FileWriter;
-
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.NoSuchElementException;
 
 
 
@@ -75,7 +73,11 @@ public class Dictionary {
 					alternatives.add(w);
 				}
 			}
-			result = alternatives.deleteMin();
+			try{
+				result = alternatives.deleteMin();
+			}catch(NoSuchElementException e){
+				result = wordizedSearch;
+			}
 		}
 
 
