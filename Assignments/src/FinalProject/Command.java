@@ -13,7 +13,7 @@ public abstract class Command {
 	 * @return Whether or not the algorithm ran successfully.
 	 */
 	public abstract int run(CommandManager manager, Object... args);
-
+	
 	
 	/**
 	 * Initializes the command with certain arguments. (Universal)

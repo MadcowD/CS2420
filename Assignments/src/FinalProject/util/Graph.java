@@ -1,7 +1,7 @@
 package FinalProject.util;
 
 import java.util.Collection;
-//import java.util.HashMap;
+//import java.util.MapList;
 
 
 /**
@@ -14,21 +14,21 @@ import java.util.Collection;
 public class Graph
 {
 	/**
-	 * The graph underlying structure is a HashMap
+	 * The graph underlying structure is a MapList
 	 * Holds a set of vertices (String name mapped to Vertex instance) 
 	 */
 
-	private HashMap<String, Vertex> vertices; 
+	private MapList<String, Vertex> vertices; 
 	private boolean isDirected, isWeighted;
 
 	/**
 	 * Constructs an empty graph.
 	 * 
-	 * Instantiates a new HashMap structure to hold the graph's vertices
+	 * Instantiates a new MapList structure to hold the graph's vertices
 	 */
 	public Graph()
 	{
-		vertices = new HashMap<String, Vertex>();
+		vertices = new MapList<String, Vertex>();
 		isDirected = false;
 		isWeighted = false;
 	}
@@ -60,7 +60,7 @@ public class Graph
 		//Set up:
 		final int INFINITY = Integer.MAX_VALUE;//The infinity value
 
-		HashMap<String,Vertex> vertices = this.getVertices(); // get all the vertices
+		MapList<String,Vertex> vertices = this.getVertices(); // get all the vertices
 
 		if(!vertices.containsKey(startName) || !vertices.containsKey(goalName))
 			throw new UnsupportedOperationException("The graph does not contain either the starting vertex or the goal vertex");
@@ -115,11 +115,15 @@ public class Graph
 	 * @return LinkedList<Vertex> list of the Vertex objects.
 	 */
 	public LinkedList<Vertex> listVertices(){
-		LinkedList<Vertex> result = new LinkedList<Vertex>();
-		Collection<Vertex> val = vertices.values();
-		for(Vertex v : val){
-			result.add(v);
-		}
+		final LinkedList<Vertex> result = new LinkedList<Vertex>();
+		vertices.foreach(new Action<String, Vertex>(){
+
+			@Override
+			public void run(String arg1, Vertex arg2) {
+				result.add(arg2);
+				
+			}
+		});
 		return result;
 
 	}
@@ -168,9 +172,9 @@ public class Graph
 	/**
 	 * get the graphs list of vertices
 	 * 
-	 * @return the HashMap structure holding the graph's vertices 
+	 * @return the MapList structure holding the graph's vertices 
 	 */
-	public HashMap<String, Vertex> getVertices()
+	public MapList<String, Vertex> getVertices()
 	{
 		return this.vertices;
 	}

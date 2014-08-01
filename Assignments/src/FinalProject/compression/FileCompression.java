@@ -1,6 +1,6 @@
 package FinalProject.compression;
 
-//import java.util.HashMap;//TODO USE OUR OWN HASHMAP
+//import java.util.MapList;//TODO USE OUR OWN MapList
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -9,12 +9,9 @@ import java.io.FileWriter;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
 
-import FinalProject.compression.Branch;
-import FinalProject.compression.Leaf;
-import FinalProject.compression.Node;
 import FinalProject.util.ArrayList;
+import FinalProject.util.MapList;
 import FinalProject.util.PriorityQueue;
 
 
@@ -23,8 +20,8 @@ public class FileCompression {
 	private final static char EOF = (char)(3);//End of file character TODO fix?
 //	private static ArrayList<KeyValuePair<Character, String>> translate = new ArrayList<>();
 //	private static ArrayList<KeyValuePair<Character, Integer>> frequency = new ArrayList<>();
-	private static HashMap<Character, String> translate = new HashMap<Character, String>();//Every character and translation for it as a map
-	private static HashMap<Character, Integer> frequency = new HashMap<Character, Integer>();//Every character and frequency as a map
+	private static MapList<Character, String> translate = new MapList<Character, String>();//Every character and translation for it as a map
+	private static MapList<Character, Integer> frequency = new MapList<Character, Integer>();//Every character and frequency as a map
 	private static ArrayList<Character> unique = new ArrayList<Character>();//All the unique characters, a set of the characters
 	private static ArrayList<Character> characters;//A list of every character in order that it appears
 	private static Node root;//The root Node, used for decompression
@@ -51,7 +48,7 @@ public class FileCompression {
 		ByteBuffer header = ByteBuffer.allocate(unique.size()*5+5);
 		for(char c : unique){
 			header.put((byte)c);
-			header.putInt(frequency.get(c).Value);
+			header.putInt(frequency.get(c));
 		}
 		//End of Header:
 		header.put((byte)0);
@@ -121,7 +118,7 @@ public class FileCompression {
 		}
 
 		ArrayList<Character> unique = new ArrayList<Character>();//Local unique character list
-		HashMap<Character, Integer> frequencies = new HashMap<Character, Integer>();//Local frequency map
+		MapList<Character, Integer> frequencies = new MapList<Character, Integer>();//Local frequency map
 
 		int i;//need indexing for later
 		//Create the frequency map
@@ -178,7 +175,7 @@ public class FileCompression {
 
 
 	/**
-	 * Builds the Trie and creates a HashMap that contains every unique character and its bit translation as a String
+	 * Builds the Trie and creates a MapList that contains every unique character and its bit translation as a String
 	 */
 	private static void buildTrie(){
 		PriorityQueue<Node> pq = new PriorityQueue<>();
@@ -211,11 +208,11 @@ public class FileCompression {
 	 * @param unique - list of unique characters
 	 * @return - returns the characters and their translations
 	 */
-	private static HashMap<Character, String> buildTrie(HashMap<Character,Integer> frequencies, ArrayList<Character> unique){
+	private static MapList<Character, String> buildTrie(MapList<Character,Integer> frequencies, ArrayList<Character> unique){
 		PriorityQueue<Node> pq = new PriorityQueue<>();
 		ArrayList<Leaf> leaves = new ArrayList<Leaf>();//All the leaves
 
-		HashMap<Character, String> translate = new HashMap<Character,String>();
+		MapList<Character, String> translate = new MapList<Character,String>();
 
 		//Add every leaf to the queue and list
 		for(char c : unique){
