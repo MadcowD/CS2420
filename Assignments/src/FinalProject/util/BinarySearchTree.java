@@ -2,9 +2,7 @@ package FinalProject.util;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
@@ -267,7 +265,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 * Returns a List representation of the In-Order depth first traversal of the tree,
 	 * such that the left child of a node is given first, then the node itself, then the right child
 	 */
-	public List<Type> inOrderDFT() {
+	public ArrayList<Type> inOrderDFT() {
 		ArrayList<Type> result = new ArrayList<Type>();
 		if(!isEmpty())
 			root.inOrderDFT(result);
@@ -304,7 +302,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 * such that the items are given from left to right, going through each row of the tree,
 	 * starting from the root and working down.
 	 */
-	public List<Type> levelOrderBFT() {
+	public ArrayList<Type> levelOrderBFT() {
 		ArrayList<Type> result = new ArrayList<Type>();
 		LinkedList<BinaryNode> queue = new LinkedList<BinaryNode>();
 
@@ -440,7 +438,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		 * Recursive method used by postOrderDFT in BinarySearchTree.
 		 * @param result
 		 */
-		public void inOrderDFT(List<Type> result) {
+		public void inOrderDFT(ArrayList<Type> result) {
 			if(getLeft() != null)
 				getLeft().inOrderDFT(result);
 			result.add(this.data);

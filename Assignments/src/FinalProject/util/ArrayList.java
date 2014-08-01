@@ -246,6 +246,11 @@ public class ArrayList<E> implements Collection<E>
 		return removed;
 	}
 
+	
+	public void set(int index, E item){
+		this.data[index] = item;
+	}
+	
 	/**
 	 *  Returns the number of items in the ArrayBasedCollection
 	 */ 
