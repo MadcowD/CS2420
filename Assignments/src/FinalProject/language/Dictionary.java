@@ -55,7 +55,7 @@ public class Dictionary {
 	public Word find(String wordToFind, boolean verbose){
 		Word result;
 
-		Word wordizedSearch = new Word(wordToFind);
+		Word wordizedSearch = new Word(wordToFind.toLowerCase());
 
 		if(dictionary.contains(wordizedSearch))
 			result = wordizedSearch;
@@ -69,6 +69,8 @@ public class Dictionary {
 			PriorityQueue<Word> alternatives = new PriorityQueue<Word>();
 
 			for(Word w : list){
+				if(w == null)
+					continue;
 				if(this.dictionary.contains(w)){
 					alternatives.add(w);
 				}
@@ -143,7 +145,7 @@ public class Dictionary {
 		String str = word.getWord().toLowerCase();
 		int n = str.length();
 
-		Word[] result = new Word[53*n + 25];
+		Word[] result = new Word[53*(n+1) + 25];
 		StringBuilder sb;
 		StringBuilder sb2;
 		int add = 0;
