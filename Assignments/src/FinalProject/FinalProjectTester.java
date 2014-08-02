@@ -46,8 +46,8 @@ public class FinalProjectTester{
 		 */
 		
 		
-		FileCompression.compressFile("testFile1.txt", "testCompress1.txt");
-		FileCompression.decompressFile("testCompress1.txt",	"testDecompress.txt");
+//		FileCompression.compressFile("testFile1.txt", "testCompress1.txt");
+//		FileCompression.decompressFile("testCompress1.txt",	"testDecompress.txt");
 		
 		
 		Word correct = d.find("whyle", false);
@@ -55,6 +55,9 @@ public class FinalProjectTester{
 		if(!correct.getWord().equals("while"))
 			System.out.println("Find method in dictionary correct whyle to while");
 		
+		
+		FileCompression.compressFile("great_expectations.txt" , "ge_cd_com.txt");
+		FileCompression.decompressFile("ge_cd_com.txt", "ge_decom.txt");
 		
 		System.out.println("Done Testing");
 		

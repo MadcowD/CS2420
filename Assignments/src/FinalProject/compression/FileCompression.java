@@ -1,6 +1,5 @@
 package FinalProject.compression;
 
-//import java.util.MapList;//TODO USE OUR OWN MapList
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,20 +16,12 @@ import FinalProject.util.PriorityQueue;
 
 
 public class FileCompression {
-	private final static char EOF = (char)(3);//End of file character TODO fix?
-//	private static ArrayList<KeyValuePair<Character, String>> translate = new ArrayList<>();
-//	private static ArrayList<KeyValuePair<Character, Integer>> frequency = new ArrayList<>();
+	private final static char EOF = (char)(3);
 	private static MapList<Character, String> translate = new MapList<Character, String>();//Every character and translation for it as a map
 	private static MapList<Character, Integer> frequency = new MapList<Character, Integer>();//Every character and frequency as a map
 	private static ArrayList<Character> unique = new ArrayList<Character>();//All the unique characters, a set of the characters
 	private static ArrayList<Character> characters;//A list of every character in order that it appears
 	private static Node root;//The root Node, used for decompression
-
-	
-	public static void main(String[] args){
-		compressFile("hello_world.txt", "compression_file_huffman.txt");
-		decompressFile("compression_file_huffman.txt", "new_world.txt");
-	}
 
 
 	/**
@@ -216,9 +207,14 @@ public class FileCompression {
 
 		//Add every leaf to the queue and list
 		for(char c : unique){
-			Leaf l = new Leaf(c, frequency.get(c));
-			leaves.add(l);
-			pq.add(l);
+			try{
+				Leaf l = new Leaf(c, frequency.get(c));
+				leaves.add(l);
+				pq.add(l);
+			}catch(NullPointerException ne){
+				//in case of strange characters which cause a null, do nothing
+			}
+		
 		}
 
 		//Create the tree

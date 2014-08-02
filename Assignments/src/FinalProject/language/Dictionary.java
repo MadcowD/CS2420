@@ -74,9 +74,9 @@ public class Dictionary {
 			for(Word w : list){
 				if(w == null)
 					continue;
-//				if(this.dictionary.contains(w)){
-//					alternatives.add(w);
-//				}
+				if(this.dictionary.contains(w)){
+					alternatives.add(w);
+				}
 			}
 
 			result = alternatives.deleteMin();
