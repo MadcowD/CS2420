@@ -27,8 +27,9 @@ public class WordSpellCheckCommand extends SpellCheckCommand{
 			word = input[0];
 			
 			//Enable verbose options.
-			if(input.length == 2)
-				verbose = input[1].equals("f");
+			if(input.length >2){
+				verbose = input[2].equals("f");
+			}
 			
 		}
 		

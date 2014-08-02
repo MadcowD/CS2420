@@ -55,9 +55,7 @@ public class Dictionary {
 
 		Word wordizedSearch = new Word(wordToFind.toLowerCase());
 
-		if(dictionary.contains(wordizedSearch))
-			result = wordizedSearch;
-		else{
+
 			Word[] list;
 			try{
 			if(!verbose)
@@ -70,7 +68,6 @@ public class Dictionary {
 				e.printStackTrace();
 				return new Word("");
 			}
-			//list = new Word[0];
 			
 			PriorityQueue<Word> alternatives = new PriorityQueue<Word>();
 
@@ -83,7 +80,9 @@ public class Dictionary {
 			}
 
 			result = alternatives.deleteMin();
-		}
+			
+			if(dictionary.contains(wordizedSearch))
+				result = wordizedSearch;
 
 
 		return result;//Find the closest word
@@ -148,7 +147,7 @@ public class Dictionary {
 	 * @param word - the alternatives to be found
 	 * @return - Array of words with alternatives
 	 */
-	private Word[] getAlternatives(Word word) {
+	public Word[] getAlternatives(Word word) {
 		String str = word.getWord().toLowerCase();
 		int n = str.length();
 

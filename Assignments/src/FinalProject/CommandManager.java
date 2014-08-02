@@ -110,7 +110,6 @@ public class CommandManager {
 		}
 		
 		//On exit
-		System.out.print("Thanks for using the text processor...");
 		return false;
 	}
 	
