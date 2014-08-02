@@ -21,7 +21,7 @@ public class TextProcessor {
 	 */
 	public static CommandManager cManager = new CommandManager();
 	static{
-		cManager.register("Word spell check", 		new WordSpellCheckCommand());//TODO uncomment
+		cManager.register("Word spell check", 		new WordSpellCheckCommand());
 		cManager.register("File spell check", 		new FileSpellCheckCommand());
 		cManager.register("File compression", 		new FileCompressionCommand(false));
 		cManager.register("File decompression", 	new FileCompressionCommand(true));
