@@ -70,7 +70,7 @@ public class Dictionary {
 				e.printStackTrace();
 				return new Word("");
 			}
-			list = new Word[0];
+			//list = new Word[0];
 			
 			PriorityQueue<Word> alternatives = new PriorityQueue<Word>();
 

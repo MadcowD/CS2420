@@ -120,8 +120,7 @@ public class Graph
 
 			@Override
 			public void run(String arg1, Vertex arg2) {
-				result.add(arg2);
-				
+				result.add(arg2);			
 			}
 		});
 		return result;

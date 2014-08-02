@@ -1,5 +1,6 @@
 package FinalProject.util;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -357,7 +358,9 @@ public class LinkedList<E> implements Collection<E>
 		}		
 	}	
 	
-	
+	public String toString(){
+		return Arrays.toString(this.toArray());
+	}
 	 
 		/**
 		 *  Iterator for the ArrayBasedCollection class
@@ -426,7 +429,8 @@ public class LinkedList<E> implements Collection<E>
 
 		@Override
 		public boolean add(E e) {
-			return false;
+			 this.addFirst(e);
+			return true;
 		}
 
 		@Override

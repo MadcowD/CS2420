@@ -101,11 +101,9 @@ public class CommandManager {
 			}
 			catch(NumberFormatException e){
 				System.out.println("Invalid option, please choose again:");
-				e.printStackTrace();
 			}
 			catch(ArrayIndexOutOfBoundsException e){
 				System.out.println("Invalid option, please choose again:");
-				e.printStackTrace();
 			}
 			
 			return true;

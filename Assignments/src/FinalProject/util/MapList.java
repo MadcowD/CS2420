@@ -1,6 +1,7 @@
 package FinalProject.util;
 
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
@@ -31,9 +32,10 @@ public class MapList<E, V>
 	{
 
 		size = 0;
+		KeyValuePair<E,V> x = new KeyValuePair<E,V>(null,null);
 		// There is no clean way to convert between E and Object, the text book discusses this.
 		// We can't instantiate an array of unknown type E, so we must create an Object array, and type-cast
-		data = (KeyValuePair<E, V>[]) new Object[10]; // Start with an initial capacity of 10
+		data = (KeyValuePair<E, V>[]) Array.newInstance(x.getClass(), 10);// Start with an initial capacity of 10
 	}
 
 	/**
@@ -46,8 +48,8 @@ public class MapList<E, V>
 		// This is a helper function specific to ArrayCollection
 		// Doubles the size of the data storage array, retaining its current contents.
 		// You will need to use something similar to the code in the constructor above to create a new array.
-
-		KeyValuePair<E, V>[] newData = (KeyValuePair<E, V>[]) new Object[data.length*2];
+		KeyValuePair<E,V> x = new KeyValuePair<E,V>(null,null);
+		KeyValuePair<E, V>[] newData = (KeyValuePair<E, V>[]) Array.newInstance(x.getClass(), data.length*2);
 		for(int i = 0; i < data.length; i++)
 			newData[i] = data[i];
 
@@ -85,7 +87,7 @@ public class MapList<E, V>
 
 		if(size == data.length)
 			grow();
-		data[size++] = new KeyValuePair(arg0, value);
+		data[size++] = new KeyValuePair<E, V>(arg0, value);
 
 
 		return true;
