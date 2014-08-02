@@ -11,6 +11,8 @@ import FinalProject.util.KeyValuePair;
 /**
  * @author William Guss
  * @author Maks Cegielski-Johnson
+ * 
+ * This class contains the main Command Manager components for the Command Line interface.
  */
 public class CommandManager {
 	////////////////////////////////////

@@ -13,6 +13,8 @@ import FinalProject.compression.FileCompression;
 /**
  * @author William Guss
  * @author Maks Cegielski-Johnson
+ * 
+ * The file compression component of the command line interface.
  */
 public class FileCompressionCommand extends Command {
 

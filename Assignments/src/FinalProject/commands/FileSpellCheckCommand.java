@@ -9,6 +9,12 @@ import java.util.Scanner;
 
 import FinalProject.CommandManager;
 
+/**
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
+ * 
+ * The FileSpellCheck component of the Command Line Interface
+ */
 public class FileSpellCheckCommand extends SpellCheckCommand{
 	@Override
 	public int run(CommandManager manager, Object... args) {

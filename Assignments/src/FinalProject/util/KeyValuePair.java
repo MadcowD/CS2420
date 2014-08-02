@@ -1,9 +1,10 @@
 package FinalProject.util;
 
 /**
- * The tuple class for convenient "tupling"
- * @author TODO: MAKE AUTHOR
- *
+ * 
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
+
  * @param The first element of the tuple
  * @param The second element of the tuple
  */

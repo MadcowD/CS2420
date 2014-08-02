@@ -1,5 +1,10 @@
 package FinalProject.compression;
 
+/**
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
+ * Leaf class of a Huffman trie, stores the character
+ */
 public class Leaf extends Node{
 	private char symbol;
 	private String code; 

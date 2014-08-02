@@ -1,7 +1,9 @@
 package FinalProject.compression;
 
 /**
- * @author Maks
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
+ * 
  * The Branch class encapsulates a Binary Trie node that has children and has a left(zero) and right(one) Node child.
  *
  */

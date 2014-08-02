@@ -4,6 +4,11 @@ import java.util.Scanner;
 
 import FinalProject.CommandManager;
 
+/**
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
+ * The WordSpellCheck component of the Command Interface
+ */
 public class WordSpellCheckCommand extends SpellCheckCommand{
 	@Override
 	public int run(CommandManager manager, Object... args) {

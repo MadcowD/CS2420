@@ -6,6 +6,12 @@ import FinalProject.Command;
 import FinalProject.CommandManager;
 import FinalProject.language.Dictionary;
 
+/**
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
+ * 
+ * The abstract class for SpellChecking for the Command Line Interface
+ */
 public abstract class SpellCheckCommand extends Command {
 	
 	/* (non-Javadoc)

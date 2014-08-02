@@ -4,6 +4,8 @@ package FinalProject;
  * 
  * @author William Guss
  * @author Maks Cegielski-Johnson
+ * 
+ * Abstract class for initialising and running commands for the Command Line interface. 
  */
 public abstract class Command {
 	/**

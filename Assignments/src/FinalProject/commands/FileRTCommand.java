@@ -14,6 +14,8 @@ import FinalProject.DeviceManager;
 /**
  * @author William Guss
  * @author Maks Cegielski-Johnson
+ * 
+ * The File transmit component of the Command Line Interface
  */
 public class FileRTCommand extends Command {
 	DeviceManager dm;

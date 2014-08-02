@@ -14,6 +14,8 @@ import FinalProject.commands.WordSpellCheckCommand;
 /**
  * @author Willy Guss
  * @author Makswell Cegielski-Johnson
+ * 
+ * The main class for the Final Project, containing all the main methods
  */
 public class TextProcessor {
 	/**

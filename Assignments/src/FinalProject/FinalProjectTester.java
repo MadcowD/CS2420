@@ -7,6 +7,9 @@ import FinalProject.language.Dictionary;
 import FinalProject.language.Word;
 
 /**
+ * 
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
  * Not using JUnit because it will be easier to test different functions of our Processor using just normal testing.
  *
  */
@@ -46,8 +49,8 @@ public class FinalProjectTester{
 		 */
 		
 		
-//		FileCompression.compressFile("testFile1.txt", "testCompress1.txt");
-//		FileCompression.decompressFile("testCompress1.txt",	"testDecompress.txt");
+		FileCompression.compressFile("testFile1.txt", "testCompress1.txt");
+		FileCompression.decompressFile("testCompress1.txt",	"testDecompress.txt");
 		
 		
 		Word correct = d.find("whyle", false);

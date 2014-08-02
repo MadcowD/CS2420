@@ -1,5 +1,11 @@
 package FinalProject.compression;
 
+/**
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
+ * 
+ * Node class used for building a Huffman Trie
+ */
 public class Node implements Comparable<Node>{
 
 	protected Node one;

@@ -13,6 +13,13 @@ import java.nio.file.Paths;
 import FinalProject.util.BinarySearchTree;
 import FinalProject.util.PriorityQueue;
 
+/**
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
+ * 
+ * Dictionary object, used to store all the different words and frequencies and to find their alternatives and best replacements for
+ * the spell check program.
+ */
 public class Dictionary {
 
 	public BinarySearchTree<Word> dictionary = new BinarySearchTree<Word>();

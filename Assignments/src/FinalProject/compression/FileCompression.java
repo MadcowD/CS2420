@@ -14,7 +14,11 @@ import FinalProject.util.MapList;
 import FinalProject.util.PriorityQueue;
 
 
-
+/**
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
+ * The main Class for File Compression and Decompression, containing methods to get frequencies and to build the trie. 
+ */
 public class FileCompression {
 	private final static char EOF = (char)(3);
 	private static MapList<Character, String> translate = new MapList<Character, String>();//Every character and translation for it as a map

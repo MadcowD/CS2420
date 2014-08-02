@@ -10,8 +10,11 @@ import FinalProject.util.Graph;
 import FinalProject.util.LinkedList;
 
 /**
- * 
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
  * @author Paymon saebi
+ * 
+ * The device manager class.
  */
 public class DeviceManager
 {

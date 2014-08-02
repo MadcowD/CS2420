@@ -1,6 +1,12 @@
 package FinalProject.language;
 
-
+/**
+ * 
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
+ * 
+ * Encapsulates a dictionary word and its frequency, used for building the dictionary for spell check
+ */
 public class Word implements Comparable<Word>{
 
 	

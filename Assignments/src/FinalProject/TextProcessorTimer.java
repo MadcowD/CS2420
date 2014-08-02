@@ -8,6 +8,11 @@ import FinalProject.timing.AlgorithmTimer;
 import FinalProject.timing.AlgorithmTimer.TimeComplexity;
 import FinalProject.timing.Process;
 
+/**
+ * @author Maks Cegielski-Johnson
+ * @author William Guss
+ * The timing class for the final project
+ */
 public class TextProcessorTimer {
 	public static void main(String[] args){
 		int sampleSize = 10;
