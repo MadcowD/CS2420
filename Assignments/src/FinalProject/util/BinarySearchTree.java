@@ -86,6 +86,21 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
 	}
 
+	/**
+	 * Returns the passed item if and only if the item is contained in the BST, null otherwise
+	 * @param item
+	 * @return
+	 */
+	public Type get(Type item){
+		if(item == null)
+			throw new NullPointerException();
+
+		if(isEmpty())
+			return null;
+		else
+			return root.get(item);
+	}
+
 
 	/**
 	 * Returns true if every item of a given collection is contained in the tree, false otherwise.
@@ -405,7 +420,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	}
 
 
-	
+
 	/**
 	 * Represents a general binary tree node. Each binary node contains
 	 * data, a left child, and a right child.
@@ -458,7 +473,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 				getRight().preOrderDFT(result);
 
 		}
-		
+
 		/**
 		 * Recursive method used by postOrderDFT in BinarySearchTree.
 		 * @param result
@@ -706,6 +721,24 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 					return getLeft().contains(elem);
 				else
 					return false;
+			}
+		}
+
+		public Type get(Type elem){
+			int compare = elem.compareTo(this.data);
+			if(compare == 0)
+				return this.data;
+			else if(compare > 0){
+				if(getRight() != null)
+					return getRight().get(elem);
+				else
+					return null;
+			}
+			else{
+				if(getLeft() != null)
+					return getLeft().get(elem);
+				else
+					return null;
 			}
 		}
 
