@@ -153,7 +153,7 @@ public class HuffmanTree {
 				pq.add(result);
 			}
 			
-			root = pq.deleteMin();
+			root = pq.findMin();
 		}
 	}
 	
