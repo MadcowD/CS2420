@@ -63,33 +63,34 @@ public class Dictionary {
 		Word wordizedSearch = new Word(wordToFind.toLowerCase());
 
 
-			Word[] list;
-			try{
+		Word[] list;
+		try{
 			if(!verbose)
 				list = this.getAlternatives(wordizedSearch);
 			else
 				list = this.verboseAlternatives(wordizedSearch);
 			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-				return new Word("");
-			}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return new Word("");
+		}
 			
-			PriorityQueue<Word> alternatives = new PriorityQueue<Word>();
+		PriorityQueue<Word> alternatives = new PriorityQueue<Word>(new FrequencyCompare());
 
-			for(Word w : list){
-				if(w == null)
-					continue;
-				if(this.dictionary.contains(w)){
-					alternatives.add(w);
-				}
+		for(Word w : list){
+			if(w == null)
+				continue;
+			if(this.dictionary.contains(w)){
+				Word temp = dictionary.get(w);
+				alternatives.add(temp);
 			}
-
-			result = alternatives.deleteMin();
+		}
+		
+		result = alternatives.deleteMin();
 			
-			if(dictionary.contains(wordizedSearch))
-				result = wordizedSearch;
+		if(dictionary.contains(wordizedSearch))
+			result = wordizedSearch;
 
 
 		return result;//Find the closest word
