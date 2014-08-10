@@ -4,11 +4,12 @@
 package FinalProject.commands;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 import FinalProject.Command;
 import FinalProject.CommandManager;
-import FinalProject.compression.FileCompression;
+import FinalProject.compression.Hzip;
 
 /**
  * @author William Guss
@@ -19,11 +20,11 @@ import FinalProject.compression.FileCompression;
 public class FileCompressionCommand extends Command {
 
 	public boolean decompress = false;
-	
+
 	public FileCompressionCommand(boolean decompress){
 		this.decompress = decompress;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see FinalProject.Command#run(FinalProject.CommandManager, java.lang.Object[])
 	 */
@@ -37,41 +38,40 @@ public class FileCompressionCommand extends Command {
 		else //Take input
 		{
 			Scanner kb = new Scanner(System.in);
-			
+
 			//Prompt the user as it pertains to 
 			System.out.println("Please enter the source file path:");
 			source = kb.nextLine();
-			
+
 			System.out.println("Please enter the destination file path:");
 			dest = kb.nextLine();
-		
+
 		}
-		
+
 		File src = new File(source);
 		if(!src.exists() || !src.isFile())
 		{
 			System.out.println(source + " is invalid for decompression!");
 			return 0;
 		}
+
 		
-		if(decompress)
-			Hzip.decompress(source, dest);
-		else
-			Hzip.compress(source, dest);
-		
-		
-		
+			if(decompress)
+				Hzip.decompress(source, dest);
+			else
+				Hzip.compress(source, dest);
+
 		return 1;
 	}
-	
-	
+
+
 	/* (non-Javadoc)
 	 * @see FinalProject.Command#init(java.lang.Object[])
 	 */
 	public boolean init(Object... args) {
 		// TODO Auto-generated method stub
 		return true;
-		
+
 	}
 
 }

@@ -111,6 +111,8 @@ public class Dictionary {
 		int n = wordizedSearch.getWord().length();
 		Word[] words = this.getAlternatives(wordizedSearch);
 
+		if(dictionary.contains(wordizedSearch))
+				return new Word[] {wordizedSearch};
 		try{	
 			FileWriter fw = new FileWriter(wordizedSearch.getWord() + ".txt");
 			fw.write("User string: " + wordizedSearch.getWord() + "\r\n\r\n");
@@ -140,7 +142,7 @@ public class Dictionary {
 			fw.write("Created " + 26*(n+1) + " insertion alternatives\r\n\r\n");
 
 
-			fw.write("TOTAL: generated " + words.length + " alternative spellings!");
+			fw.write("TOTAL: generated " + (53*wordizedSearch.getWord().length() + 25)+ " alternative spellings!");
 			fw.close();
 		}
 		catch(Exception e){

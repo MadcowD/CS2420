@@ -37,6 +37,7 @@ public class TextProcessor {
 	public static void main (String[] args) {
 		Scanner kb = new Scanner(System.in);
 		if(cManager.init(args)){
+			System.out.println("Please choose from the following options:");
 			do    	 cManager.display();
 			while	(cManager.process(kb.nextLine()));
 		}

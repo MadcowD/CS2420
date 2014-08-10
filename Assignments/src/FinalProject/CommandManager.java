@@ -95,19 +95,24 @@ public class CommandManager {
 			try{
 				Command c = commands.get(Integer.parseInt(string)-1).Value;
 				
-				if(c.isEnabled())
-					return c.run(this) != -1;
+				if(c.isEnabled()){
+					boolean result = c.run(this) != -1;
+					System.out.println("Please choose from the following options:");
+					return result;
+				}
 				else
 					System.out.println("Command disabled. Please choose another option:");
-			
+				
+				
 			}
 			catch(NumberFormatException e){
 				System.out.println("Invalid option, please choose again:");
-				e.printStackTrace();
 			}
 			catch(ArrayIndexOutOfBoundsException e){
 				System.out.println("Invalid option, please choose again:");
-				e.printStackTrace();
+			}
+			catch(NullPointerException n){
+				System.out.println("Invalid option, please choose again:");
 			}
 			
 			return true;
