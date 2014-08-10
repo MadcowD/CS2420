@@ -55,9 +55,9 @@ public class FileCompressionCommand extends Command {
 		}
 		
 		if(decompress)
-			FileCompression.decompressFile(source, dest);
+			Hzip.decompress(source, dest);
 		else
-			FileCompression.compressFile(source, dest);
+			Hzip.compress(source, dest);
 		
 		
 		
