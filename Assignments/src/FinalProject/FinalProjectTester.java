@@ -1,8 +1,6 @@
 
 package FinalProject;
 
-import FinalProject.commands.FileSpellCheckCommand;
-import FinalProject.compression.FileCompression;
 import FinalProject.language.Dictionary;
 import FinalProject.language.Word;
 
@@ -47,20 +45,37 @@ public class FinalProjectTester{
 		 * 
 		 * testFile1.txt
 		 */
-		
-		
-		FileCompression.compressFile("testFile1.txt", "testCompress1.txt");
-		FileCompression.decompressFile("testCompress1.txt",	"testDecompress.txt");
-		
-		
+
 		Word correct = d.find("whyle", false);
 		
 		if(!correct.getWord().equals("while"))
 			System.out.println("Find method in dictionary correct whyle to while");
 		
+		//These tests were done by putting all the words with their frequencies into
+		//an excel sheet and then sorting them in alphabetical order to find words
+		//that have similar spellings with different frequencies.
 		
-		FileCompression.compressFile("great_expectations.txt" , "ge_cd_com.txt");
-		FileCompression.decompressFile("ge_cd_com.txt", "ge_decom.txt");
+		correct = d.find("aga", false);
+		if(!correct.getWord().equals("ago"))
+			System.out.println("Did not find the closest word to aga, instead found " +correct.getWord());
+		
+		correct = d.find("aiz", false);
+		if(!correct.getWord().equals("air"))
+			System.out.println("Did not find air, instead found " + correct.getWord());
+		
+		correct = d.find("appeam", false);
+		if(!correct.getWord().equals("appear"))
+			System.out.println("Did not find appear, instead found " + correct.getWord());
+		
+		String ahead = "ahead";
+		correct = d.find(ahead, false);
+		if(!correct.getWord().equals(ahead))
+			System.out.println("Did not return the correct word as supposed to");
+		
+//		FileCompression.compress("testFile1.txt", "testCompress1");
+//		FileCompression.decompress("testCompress1",	"testDecompress.txt");
+//		FileCompression.compress("great_expectations.txt" , "ge_cd_com");
+//		FileCompression.decompress("ge_cd_com", "ge_decom.txt");
 		
 		System.out.println("Done Testing");
 		
