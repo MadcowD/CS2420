@@ -55,7 +55,7 @@ public class BitOutputStream {
 	 */
 	private int setBit(int pack, int pos, int val){
 		if(val == 1)
-			pack |= (val << pos);
+			pack |= (0x1 << pos);
 		return pack;
 	}
 	

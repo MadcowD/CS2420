@@ -132,30 +132,36 @@ public class HuffmanTree {
 	private void createTree(){
 		
 		PriorityQueue<HuffNode> pq = new PriorityQueue<HuffNode>();
-		
-		for(int i = 0; i < BitUtils.DIFF_BYTES; i++){
-			if(theCounts.getCount(i) > 0){
-				HuffNode newNode = new HuffNode(i, theCounts.getCount(i), null, null, null);
-				theNodes[i] = newNode;
-				pq.add(newNode);
+
+		for( int i = 0; i < BitUtils.DIFF_BYTES; i++ ) {
+			if( theCounts.getCount( i ) > 0 )
+			{
+				HuffNode newNode = new HuffNode( i, theCounts.getCount( i ), null, null, null );
 				
-			}
-			
-			theNodes[END] = new HuffNode(END, 1, null, null, null);
-			pq.add(theNodes[END]);
-			
-			while(pq.size() > 1){
-				HuffNode n1 = pq.deleteMin();
-				HuffNode n2 = pq.deleteMin();
+				theNodes[ i ] = newNode;
 				
-				HuffNode result = new HuffNode(INCOMPLETE_CODE, n1.weight + n2.weight, n1, n2, null);
-				n1.parent = n2.parent = result;
-				pq.add(result);
+				pq.add( newNode );
 			}
-			
-			root = pq.findMin();
 		}
+
+		theNodes[ END ] = new HuffNode( END, 1, null, null, null );
+		
+		pq.add( theNodes[ END ] );
+
+		while( pq.size( ) > 1 )
+		{
+			HuffNode n1 = pq.deleteMin( );
+			HuffNode n2 = pq.deleteMin( );
+			HuffNode result = new HuffNode( INCOMPLETE_CODE, n1.weight + n2.weight, n1, n2, null );
+			
+			
+			n1.parent = n2.parent = result;
+			pq.add( result );
+		}
+		
+		root = pq.findMin( );
 	}
+
 	
 	/**
 	 * @author Maks Cegielski-Johnson
